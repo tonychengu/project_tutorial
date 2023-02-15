@@ -3,12 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
-  String? imagePath = 'None';
+  String imagePath;
+  bool isEdit;
   VoidCallback onClicked;
 
   ProfileWidget({
     Key? key,
-    this.imagePath,
+    this.imagePath =
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    this.isEdit = false,
     required this.onClicked,
   }) : super(key: key);
 
@@ -31,15 +34,17 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildImage() {
-    final image = imagePath != null
-        ? NetworkImage(imagePath!)
-        : Image.asset('assets/profile.png') as ImageProvider;
-
+    // final image = imagePath != null
+    //     ? NetworkImage(imagePath!)
+    //     : Image.asset('assets/profile.png') as ImageProvider;
+    final image = imagePath.contains('https://')
+        ? NetworkImage(imagePath)
+        : FileImage(File(imagePath));
     return ClipOval(
       child: Material(
         color: Colors.transparent,
         child: Ink.image(
-          image: image,
+          image: image as ImageProvider,
           fit: BoxFit.cover,
           width: 128,
           height: 128,

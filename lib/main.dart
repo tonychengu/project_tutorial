@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project_tutorial/page/home_page.dart';
 import 'package:project_tutorial/page/profile_page.dart';
+import 'package:project_tutorial/util/user_info.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserInfo.init();
   runApp(const PTutorial());
 }
 

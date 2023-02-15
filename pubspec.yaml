@@ -9,6 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  image_picker:
+  shared_preferences: ^2.0.17
+  path_provider: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -20,3 +23,4 @@ flutter:
 
 assets:
   - images/
+  - images/profileImg.png

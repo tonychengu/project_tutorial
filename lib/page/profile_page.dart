@@ -1,3 +1,5 @@
+// reference https://github.com/JohannesMilke/user_profile_ii_example/blob/master/lib/widget/profile_widget.dart
+
 import 'package:flutter/material.dart';
 // model import
 import 'package:project_tutorial/model/user.dart';
@@ -6,6 +8,8 @@ import 'package:project_tutorial/util/user_info.dart';
 // widget import
 import 'package:project_tutorial/widget/profile_widget.dart';
 import 'package:project_tutorial/widget/numbers_widget.dart';
+// page import
+import 'package:project_tutorial/page/edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,8 +21,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final user = UserInfo.myUser;
-
+    final user = UserInfo.getUser();
+    final courses = user.getAvlCourses();
     return Scaffold(
       body: ListView(
         physics: BouncingScrollPhysics(),
@@ -26,10 +30,15 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(height: 48),
           ProfileWidget(
             imagePath: user.imagePath,
-            onClicked: () async {},
+            onClicked: () async {
+              await Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EditProfilePage(),
+              ));
+              setState(() {});
+            },
           ),
           const SizedBox(height: 24),
-          buildName(user, context),
+          buildName(context, user, courses),
           const SizedBox(height: 24),
           NumbersWidget(),
           const SizedBox(height: 48),
@@ -40,7 +49,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-Widget buildName(User user, BuildContext context) => Column(
+Widget buildName(BuildContext context, User user, List<String> courses) =>
+    Column(
       children: [
         IntrinsicHeight(
           // Row of  Name | Year
@@ -85,7 +95,7 @@ Widget buildName(User user, BuildContext context) => Column(
           width: MediaQuery.of(context).size.width * 0.8,
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: user.availableCourses.length,
+              itemCount: courses.length,
               itemBuilder: (context, index) {
                 return Container(
                   width: 100,
@@ -96,7 +106,7 @@ Widget buildName(User user, BuildContext context) => Column(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
-                    child: Text(user.availableCourses[index]),
+                    child: Text(courses[index]),
                   ),
                 );
               }),
