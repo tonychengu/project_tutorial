@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_tutorial/page/upcoming_bookings_page.dart';
 import 'package:project_tutorial/widget/button_widget.dart';
+import 'package:project_tutorial/widget/textfield_widget.dart';
 
 class BookingsPage extends StatefulWidget {
   const BookingsPage({Key? key}) : super(key: key);
@@ -13,9 +14,17 @@ class BookingsPage extends StatefulWidget {
   @override
   State<BookingsPage> createState() => _BookingPageState();
 }
+// String validateRating(int value) {
+//   if (!(value >= 0 && value <= 5)) {
+//     return "Please enter an integr between 0 to 5";
+//   }
+//   return "";
+// }
 
 class _BookingPageState extends State<BookingsPage> {
   int currentPage = 0;
+  bool checkedValue = false;
+  bool _validate = false;
   List pages = [const CurrentBookingPage()];
   void onTap(int index) {
     setState(() {
@@ -33,7 +42,7 @@ class _BookingPageState extends State<BookingsPage> {
           child: Card(
             margin: EdgeInsets.all(8),
             elevation: 10,
-            color: Colors.green,
+            color: Colors.white38,
             child: Padding(
               padding: EdgeInsets.all(30),
               child: ListView(
@@ -43,7 +52,7 @@ class _BookingPageState extends State<BookingsPage> {
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    'Feb 26th, 2023',
+                    'Jan 26th, 2023',
                     style: TextStyle(fontSize: 15, height: 2),
                   ),
                   Text(
@@ -66,6 +75,7 @@ class _BookingPageState extends State<BookingsPage> {
                               BorderSide(width: 1, color: Colors.white)),
                       //errorBorder: OutlineInputBorder(),
                       hintText: 'Enter a number from 1 to 5',
+                      //errorText: validateRating(text),
                     ),
                   ),
                   Text(
@@ -84,19 +94,38 @@ class _BookingPageState extends State<BookingsPage> {
                       hintText: 'How was it?',
                     ),
                   ),
-                  ButtonBar(alignment: MainAxisAlignment.end, children: <
-                      Widget>[
-                    Text('Yes', style: TextStyle(fontSize: 20, height: -1.1)),
-                    Text('No', style: TextStyle(fontSize: 20, height: -1.1)),
-                  ]),
-                  TextButton(
-                    onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return CurrentBookingPage();
-                    })),
-                    child: Text('Submit',
-                        style: TextStyle(color: Colors.black, height: 5)),
+                  ButtonBar(
+                    alignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text('Tutor again?',
+                          style: TextStyle(fontSize: 20, height: 1)),
+                      Checkbox(
+                        value: checkedValue,
+                        onChanged: (value) => setState(
+                          () {
+                            checkedValue = value!;
+                          },
+                        ),
+                      ),
+                    ],
                   ),
+                  ButtonBar(
+                      alignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        ElevatedButton(
+                          onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                            return CurrentBookingPage();
+                          })),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueGrey,
+                          ),
+                          child: Text('Submit',
+                              style: TextStyle(color: Colors.black, height: 1)),
+                        ),
+                      ]),
+                  Column(),
                 ],
               ),
             ),

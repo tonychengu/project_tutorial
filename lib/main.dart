@@ -51,16 +51,16 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       body: pages[currentPage],
       bottomNavigationBar: Container(
-        color: Colors.green.shade300,
+        color: Colors.blue.shade300,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 17),
           child: GNav(
             selectedIndex: currentPage,
             onTabChange: onTap,
-            backgroundColor: Colors.green.shade300,
+            backgroundColor: Colors.blue.shade300,
             color: Colors.white,
             gap: 8,
-            tabBackgroundColor: Colors.green.shade100,
+            tabBackgroundColor: Colors.blue.shade100,
             padding: EdgeInsets.all(12),
             tabs: const [
               GButton(
