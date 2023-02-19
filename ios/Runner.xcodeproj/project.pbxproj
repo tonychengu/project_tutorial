@@ -90,7 +90,10 @@
 				97C146EF1CF9000F007C117D /* Products */,
 				DBDF99CB14E5E2CDB6117942 /* Pods */,
 				94780958899B99708CC715B8 /* Frameworks */,
+<<<<<<< HEAD
 				CDE52CB3D9401F3648D6C8D9 /* GoogleService-Info.plist */,
+=======
+>>>>>>> d227513 (update navigation bar and bookings page)
 			);
 			sourceTree = "<group>";
 		};
