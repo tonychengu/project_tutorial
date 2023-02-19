@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:project_tutorial/page/booking_page.dart';
 import 'package:project_tutorial/page/search_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:project_tutorial/page/home_page.dart';
 import 'package:project_tutorial/page/profile_page.dart';
+
 import 'package:project_tutorial/util/user_info.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:project_tutorial/util/firebase_auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await UserInfo.init();
+  //await UserInfo.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const PTutorial());
 }
 
