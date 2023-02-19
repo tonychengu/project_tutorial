@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:project_tutorial/page/booking_page.dart';
+import 'package:project_tutorial/page/search_page.dart';
 import 'package:project_tutorial/page/home_page.dart';
 import 'package:project_tutorial/page/profile_page.dart';
 import 'package:project_tutorial/util/user_info.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +17,7 @@ class PTutorial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'PTutorial',
       home: RootPage(),
@@ -31,33 +34,55 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int currentPage = 0;
-  List<Widget> pages = <Widget>[
-    HomePage(),
-    //BookingPAge(),
-    //BalancePage(),
-    ProfilePage(),
+  List pages = [
+    const HomePage(),
+    const BookingsPage(),
+    const SearchPage(),
+    const ProfilePage(),
   ];
+  void onTap(int index) {
+    setState(() {
+      currentPage = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: pages[currentPage],
-        bottomNavigationBar: NavigationBar(
-          //navigation bar at the bottom
-          destinations: const [
-            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-            // NavigationDestination(
-            //     icon: Icon(Icons.calendar_month), label: 'Bookings'),
-            // NavigationDestination(
-            //     icon: Icon(Icons.money_off_csred), label: 'Balance'),
-            NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
-          ],
-          // refresh the page
-          onDestinationSelected: (int index) {
-            setState(() {
-              currentPage = index;
-            });
-          },
-          selectedIndex: currentPage,
-        ));
+      body: pages[currentPage],
+      bottomNavigationBar: Container(
+        color: Colors.green.shade300,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 17),
+          child: GNav(
+            selectedIndex: currentPage,
+            onTabChange: onTap,
+            backgroundColor: Colors.green.shade300,
+            color: Colors.white,
+            gap: 8,
+            tabBackgroundColor: Colors.green.shade100,
+            padding: EdgeInsets.all(12),
+            tabs: const [
+              GButton(
+                icon: Icons.home,
+                text: 'Home',
+              ),
+              GButton(
+                icon: Icons.calendar_today,
+                text: 'Bookings',
+              ),
+              GButton(
+                icon: Icons.search,
+                text: 'Search',
+              ),
+              GButton(
+                icon: Icons.people,
+                text: 'Profile',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
