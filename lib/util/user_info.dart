@@ -8,14 +8,14 @@ class UserInfo {
   //static SharedPreferences prefs;
   static User myUser = User(
     id: '1',
-    name: 'Dooley',
+    name: 'Swoop',
     imagePath:
         'https://i.pinimg.com/originals/4c/f2/32/4cf232c9b64c925a95de471dc61931ce.jpg',
-    about: 'It is emory dooley',
-    year: 'Senior',
-    major: 'Computer Science',
-    minor: 'Math',
-    availableCourses: "CS101,CS102,CS103,CS104,CS105",
+    about: 'I am Swoop',
+    year: 'Freshman',
+    major: 'French',
+    minor: 'Philosophy',
+    availableCourses: "PHIL400,FREN102,FREN201,PHIL220,PHIL190",
   );
 
   static Future init() async => {

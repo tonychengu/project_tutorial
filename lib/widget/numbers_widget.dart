@@ -5,9 +5,9 @@ class NumbersWidget extends StatelessWidget {
   Widget build(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          buildButton(context, '4.8', 'Rating'),
+          buildButton(context, '4.3', 'Rating'),
           buildDivider(),
-          buildButton(context, '35', 'Taught'),
+          buildButton(context, '12', 'Taught'),
         ],
       );
   Widget buildDivider() => Container(
