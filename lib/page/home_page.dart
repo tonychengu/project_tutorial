@@ -23,12 +23,25 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: [
+          const SizedBox(height: 48),
+          const SizedBox(
+            height: 24,
+            child: DecoratedBox(
+              decoration:
+                  BoxDecoration(color: Color.fromARGB(255, 113, 190, 113)),
+            ),
+          ),
           const SizedBox(height: 24),
           buildName(context, user, courses),
-          const SizedBox(height: 24),
           NumbersWidget(),
-          const SizedBox(height: 48),
-          buildAbout(user),
+          const SizedBox(height: 24),
+          const SizedBox(
+            height: 24,
+            child: DecoratedBox(
+              decoration:
+                  BoxDecoration(color: Color.fromARGB(255, 113, 190, 113)),
+            ),
+          )
         ],
       ),
     );
