@@ -82,15 +82,4 @@ class DefaultFirebaseOptions {
         '912710043996-ftn38uugpdjr5sikmsoaomrvh56saci6.apps.googleusercontent.com',
     iosBundleId: 'com.example.projectTutorial',
   );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDxmnr3qKNMM97tg4Tw7L7u3x766ccumtg',
-    appId: '1:912710043996:ios:08214d67ad2acf58c55999',
-    messagingSenderId: '912710043996',
-    projectId: 'cs370-329f4',
-    storageBucket: 'cs370-329f4.appspot.com',
-    iosClientId:
-        '912710043996-ftn38uugpdjr5sikmsoaomrvh56saci6.apps.googleusercontent.com',
-    iosBundleId: 'com.example.projectTutorial',
-  );
 }
