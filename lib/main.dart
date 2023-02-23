@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -6,29 +7,48 @@ import 'package:project_tutorial/page/booking_page.dart';
 import 'package:project_tutorial/page/search_page.dart';
 import 'package:project_tutorial/page/home_page.dart';
 import 'package:project_tutorial/page/profile_page.dart';
+import 'package:project_tutorial/page/login_page.dart';
 
 import 'package:project_tutorial/util/user_info.dart';
 import 'package:project_tutorial/util/firebase_auth.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+// util
+import 'package:project_tutorial/util/firestore.dart';
+import 'package:project_tutorial/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //await UserInfo.init();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const PTutorial());
 }
 
 class PTutorial extends StatelessWidget {
   const PTutorial({super.key});
 
-  @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'PTutorial',
-      home: RootPage(),
+    var firebaseUser = context.watch<User?>();
+    return MultiProvider(
+      providers: [
+        Provider<FirebaseAuthMethods>(
+          create: (_) => FirebaseAuthMethods(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) => context.read<FirebaseAuthMethods>().authState,
+          initialData: null,
+        ),
+        Provider<FireStoreMethods>(create: (_) => FireStoreMethods()),
+      ],
+      child: MaterialApp(
+        title: 'PTutorial',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const AuthWrapper(),
+      ),
     );
   }
 }
@@ -92,5 +112,20 @@ class _RootPageState extends State<RootPage> {
         ),
       ),
     );
+  }
+}
+
+class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    //final firebaseUser = context.read<FirebaseAuthMethods>().user;
+    final firebaseUser = context.watch<User?>();
+
+    if (firebaseUser != null) {
+      return const RootPage();
+    }
+    return const LoginPage();
   }
 }
