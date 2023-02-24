@@ -1,12 +1,17 @@
 import 'dart:convert';
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:project_tutorial/util/firebase_auth.dart';
+import 'package:project_tutorial/util/firestore.dart';
 
 import 'package:project_tutorial/model/user.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UserInfo {
   static late SharedPreferences prefs;
-  static User myUser = User(
+  static UserData myUser = UserData(
     id: '1',
     name: 'Dooley',
     imagePath:
@@ -20,18 +25,21 @@ class UserInfo {
 
   static Future init() async => {
         prefs = await SharedPreferences.getInstance(),
-        //myUser = User.fromJson(prefs.getString('user') ?? ''),
       };
-  static Future saveUser(User user) async {
+  static Future saveUser(UserData user, BuildContext context) async {
     final json = jsonEncode(user.toJson());
     //prefs.setString('user', myUser.toJson()),
     await prefs.setString('Local', json);
+    final id = context.watch<User?>();
+    if (id != null) {
+      await FireStoreMethods().updateUserData(context, user.toJson());
+    }
   }
 
-  static User getUser() {
+  static UserData getUser() {
     final json = prefs.getString('Local');
     if (json != null) {
-      return User.fromJson(jsonDecode(json));
+      return UserData.fromJson(jsonDecode(json));
     } else {
       return myUser;
     }

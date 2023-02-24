@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:project_tutorial/util/firebase_auth.dart';
 import 'package:project_tutorial/util/firestore.dart';
 
 import 'package:project_tutorial/widget/custom_textfield.dart';
+import 'package:project_tutorial/widget/profile_widget.dart';
 import 'package:project_tutorial/widget/snackbar_widget.dart';
 
 import 'package:flutter/material.dart';
@@ -37,6 +42,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController minorController = TextEditingController();
   final TextEditingController courseController = TextEditingController();
   final TextEditingController aboutController = TextEditingController();
+  final TextEditingController imagePath = TextEditingController();
 
   void signUpUser() async {
     if (passwordController.text != password2Controller.text) {
@@ -79,6 +85,23 @@ class _SignUpPageState extends State<SignUpPage> {
               style: TextStyle(fontSize: 30),
             ),
           ),
+          ProfileWidget(
+            imagePath:
+                'https://i.pinimg.com/originals/4c/f2/32/4cf232c9b64c925a95de471dc61931ce.jpg',
+            isEdit: true,
+            onClicked: () async {
+              final image =
+                  await ImagePicker().getImage(source: ImageSource.gallery);
+              if (image == null) return;
+
+              final directory = await getApplicationDocumentsDirectory();
+              final path = File('${directory.path}/profileImg.png');
+              final newImage = await File(image.path).copy(path.path);
+
+              imagePath.text = newImage.path;
+            },
+          ),
+          const SizedBox(height: 24),
           SizedBox(height: MediaQuery.of(context).size.height * 0.08),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),

@@ -49,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-Widget buildName(BuildContext context, User user, List<String> courses) =>
+Widget buildName(BuildContext context, UserData user, List<String> courses) =>
     Column(
       children: [
         IntrinsicHeight(
@@ -114,7 +114,7 @@ Widget buildName(BuildContext context, User user, List<String> courses) =>
       ],
     );
 
-Widget buildAbout(User user) => Container(
+Widget buildAbout(UserData user) => Container(
       padding: EdgeInsets.symmetric(horizontal: 48),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

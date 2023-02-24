@@ -1,4 +1,4 @@
-class User {
+class UserData {
   // required field
   String id;
   String name;
@@ -12,7 +12,7 @@ class User {
   String imagePath;
   //TODO: add time table
 
-  User({
+  UserData({
     required this.id,
     required this.name,
     required this.year,
@@ -37,7 +37,7 @@ class User {
       };
 
   // convert map to profile
-  static User fromJson(Map<String, dynamic> json) => User(
+  static UserData fromJson(Map<String, dynamic> json) => UserData(
         id: json['id'],
         name: json['name'],
         year: json['year'],
@@ -48,8 +48,8 @@ class User {
         availableCourses: json['availableCourses'],
       );
 
-  // copy User
-  User copy({
+  // copy UserData
+  UserData copy({
     String? id,
     String? name,
     String? year,
@@ -59,7 +59,7 @@ class User {
     String? imagePath,
     String? availableCourses,
   }) =>
-      User(
+      UserData(
         id: id ?? this.id,
         name: name ?? this.name,
         year: year ?? this.year,
@@ -86,7 +86,7 @@ class User {
     return courses;
   }
 
-  User updateAvlCourses(String courses) {
+  UserData updateAvlCourses(String courses) {
     List<String> newCourses = courses.split(',');
     String coursesString = '';
     for (var course in newCourses) {

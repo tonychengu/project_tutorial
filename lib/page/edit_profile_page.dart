@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:project_tutorial/model/user.dart';
 // import util
 import 'package:project_tutorial/util/user_info.dart';
+import 'package:project_tutorial/util/firestore.dart';
 // import widget
 import 'package:project_tutorial/widget/profile_widget.dart';
 import 'package:project_tutorial/widget/textfield_widget.dart';
@@ -34,7 +35,7 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  late User user;
+  late UserData user;
 
   @override
   void initState() {
@@ -125,7 +126,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ButtonWidget(
                 text: 'Save',
                 onClicked: () {
-                  UserInfo.saveUser(user);
+                  UserInfo.saveUser(user, context);
                   Navigator.of(context).pop();
                 })
           ],
