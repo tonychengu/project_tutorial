@@ -21,7 +21,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final user = UserInfo.getUser();
+    final user = LocalUserInfo.getLocalUser();
     final courses = user.getAvlCourses();
     return Scaffold(
       body: ListView(

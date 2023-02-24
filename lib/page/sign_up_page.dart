@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:project_tutorial/util/firebase_auth.dart';
 import 'package:project_tutorial/util/firestore.dart';
+import 'package:project_tutorial/util/user_info.dart';
 
 import 'package:project_tutorial/widget/custom_textfield.dart';
 import 'package:project_tutorial/widget/profile_widget.dart';
@@ -12,6 +13,8 @@ import 'package:project_tutorial/widget/snackbar_widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:project_tutorial/model/user.dart';
 
 class SignUpPage extends StatefulWidget {
   static String routeName = '/signup-email-password';
@@ -37,35 +40,42 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController password2Controller = TextEditingController();
-  final TextEditingController yearController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController majorController = TextEditingController();
   final TextEditingController minorController = TextEditingController();
   final TextEditingController courseController = TextEditingController();
   final TextEditingController aboutController = TextEditingController();
   final TextEditingController imagePath = TextEditingController();
+  static String year = 'Freshman';
 
   void signUpUser() async {
     if (passwordController.text != password2Controller.text) {
       showSnackBar(context, 'Passwords do not match');
       return;
     }
-    context.read<FirebaseAuthMethods>().signUpWithEmail(
+    await context.read<FirebaseAuthMethods>().signUpWithEmail(
           email: emailController.text,
           password: passwordController.text,
           context: context,
         );
-    final uid = context.watch<User?>()!.uid;
-    context.read<FireStoreMethods>().addUserData(context, <String, dynamic>{
+    final uid = context.read<User?>()!.uid;
+    final json = <String, dynamic>{
       'uid': uid,
+      'name': nameController.text,
       'email': emailController.text,
-      'year': yearController.text,
+      'year': year,
       'major': majorController.text,
       'minor': minorController.text,
       'availableCourses': courseController.text,
       'about': aboutController.text,
       'taughtCount': 0,
       'ratings': 0,
-    });
+      'imagePath':
+          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+    };
+    await LocalUserInfo.saveUser(UserData.fromJson(json), context,
+        signup: true);
+    //context.read<FireStoreMethods>().addUserData(context, json);
     if (context.read<FirebaseAuthMethods>().isLoggedIn()) {
       Navigator.of(context).pop();
     }
@@ -130,6 +140,14 @@ class _SignUpPageState extends State<SignUpPage> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: CustomTextField(
+              controller: nameController,
+              hintText: 'Enter your name',
+            ),
+          ),
+          const SizedBox(height: 24),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: CustomTextField(
               controller: majorController,
               hintText: 'Enter your major',
             ),
@@ -172,7 +190,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   value: years[0],
                   onChanged: (String? newValue) {
                     setState(() {
-                      yearController.text = newValue!;
+                      //yearController.text = newValue!;
+                      year = newValue!;
                     });
                   },
                   items: years.map<DropdownMenuItem<String>>((String value) {
@@ -183,6 +202,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   }).toList(),
                 ),
               ],
+            ),
+          ),
+          const SizedBox(height: 24),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: CustomTextField(
+              controller: aboutController,
+              hintText: 'Write a self description',
             ),
           ),
           const SizedBox(height: 40),

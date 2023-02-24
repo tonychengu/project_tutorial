@@ -33,10 +33,10 @@ class FirebaseAuthMethods {
     required BuildContext context,
   }) async {
     // test if email ends with @emory.edu
-    if (!email.toUpperCase().endsWith('@emory.edu'.toUpperCase())) {
-      showSnackBar(context, 'Email must ends with @emory.edu');
-      return;
-    }
+    // if (!email.toUpperCase().endsWith('@emory.edu'.toUpperCase())) {
+    //   showSnackBar(context, 'Email must ends with @emory.edu');
+    //   return;
+    // }
     try {
       await _auth.createUserWithEmailAndPassword(
         email: email,

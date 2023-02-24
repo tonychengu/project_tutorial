@@ -19,6 +19,7 @@ import 'package:project_tutorial/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocalUserInfo.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -29,7 +30,6 @@ class PTutorial extends StatelessWidget {
   const PTutorial({super.key});
 
   Widget build(BuildContext context) {
-    var firebaseUser = context.watch<User?>();
     return MultiProvider(
       providers: [
         Provider<FirebaseAuthMethods>(

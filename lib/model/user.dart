@@ -1,6 +1,6 @@
 class UserData {
   // required field
-  String id;
+  String uid;
   String name;
   String year;
   String major;
@@ -10,10 +10,12 @@ class UserData {
   String? minor;
   String? about;
   String imagePath;
+  int taughtCount;
+  double ratings;
   //TODO: add time table
 
   UserData({
-    required this.id,
+    required this.uid,
     required this.name,
     required this.year,
     required this.major,
@@ -22,11 +24,13 @@ class UserData {
     this.about,
     this.imagePath =
         'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+    this.taughtCount = 0,
+    this.ratings = 0,
   });
 
   // convert profile to map
   Map<String, dynamic> toJson() => {
-        'id': id,
+        'uid': uid,
         'name': name,
         'year': year,
         'major': major,
@@ -34,11 +38,13 @@ class UserData {
         'about': about,
         'imagePath': imagePath,
         'availableCourses': availableCourses,
+        'taughtCount': taughtCount,
+        'ratings': ratings,
       };
 
   // convert map to profile
   static UserData fromJson(Map<String, dynamic> json) => UserData(
-        id: json['id'],
+        uid: json['uid'],
         name: json['name'],
         year: json['year'],
         major: json['major'],
@@ -49,30 +55,32 @@ class UserData {
       );
 
   // copy UserData
-  UserData copy({
-    String? id,
-    String? name,
-    String? year,
-    String? major,
-    String? minor,
-    String? about,
-    String? imagePath,
-    String? availableCourses,
-  }) =>
+  UserData copy(
+          {String? uid,
+          String? name,
+          String? year,
+          String? major,
+          String? minor,
+          String? about,
+          String? imagePath,
+          String? availableCourses,
+          int? taughtCount,
+          double? ratings}) =>
       UserData(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        year: year ?? this.year,
-        major: major ?? this.major,
-        minor: minor ?? this.minor,
-        about: about ?? this.about,
-        imagePath: imagePath ?? this.imagePath,
-        availableCourses: availableCourses ?? this.availableCourses,
-      );
+          uid: uid ?? this.uid,
+          name: name ?? this.name,
+          year: year ?? this.year,
+          major: major ?? this.major,
+          minor: minor ?? this.minor,
+          about: about ?? this.about,
+          imagePath: imagePath ?? this.imagePath,
+          availableCourses: availableCourses ?? this.availableCourses,
+          taughtCount: taughtCount ?? this.taughtCount,
+          ratings: ratings ?? this.ratings);
 
   // write a method to get rating
   getRating() {
-    // query id from database
+    // query uid from database
     return 4.5;
   }
 

@@ -41,7 +41,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void initState() {
     super.initState();
 
-    user = UserInfo.getUser();
+    user = LocalUserInfo.getLocalUser();
   }
 
   @override
@@ -126,7 +126,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ButtonWidget(
                 text: 'Save',
                 onClicked: () {
-                  UserInfo.saveUser(user, context);
+                  LocalUserInfo.saveUser(user, context);
                   Navigator.of(context).pop();
                 })
           ],
