@@ -17,6 +17,9 @@ import 'package:project_tutorial/util/user_info.dart';
 
 import 'package:project_tutorial/firebase_options.dart';
 
+//widget
+import 'package:project_tutorial/widget/snackbar_widget.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalUserInfo.init();
@@ -120,11 +123,16 @@ class AuthWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final firebaseUser = context.read<FirebaseAuthMethods>().user;
     final firebaseUser = context.watch<User?>();
 
     if (firebaseUser != null) {
       return const RootPage();
+    } else if (!firebaseUser!.emailVerified) {
+      showSnackBar(
+        context,
+        'You need to verify your email address first',
+      );
+      return const LoginPage();
     }
     return const LoginPage();
   }
