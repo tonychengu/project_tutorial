@@ -1,9 +1,11 @@
 // packages
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // utils
 import 'package:project_tutorial/util/firebase_auth.dart';
+import 'package:project_tutorial/util/user_info.dart';
 
 // pages
 import 'package:project_tutorial/main.dart';
@@ -25,12 +27,13 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  void loginUser() {
-    context.read<FirebaseAuthMethods>().loginWithEmail(
+  Future<void> loginUser() async {
+    await context.read<FirebaseAuthMethods>().loginWithEmail(
           email: emailController.text,
           password: passwordController.text,
           context: context,
         );
+    await LocalUserInfo.loginUser(context.read<User?>()!.uid);
     if (context.read<FirebaseAuthMethods>().isLoggedIn()) {
       Navigator.of(context).push(
         // OR onPressed: () async { await Navigator.push(...);  await anyOtherMethod(); }
