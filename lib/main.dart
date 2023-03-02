@@ -127,7 +127,7 @@ class AuthWrapper extends StatelessWidget {
 
     if (firebaseUser != null) {
       return const RootPage();
-    } else if (!firebaseUser!.emailVerified) {
+    } else if (firebaseUser != null && firebaseUser.emailVerified) {
       showSnackBar(
         context,
         'You need to verify your email address first',

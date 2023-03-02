@@ -44,7 +44,9 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(height: 24),
           buildName(context, user, courses),
           const SizedBox(height: 24),
-          NumbersWidget(),
+          NumbersWidget(
+              rating: user.getRating(),
+              taught: user.getNumTaught()), // build ratings and courses taught
           const SizedBox(height: 48),
           buildAbout(user),
           const SizedBox(height: 24),

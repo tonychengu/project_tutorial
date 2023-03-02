@@ -52,6 +52,8 @@ class UserData {
         about: json['about'],
         imagePath: json['imagePath'],
         availableCourses: json['availableCourses'],
+        taughtCount: json['taughtCount'],
+        ratings: json['ratings'],
       );
 
   // copy UserData
@@ -78,15 +80,12 @@ class UserData {
           taughtCount: taughtCount ?? this.taughtCount,
           ratings: ratings ?? this.ratings);
 
-  // write a method to get rating
-  getRating() {
-    // query uid from database
-    return 4.5;
+  String getRating() {
+    return (1.0 * ratings / taughtCount).toStringAsFixed(1);
   }
 
-  getNumOfRating() {
-    // query rating from database
-    return 100;
+  String getNumTaught() {
+    return taughtCount.toString();
   }
 
   getAvlCourses() {

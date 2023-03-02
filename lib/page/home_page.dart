@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 24),
           buildName(context, user, courses),
-          NumbersWidget(),
+          NumbersWidget(rating: user.getRating(), taught: user.getNumTaught()),
           const SizedBox(height: 24),
           const SizedBox(
             height: 24,
