@@ -53,4 +53,8 @@ class LocalUserInfo {
       return myUser;
     }
   }
+
+  static void clearUser() {
+    prefs.remove('Local');
+  }
 }
