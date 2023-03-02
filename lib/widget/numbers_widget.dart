@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 
 class NumbersWidget extends StatelessWidget {
+  String rating;
+  String taught;
+
+  NumbersWidget({
+    Key? key,
+    this.rating = "0",
+    this.taught = "0",
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          buildButton(context, '4.3', 'Rating'),
+          buildButton(context, rating, 'Rating'),
           buildDivider(),
-          buildButton(context, '12', 'Taught'),
+          buildButton(context, taught, 'Taught'),
         ],
       );
   Widget buildDivider() => Container(

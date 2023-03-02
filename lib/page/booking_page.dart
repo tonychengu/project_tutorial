@@ -21,6 +21,13 @@ class BookingsPage extends StatefulWidget {
 //   return "";
 // }
 
+// String validateRating(int value) {
+//   if (!(value >= 0 && value <= 5)) {
+//     return "Please enter an integr between 0 to 5";
+//   }
+//   return "";
+// }
+
 class _BookingPageState extends State<BookingsPage> {
   int currentPage = 0;
   bool checkedValue = false;

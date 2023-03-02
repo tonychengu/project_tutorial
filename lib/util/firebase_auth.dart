@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+
+// material
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +17,7 @@ class FirebaseAuthMethods {
   // GET USER DATA
   // using null check operator since this method should be called only
   // when the user is logged in
-  User get user => _auth.currentUser!;
+  User? get user => _auth.currentUser;
 
   // STATE PERSISTENCE STREAM
   Stream<User?> get authState => FirebaseAuth.instance.authStateChanges();
@@ -30,6 +32,11 @@ class FirebaseAuthMethods {
     required String password,
     required BuildContext context,
   }) async {
+    // test if email ends with @emory.edu
+    // if (!email.toUpperCase().endsWith('@emory.edu'.toUpperCase())) {
+    //   showSnackBar(context, 'Email must ends with @emory.edu');
+    //   return;
+    // }
     try {
       await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -53,8 +60,9 @@ class FirebaseAuthMethods {
         email: email,
         password: password,
       );
-      if (!user.emailVerified) {
+      if (!user!.emailVerified) {
         await sendEmailVerification(context);
+        showSnackBar(context, "Need to verify email first!");
         // restrict access to certain things using provider
         // transition to another page instead of home screen
       }
@@ -70,6 +78,20 @@ class FirebaseAuthMethods {
       showSnackBar(context, 'Email verification sent!');
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!); // Display error message
+    }
+  }
+
+  // PASSWORD RESET
+  Future<void> resetPassword({
+    required String email,
+    required BuildContext context,
+  }) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      showSnackBar(context, 'Password reset email sent!');
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message!); // Displaying the error message
+      throw e;
     }
   }
 
@@ -91,5 +113,10 @@ class FirebaseAuthMethods {
       // if an error of requires-recent-login is thrown, make sure to log
       // in user again and then delete account.
     }
+  }
+
+  bool isLoggedIn() {
+    final User? user = _auth.currentUser;
+    return user != null;
   }
 }

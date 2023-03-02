@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final user = UserInfo.getUser();
+    final user = LocalUserInfo.getLocalUser();
     final courses = user.getAvlCourses();
     return Scaffold(
       body: ListView(
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 24),
           buildName(context, user, courses),
-          NumbersWidget(),
+          NumbersWidget(rating: user.getRating(), taught: user.getNumTaught()),
           const SizedBox(height: 24),
           const SizedBox(
             height: 24,
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget buildName(BuildContext context, User user, List<String> courses) =>
+Widget buildName(BuildContext context, UserData user, List<String> courses) =>
     Column(
       children: [
         IntrinsicHeight(
@@ -113,7 +113,7 @@ Widget buildName(BuildContext context, User user, List<String> courses) =>
       ],
     );
 
-Widget buildAbout(User user) => Container(
+Widget buildAbout(UserData user) => Container(
       padding: EdgeInsets.symmetric(horizontal: 48),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

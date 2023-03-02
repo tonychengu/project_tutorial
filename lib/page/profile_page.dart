@@ -1,15 +1,19 @@
 // reference https://github.com/JohannesMilke/user_profile_ii_example/blob/master/lib/widget/profile_widget.dart
 
 import 'package:flutter/material.dart';
+import 'package:project_tutorial/util/firestore.dart';
+import 'package:provider/provider.dart';
 // model import
 import 'package:project_tutorial/model/user.dart';
 // util import
 import 'package:project_tutorial/util/user_info.dart';
+import 'package:project_tutorial/util/firebase_auth.dart';
 // widget import
 import 'package:project_tutorial/widget/profile_widget.dart';
 import 'package:project_tutorial/widget/numbers_widget.dart';
 // page import
 import 'package:project_tutorial/page/edit_profile_page.dart';
+import 'package:project_tutorial/page/login_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -21,7 +25,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final user = UserInfo.getUser();
+    final user = LocalUserInfo.getLocalUser();
     final courses = user.getAvlCourses();
     return Scaffold(
       body: ListView(
@@ -40,16 +44,34 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(height: 24),
           buildName(context, user, courses),
           const SizedBox(height: 24),
-          NumbersWidget(),
+          NumbersWidget(
+              rating: user.getRating(),
+              taught: user.getNumTaught()), // build ratings and courses taught
           const SizedBox(height: 48),
           buildAbout(user),
+          const SizedBox(height: 24),
+          ButtonBar(
+            alignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                child: Text('Sign Out'),
+                onPressed: () async {
+                  LocalUserInfo.clearUser();
+                  await context.read<FirebaseAuthMethods>().signOut(context);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                },
+              ),
+            ],
+          )
         ],
       ),
     );
   }
 }
 
-Widget buildName(BuildContext context, User user, List<String> courses) =>
+Widget buildName(BuildContext context, UserData user, List<String> courses) =>
     Column(
       children: [
         IntrinsicHeight(
@@ -114,7 +136,7 @@ Widget buildName(BuildContext context, User user, List<String> courses) =>
       ],
     );
 
-Widget buildAbout(User user) => Container(
+Widget buildAbout(UserData user) => Container(
       padding: EdgeInsets.symmetric(horizontal: 48),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
