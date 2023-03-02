@@ -28,108 +28,113 @@ const years = <String>[
 ];
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({super.key});
+  const EditProfilePage(BuildContext context, {super.key});
 
   @override
-  State<EditProfilePage> createState() => _EditProfilePageState();
+  State<EditProfilePage> createState() =>
+      _EditProfilePageState(context as BuildContext);
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
   late UserData user;
 
-  @override
+  _EditProfilePageState(BuildContext context);
+
   void initState() {
     super.initState();
 
-    user = LocalUserInfo.getLocalUser();
+    user = LocalUserInfo.getLocalUser(context as BuildContext?);
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 32),
-          physics: BouncingScrollPhysics(),
-          children: [
-            const SizedBox(height: 24),
-            ProfileWidget(
-              imagePath: user.imagePath,
-              isEdit: true,
-              onClicked: () async {
-                final image =
-                    await ImagePicker().getImage(source: ImageSource.gallery);
-                if (image == null) return;
+  Widget build(BuildContext context) {
+    user = LocalUserInfo.getLocalUser(context);
+    return Scaffold(
+      body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 32),
+        physics: BouncingScrollPhysics(),
+        children: [
+          const SizedBox(height: 24),
+          ProfileWidget(
+            imagePath: user.imagePath,
+            isEdit: true,
+            onClicked: () async {
+              final image =
+                  await ImagePicker().getImage(source: ImageSource.gallery);
+              if (image == null) return;
 
-                final directory = await getApplicationDocumentsDirectory();
-                final path = File('${directory.path}/profileImg.png');
-                final newImage = await File(image.path).copy(path.path);
+              final directory = await getApplicationDocumentsDirectory();
+              final path = File('${directory.path}/profileImg.png');
+              final newImage = await File(image.path).copy(path.path);
 
-                setState(() => user = user.copy(imagePath: newImage.path));
-              },
-            ),
-            const SizedBox(height: 24),
-            TextFieldWidget(
-              label: 'Full Name',
-              text: user.name,
-              onChanged: (name) => user = user.copy(name: name),
-            ),
-            const SizedBox(height: 24),
-            // TextFieldWidget(
-            //   label: 'Year',
-            //   text: user.year,
-            //   onChanged: (year) {},
-            // ),
-            Text(
-              'Year',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            const SizedBox(height: 8),
-            DropdownButton<String>(
-              value: user.year,
-              onChanged: (String? newValue) {
-                setState(() {
-                  user = user.copy(year: newValue!);
-                });
-              },
-              items: years.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 24),
-            TextFieldWidget(
-              label: 'Major',
-              text: user.major,
-              onChanged: (major) => user = user.copy(major: major),
-            ),
-            const SizedBox(height: 24),
-            TextFieldWidget(
-              label: 'Minor',
-              text: user.minor ?? '',
-              onChanged: (minor) => user = user.copy(minor: minor),
-            ),
-            const SizedBox(height: 24),
-            TextFieldWidget(
-              label: 'Available Courses (in  "MATH101,CS101" format) ',
-              text: user.availableCourses,
-              onChanged: (courses) => user = user.updateAvlCourses(courses),
-            ),
-            const SizedBox(height: 24),
-            TextFieldWidget(
-              label: 'About',
-              text: user.about ?? '',
-              maxLines: 5,
-              onChanged: (about) => user = user.copy(about: about),
-            ),
-            const SizedBox(height: 24),
-            ButtonWidget(
-                text: 'Save',
-                onClicked: () {
-                  LocalUserInfo.saveUser(user, context);
-                  Navigator.of(context).pop();
-                })
-          ],
-        ),
-      );
+              setState(() => user = user.copy(imagePath: newImage.path));
+            },
+          ),
+          const SizedBox(height: 24),
+          TextFieldWidget(
+            label: 'Full Name',
+            text: user.name,
+            onChanged: (name) => user = user.copy(name: name),
+          ),
+          const SizedBox(height: 24),
+          // TextFieldWidget(
+          //   label: 'Year',
+          //   text: user.year,
+          //   onChanged: (year) {},
+          // ),
+          Text(
+            'Year',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          const SizedBox(height: 8),
+          DropdownButton<String>(
+            value: user.year,
+            onChanged: (String? newValue) {
+              setState(() {
+                user = user.copy(year: newValue!);
+              });
+            },
+            items: years.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 24),
+          TextFieldWidget(
+            label: 'Major',
+            text: user.major,
+            onChanged: (major) => user = user.copy(major: major),
+          ),
+          const SizedBox(height: 24),
+          TextFieldWidget(
+            label: 'Minor',
+            text: user.minor ?? '',
+            onChanged: (minor) => user = user.copy(minor: minor),
+          ),
+          const SizedBox(height: 24),
+          TextFieldWidget(
+            label: 'Available Courses (in  "MATH101,CS101" format) ',
+            text: user.availableCourses,
+            onChanged: (courses) => user = user.updateAvlCourses(courses),
+          ),
+          const SizedBox(height: 24),
+          TextFieldWidget(
+            label: 'About',
+            text: user.about ?? '',
+            maxLines: 5,
+            onChanged: (about) => user = user.copy(about: about),
+          ),
+          const SizedBox(height: 24),
+          ButtonWidget(
+              text: 'Save',
+              onClicked: () {
+                LocalUserInfo.saveUser(user, context);
+                Navigator.of(context).pop();
+              })
+        ],
+      ),
+    );
+  }
 }

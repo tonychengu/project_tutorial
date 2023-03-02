@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class LocalUserInfo {
 
   static Future init() async => {
         prefs = await SharedPreferences.getInstance(),
-        myUser = getLocalUser(),
+        //myUser = getLocalUser(),
       };
   static Future saveUser(UserData user, BuildContext context,
       {bool signup = false}) async {
@@ -33,6 +34,11 @@ class LocalUserInfo {
     final json = jsonEncode(user.toJson());
     //prefs.setString('user', myUser.toJson()),
     await prefs.setString('Local', json);
+    await saveRemoteUser(user, context, signup: signup);
+  }
+
+  static Future saveRemoteUser(UserData user, BuildContext context,
+      {bool signup = false}) async {
     final uid = context.read<User?>()!.uid;
     if (uid != null && !signup) {
       await context
@@ -45,7 +51,7 @@ class LocalUserInfo {
     }
   }
 
-  static UserData getLocalUser() {
+  static UserData getLocalUser(BuildContext? context) {
     final json = prefs.getString('Local');
     if (json != null) {
       return UserData.fromJson(jsonDecode(json));
@@ -54,7 +60,26 @@ class LocalUserInfo {
     }
   }
 
+  // static Future<UserData> getRemoteUser(BuildContext context) async {
+  //   final uid = context.read<User?>()!.uid;
+  //   if (uid != null) {
+  //     QuerySnapshot snapshot =
+  //         await context.read<FireStoreMethods>().getUserByUid(uid);
+  //   }
+  //   return myUser;
+  // }
+
   static void clearUser() {
     prefs.remove('Local');
+  }
+
+  static Future loginUser(String uid) async {
+    QuerySnapshot snapshot = await FireStoreMethods().getUserByUid(uid);
+    if (snapshot.docs.isNotEmpty) {
+      final json = snapshot.docs.first.data() as Map<String, dynamic>;
+      myUser = UserData.fromJson(json);
+      //await saveUser(user, context);
+      await prefs.setString('Local', jsonEncode(myUser.toJson()));
+    }
   }
 }

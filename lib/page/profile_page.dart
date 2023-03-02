@@ -25,7 +25,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final user = LocalUserInfo.getLocalUser();
+    final user = LocalUserInfo.getLocalUser(context);
     final courses = user.getAvlCourses();
     return Scaffold(
       body: ListView(
@@ -36,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
             imagePath: user.imagePath,
             onClicked: () async {
               await Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => EditProfilePage(),
+                builder: (context) => EditProfilePage(context),
               ));
               setState(() {});
             },
