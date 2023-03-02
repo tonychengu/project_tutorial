@@ -187,7 +187,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 DropdownButton<String>(
-                  value: years[0],
+                  value: year,
                   onChanged: (String? newValue) {
                     setState(() {
                       //yearController.text = newValue!;
