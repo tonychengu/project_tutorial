@@ -90,14 +90,8 @@
 				97C146EF1CF9000F007C117D /* Products */,
 				DBDF99CB14E5E2CDB6117942 /* Pods */,
 				94780958899B99708CC715B8 /* Frameworks */,
-<<<<<<< HEAD
-<<<<<<< HEAD
 				CDE52CB3D9401F3648D6C8D9 /* GoogleService-Info.plist */,
-=======
->>>>>>> d227513 (update navigation bar and bookings page)
-=======
-				CDE52CB3D9401F3648D6C8D9 /* GoogleService-Info.plist */,
->>>>>>> 96c90df0c01bdd6d5fd28b6499886315b8aa0ce7
+
 			);
 			sourceTree = "<group>";
 		};
