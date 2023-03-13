@@ -119,4 +119,9 @@ class FirebaseAuthMethods {
     final User? user = _auth.currentUser;
     return user != null;
   }
+
+  bool isEmailVerified() {
+    final User? user = _auth.currentUser;
+    return user!.emailVerified;
+  }
 }
