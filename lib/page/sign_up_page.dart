@@ -85,12 +85,13 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 32),
+        //padding: EdgeInsets.symmetric(horizontal: 32),
         physics: BouncingScrollPhysics(),
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-          Center(
-            child: const Text(
+          AppBar(),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+          const Center(
+            child: Text(
               "Sign Up",
               style: TextStyle(fontSize: 30),
             ),

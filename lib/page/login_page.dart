@@ -33,7 +33,9 @@ class _LoginPageState extends State<LoginPage> {
           password: passwordController.text,
           context: context,
         );
-    await LocalUserInfo.loginUser(context.read<User?>()!.uid);
+    await LocalUserInfo.loginUser(context
+        .read<User?>()!
+        .uid); //error on login click if user doesn't enter email/password
     if (context.read<FirebaseAuthMethods>().isLoggedIn()) {
       Navigator.of(context).push(
         // OR onPressed: () async { await Navigator.push(...);  await anyOtherMethod(); }
