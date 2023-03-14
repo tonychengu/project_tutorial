@@ -46,6 +46,25 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Future<void> debugloginUser() async {
+    await context.read<FirebaseAuthMethods>().loginWithEmail(
+          email: "test2@emory.edu",
+          password: "123123",
+          context: context,
+        );
+    await LocalUserInfo.loginUser(context.read<User?>()!.uid);
+    if (context.read<FirebaseAuthMethods>().isLoggedIn()) {
+      Navigator.of(context).push(
+        // OR onPressed: () async { await Navigator.push(...);  await anyOtherMethod(); }
+        MaterialPageRoute(
+          builder: (BuildContext context) {
+            return RootPage();
+          },
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +98,20 @@ class _LoginPageState extends State<LoginPage> {
               child: const Text('Login'),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.blue),
+                textStyle: MaterialStateProperty.all(
+                  const TextStyle(color: Colors.white),
+                ),
+                minimumSize: MaterialStateProperty.all(
+                  Size(MediaQuery.of(context).size.width / 2.5, 50),
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: debugloginUser,
+              child: const Text('Debug Login'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.yellow),
                 textStyle: MaterialStateProperty.all(
                   const TextStyle(color: Colors.white),
                 ),

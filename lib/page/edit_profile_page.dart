@@ -28,27 +28,22 @@ const years = <String>[
 ];
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage(BuildContext context, {super.key});
-
   @override
-  State<EditProfilePage> createState() =>
-      _EditProfilePageState(context as BuildContext);
+  State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  late UserData user;
+  // UserData user;
 
-  _EditProfilePageState(BuildContext context);
+  // void initState() {
+  //   super.initState();
 
-  void initState() {
-    super.initState();
-
-    user = LocalUserInfo.getLocalUser(context as BuildContext?);
-  }
+  //   //user = LocalUserInfo.getLocalUser(context as BuildContext?);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    user = LocalUserInfo.getLocalUser(context);
+    UserData user = LocalUserInfo.getLocalUser();
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 32),
