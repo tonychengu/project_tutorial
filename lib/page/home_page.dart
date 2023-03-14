@@ -159,6 +159,15 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.blueAccent,
         elevation: 0,
         centerTitle: true,
+        actions: <Widget>[
+          //this decenters the header and i dont like that
+          //const Text('Filters'),
+          IconButton(
+            icon: const Icon(Icons.filter_list),
+            tooltip: 'Filters',
+            onPressed: () {},
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: _users.length,
@@ -186,13 +195,28 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: CircleAvatar(
-                        child: Text(user.name.substring(0, 2)),
-                        backgroundColor:
-                            _showTutors ? Colors.blueAccent : Colors.blueAccent,
-                      ),
-                    ),
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: _showTutors
+                                  ? Colors.blueAccent
+                                  : Colors.blueAccent,
+                              child: Text(user.name.substring(0, 2)),
+                            ),
+                            const SizedBox(height: 16),
+                            IconButton(
+                              icon: const Icon(Icons.favorite),
+                              tooltip: 'Favorite',
+                              onPressed: () {}, //add to user favorites list
+                              color: _showTutors
+                                  ? Colors.blueAccent
+                                  : Colors.blueAccent,
+                              highlightColor:
+                                  _showTutors ? Colors.red : Colors.red,
+                            ),
+                          ],
+                        )),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
