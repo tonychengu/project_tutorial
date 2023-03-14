@@ -23,7 +23,7 @@ class UserData {
     required this.availableCourses,
     this.about,
     this.imagePath =
-        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+        'https://firebasestorage.googleapis.com/v0/b/cs370-329f4.appspot.com/o/profileImg.png?alt=media',
     this.taughtCount = 0,
     this.ratings = 0,
   });
