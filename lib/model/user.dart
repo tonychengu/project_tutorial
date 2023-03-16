@@ -111,6 +111,7 @@ class UserData {
     for (var course in newCourses) {
       coursesString += course + ',';
     }
+    coursesString = coursesString.substring(0, coursesString.length - 1);
     return this.copy(availableCourses: coursesString);
   }
 

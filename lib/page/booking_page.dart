@@ -14,6 +14,12 @@ class BookingsPage extends StatefulWidget {
   @override
   State<BookingsPage> createState() => _BookingPageState();
 }
+// String validateRating(int value) {
+//   if (!(value >= 0 && value <= 5)) {
+//     return "Please enter an integr between 0 to 5";
+//   }
+//   return "";
+// }
 
 // String validateRating(int value) {
 //   if (!(value >= 0 && value <= 5)) {
@@ -26,30 +32,32 @@ class _BookingPageState extends State<BookingsPage> {
   int currentPage = 0;
   bool checkedValue = false;
   bool _validate = false;
-  List pages = [const CurrentBookingPage()];
-  void onTap(int index) {
-    setState(() {
-      currentPage = index;
-    });
-  }
+  // void onTap(int index) {
+  //   setState(() {
+  //     currentPage = index;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: const Text('Review Your Past Session',
+              style: TextStyle(fontSize: 25))),
       body: Center(
         child: SizedBox(
           width: 390,
           height: 650,
           child: Card(
-            margin: const EdgeInsets.all(8),
+            margin: EdgeInsets.all(15),
             elevation: 10,
             color: Colors.white38,
             child: Padding(
               padding: const EdgeInsets.all(30),
               child: ListView(
                 children: [
-                  const Text(
-                    'Past Session',
+                  Text(
+                    'Review Swoop on Chemistry',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                   const Text(
@@ -80,9 +88,9 @@ class _BookingPageState extends State<BookingsPage> {
                       //errorText: validateRating(text),
                     ),
                   ),
-                  const Text(
-                    'leave comments for this session',
-                    style: TextStyle(fontSize: 20, height: 3),
+                  Text(
+                    'leave any comments',
+                    style: TextStyle(fontSize: 20, height: 2),
                   ),
                   const TextField(
                     maxLines: 3,
@@ -115,7 +123,7 @@ class _BookingPageState extends State<BookingsPage> {
                       alignment: MainAxisAlignment.end,
                       children: <Widget>[
                         ElevatedButton(
-                          onPressed: () => Navigator.of(context).push(
+                          onPressed: () => Navigator.of(context).pop(
                               MaterialPageRoute(
                                   builder: (BuildContext context) {
                             return CurrentBookingPage();
