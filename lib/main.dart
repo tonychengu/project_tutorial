@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:project_tutorial/page/upcoming_bookings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'package:project_tutorial/page/booking_page.dart';
-import 'package:project_tutorial/page/search_page.dart';
+import 'package:project_tutorial/page/inbox_page.dart';
 import 'package:project_tutorial/page/home_page.dart';
 import 'package:project_tutorial/page/profile_page.dart';
 import 'package:project_tutorial/page/login_page.dart';
@@ -67,8 +68,8 @@ class _RootPageState extends State<RootPage> {
   int currentPage = 0;
   List pages = [
     const HomePage(),
-    const BookingsPage(),
-    const SearchPage(),
+    CurrentBookingPage(),
+    const InboxPage(),
     const ProfilePage(),
   ];
   void onTap(int index) {
@@ -96,15 +97,15 @@ class _RootPageState extends State<RootPage> {
             tabs: const [
               GButton(
                 icon: Icons.home,
-                text: 'Home',
+                text: 'Search',
               ),
               GButton(
                 icon: Icons.calendar_today,
                 text: 'Bookings',
               ),
               GButton(
-                icon: Icons.search,
-                text: 'Search',
+                icon: Icons.inbox,
+                text: 'Inbox',
               ),
               GButton(
                 icon: Icons.people,

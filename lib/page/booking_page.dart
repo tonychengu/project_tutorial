@@ -32,22 +32,24 @@ class _BookingPageState extends State<BookingsPage> {
   int currentPage = 0;
   bool checkedValue = false;
   bool _validate = false;
-  List pages = [const CurrentBookingPage()];
-  void onTap(int index) {
-    setState(() {
-      currentPage = index;
-    });
-  }
+  // void onTap(int index) {
+  //   setState(() {
+  //     currentPage = index;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: const Text('Review Your Past Session',
+              style: TextStyle(fontSize: 25))),
       body: Center(
         child: Container(
           width: 390,
-          height: 600,
+          height: 650,
           child: Card(
-            margin: EdgeInsets.all(8),
+            margin: EdgeInsets.all(15),
             elevation: 10,
             color: Colors.white38,
             child: Padding(
@@ -55,7 +57,7 @@ class _BookingPageState extends State<BookingsPage> {
               child: ListView(
                 children: [
                   Text(
-                    'Past Session',
+                    'Review Swoop on Chemistry',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                   Text(
@@ -86,8 +88,8 @@ class _BookingPageState extends State<BookingsPage> {
                     ),
                   ),
                   Text(
-                    'leave comments for this session',
-                    style: TextStyle(fontSize: 20, height: 3),
+                    'leave any comments',
+                    style: TextStyle(fontSize: 20, height: 2),
                   ),
                   TextField(
                     maxLines: 3,
@@ -120,7 +122,7 @@ class _BookingPageState extends State<BookingsPage> {
                       alignment: MainAxisAlignment.end,
                       children: <Widget>[
                         ElevatedButton(
-                          onPressed: () => Navigator.of(context).push(
+                          onPressed: () => Navigator.of(context).pop(
                               MaterialPageRoute(
                                   builder: (BuildContext context) {
                             return CurrentBookingPage();
