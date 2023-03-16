@@ -8,6 +8,7 @@ class SearchPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Colors.green.shade300,
+            automaticallyImplyLeading: false,
             title: const Text('Search', style: TextStyle(fontSize: 30))),
         body: const Center(child: Text('')),
         floatingActionButton: FloatingActionButton(

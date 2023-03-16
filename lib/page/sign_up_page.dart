@@ -30,9 +30,6 @@ const years = <String>[
   'Junior',
   'Senior',
   'Graduate',
-  'PhD',
-  'PostDoc',
-  'Professor',
   'Other'
 ];
 
