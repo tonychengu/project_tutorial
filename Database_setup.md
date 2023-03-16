@@ -33,6 +33,12 @@ A collection is a table. A document is an entry. A document works as a key-value
     - number of courses taught
   - ratings: int
     - rating sum of user
+  - imagePath: string
+    - the url of the user profile pic
+  - fullPath: string
+    - the relative fullPath of the image in the buckets
+  - balance: int
+    - the number of balance left for the user
 - special notes:
   - for ease of rating calculating, the database holds, the rating sum of the user and total course count. The `average rating` should be calculated using `ratings / taughtCount`.
   - user profile picture storage hasn't realize yet.

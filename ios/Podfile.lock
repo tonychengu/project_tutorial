@@ -615,22 +615,33 @@ PODS:
   - Firebase/Firestore (10.3.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.3.0)
-  - firebase_auth (4.2.9):
+  - Firebase/Storage (10.3.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 10.3.0)
+  - firebase_auth (4.2.2):
     - Firebase/Auth (= 10.3.0)
     - firebase_core
     - Flutter
   - firebase_core (2.7.0):
     - Firebase/CoreOnly (= 10.3.0)
     - Flutter
+  - firebase_storage (11.0.14):
+    - Firebase/Storage (= 10.3.0)
+    - firebase_core
+    - Flutter
+  - FirebaseAppCheckInterop (10.6.0)
   - FirebaseAuth (10.3.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
+  - FirebaseAuthInterop (10.6.0)
   - FirebaseCore (10.3.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
+  - FirebaseCoreExtension (10.6.0):
+    - FirebaseCore (~> 10.0)
   - FirebaseCoreInternal (10.6.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
   - FirebaseFirestore (10.3.0):
@@ -646,7 +657,80 @@ PODS:
     - "gRPC-C++ (~> 1.44.0)"
     - leveldb-library (~> 1.22)
     - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseStorage (10.3.0):
+    - FirebaseAppCheckInterop (~> 10.0)
+    - FirebaseAuthInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseCoreExtension (~> 10.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - Flutter (1.0.0)
+  - GoogleUtilities/AppDelegateSwizzler (7.11.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.11.0):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.11.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/Network (7.11.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.11.0)"
+  - GoogleUtilities/Reachability (7.11.0):
+    - GoogleUtilities/Logger
+  - "gRPC-C++ (1.44.0)":
+    - "gRPC-C++/Implementation (= 1.44.0)"
+    - "gRPC-C++/Interface (= 1.44.0)"
+  - "gRPC-C++/Implementation (1.44.0)":
+    - abseil/base/base (= 1.20211102.0)
+    - abseil/base/core_headers (= 1.20211102.0)
+    - abseil/container/flat_hash_map (= 1.20211102.0)
+    - abseil/container/inlined_vector (= 1.20211102.0)
+    - abseil/functional/bind_front (= 1.20211102.0)
+    - abseil/hash/hash (= 1.20211102.0)
+    - abseil/memory/memory (= 1.20211102.0)
+    - abseil/random/random (= 1.20211102.0)
+    - abseil/status/status (= 1.20211102.0)
+    - abseil/status/statusor (= 1.20211102.0)
+    - abseil/strings/cord (= 1.20211102.0)
+    - abseil/strings/str_format (= 1.20211102.0)
+    - abseil/strings/strings (= 1.20211102.0)
+    - abseil/synchronization/synchronization (= 1.20211102.0)
+    - abseil/time/time (= 1.20211102.0)
+    - abseil/types/optional (= 1.20211102.0)
+    - abseil/types/variant (= 1.20211102.0)
+    - abseil/utility/utility (= 1.20211102.0)
+    - "gRPC-C++/Interface (= 1.44.0)"
+    - gRPC-Core (= 1.44.0)
+  - "gRPC-C++/Interface (1.44.0)"
+  - gRPC-Core (1.44.0):
+    - gRPC-Core/Implementation (= 1.44.0)
+    - gRPC-Core/Interface (= 1.44.0)
+  - gRPC-Core/Implementation (1.44.0):
+    - abseil/base/base (= 1.20211102.0)
+    - abseil/base/core_headers (= 1.20211102.0)
+    - abseil/container/flat_hash_map (= 1.20211102.0)
+    - abseil/container/inlined_vector (= 1.20211102.0)
+    - abseil/functional/bind_front (= 1.20211102.0)
+    - abseil/hash/hash (= 1.20211102.0)
+    - abseil/memory/memory (= 1.20211102.0)
+    - abseil/random/random (= 1.20211102.0)
+    - abseil/status/status (= 1.20211102.0)
+    - abseil/status/statusor (= 1.20211102.0)
+    - abseil/strings/cord (= 1.20211102.0)
+    - abseil/strings/str_format (= 1.20211102.0)
+    - abseil/strings/strings (= 1.20211102.0)
+    - abseil/synchronization/synchronization (= 1.20211102.0)
+    - abseil/time/time (= 1.20211102.0)
+    - abseil/types/optional (= 1.20211102.0)
+    - abseil/types/variant (= 1.20211102.0)
+    - abseil/utility/utility (= 1.20211102.0)
+    - BoringSSL-GRPC (= 0.0.24)
+    - gRPC-Core/Interface (= 1.44.0)
+    - Libuv-gRPC (= 0.0.10)
+  - gRPC-Core/Interface (1.44.0)
+  - GTMSessionFetcher/Core (3.1.0)
   - flutter_local_notifications (0.0.1):
     - Flutter
   - GoogleUtilities/AppDelegateSwizzler (7.11.0):
@@ -730,9 +814,23 @@ PODS:
     - nanopb/encode (= 2.30909.0)
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
+  - leveldb-library (1.22.1)
+  - Libuv-gRPC (0.0.10):
+    - Libuv-gRPC/Implementation (= 0.0.10)
+    - Libuv-gRPC/Interface (= 0.0.10)
+  - Libuv-gRPC/Implementation (0.0.10):
+    - Libuv-gRPC/Interface (= 0.0.10)
+  - Libuv-gRPC/Interface (0.0.10)
+  - nanopb (2.30909.0):
+    - nanopb/decode (= 2.30909.0)
+    - nanopb/encode (= 2.30909.0)
+  - nanopb/decode (2.30909.0)
+  - nanopb/encode (2.30909.0)
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - path_provider_ios (0.0.1):
+    - Flutter
   - PromisesObjC (2.2.0)
   - shared_preferences_foundation (0.0.1):
     - Flutter
@@ -742,10 +840,12 @@ DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
 
 SPEC REPOS:
@@ -753,10 +853,14 @@ SPEC REPOS:
     - abseil
     - BoringSSL-GRPC
     - Firebase
+    - FirebaseAppCheckInterop
     - FirebaseAuth
+    - FirebaseAuthInterop
     - FirebaseCore
+    - FirebaseCoreExtension
     - FirebaseCoreInternal
     - FirebaseFirestore
+    - FirebaseStorage
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
@@ -773,6 +877,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_storage:
+    :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
     :path: Flutter
   flutter_local_notifications:
@@ -781,6 +887,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_picker_ios/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/ios"
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/ios"
 
@@ -789,13 +897,22 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   cloud_firestore: 94326bb743acbfe43c68f933dab8a094e84d5849
   Firebase: f92fc551ead69c94168d36c2b26188263860acd9
-  firebase_auth: 4e8c693e848ed13b263de2d702d55fa82ed04a79
+  firebase_auth: d1a0302ad8f1d642fc1cb53c43d25a951d70e190
   firebase_core: 128d8c43c3a453a4a67463314fc3761bedff860b
+  firebase_storage: bdbef04ce485eb426152016c735736bc3615b8c0
+  FirebaseAppCheckInterop: 13e5394346a811e7158cc136c01f10e3302a3514
   FirebaseAuth: 0e415d29d846c1dce2fb641e46f35e9888d9bec6
+  FirebaseAuthInterop: e407335bca1938d65c58db8f4ad14b3c1f862a82
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
+  FirebaseCoreExtension: 318e5ee9ad4092b00423c2bddd51c3f5c3585973
   FirebaseCoreInternal: c7cd505e2136811096b225ac388d6254a2622362
   FirebaseFirestore: 244f71ff14ef44f39e00b44d356eac708ce03103
+  FirebaseStorage: 0efbff0ac978981866d89804191688ae50d64033
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
+  "gRPC-C++": 9675f953ace2b3de7c506039d77be1f2e77a8db2
+  gRPC-Core: 943e491cb0d45598b0b0eb9e910c88080369290b
+  GTMSessionFetcher: c9e714f7eec91a55641e2bab9f45fd83a219b882
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   "gRPC-C++": 9675f953ace2b3de7c506039d77be1f2e77a8db2
@@ -805,7 +922,12 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
-  path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
+  leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
+  Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
+  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
+  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
 

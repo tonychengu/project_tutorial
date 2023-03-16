@@ -45,34 +45,35 @@ class _BookingPageState extends State<BookingsPage> {
           title: const Text('Review Your Past Session',
               style: TextStyle(fontSize: 25))),
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 390,
+          height: 650,
           height: 650,
           child: Card(
             margin: EdgeInsets.all(15),
             elevation: 10,
             color: Colors.white38,
             child: Padding(
-              padding: EdgeInsets.all(30),
+              padding: const EdgeInsets.all(30),
               child: ListView(
                 children: [
                   Text(
                     'Review Swoop on Chemistry',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                   ),
-                  Text(
+                  const Text(
                     'Jan 26th, 2023',
                     style: TextStyle(fontSize: 15, height: 2),
                   ),
-                  Text(
+                  const Text(
                     'You tutored Swoop on Chemistry',
                     style: TextStyle(fontSize: 15, height: 1),
                   ),
-                  Text(
+                  const Text(
                     'rate your experience',
                     style: TextStyle(fontSize: 20, height: 3),
                   ),
-                  TextField(
+                  const TextField(
                     maxLines: 1,
                     maxLength: 1,
                     keyboardType: TextInputType.number,
@@ -83,7 +84,8 @@ class _BookingPageState extends State<BookingsPage> {
                           borderSide:
                               BorderSide(width: 1, color: Colors.white)),
                       //errorBorder: OutlineInputBorder(),
-                      hintText: 'Enter a number from 1 to 5',
+                      hintText:
+                          'Enter a number from 1 to 5', //change to click out of 5 stars?
                       //errorText: validateRating(text),
                     ),
                   ),
@@ -91,7 +93,7 @@ class _BookingPageState extends State<BookingsPage> {
                     'leave any comments',
                     style: TextStyle(fontSize: 20, height: 2),
                   ),
-                  TextField(
+                  const TextField(
                     maxLines: 3,
                     maxLength: 100,
                     decoration: InputDecoration(
@@ -106,7 +108,7 @@ class _BookingPageState extends State<BookingsPage> {
                   ButtonBar(
                     alignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Text('Tutor again?',
+                      const Text('Tutor again?',
                           style: TextStyle(fontSize: 20, height: 1)),
                       Checkbox(
                         value: checkedValue,
@@ -130,7 +132,7 @@ class _BookingPageState extends State<BookingsPage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blueGrey,
                           ),
-                          child: Text('Submit',
+                          child: const Text('Submit',
                               style: TextStyle(color: Colors.black, height: 1)),
                         ),
                       ]),
