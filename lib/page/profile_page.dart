@@ -49,7 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
               taught: user.getNumTaught()), // build ratings and courses taught
           const SizedBox(height: 48),
           buildAbout(user),
-          const SizedBox(height: 24),
+          const SizedBox(height: 96),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: [
@@ -104,27 +104,27 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
         // Row of Available Courses
         Container(
           alignment: Alignment.centerLeft,
-          width: MediaQuery.of(context).size.width * 0.8,
+          width: MediaQuery.of(context).size.width * 0.9,
           child: Text(
             "Available Courses",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             textAlign: TextAlign.center,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 5),
         SizedBox(
-          height: 75,
-          width: MediaQuery.of(context).size.width * 0.8,
+          height: 50,
+          width: MediaQuery.of(context).size.width * 0.9,
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: courses.length,
               itemBuilder: (context, index) {
                 return Container(
-                  width: 100,
-                  height: 75,
-                  margin: EdgeInsets.all(10),
+                  width: 75,
+                  height: 50,
+                  margin: EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
+                    color: Colors.green[300],
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
