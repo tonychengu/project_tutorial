@@ -102,24 +102,6 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
           const SizedBox(height: 24),
-          ProfileWidget(
-            imagePath:
-                'https://i.pinimg.com/originals/4c/f2/32/4cf232c9b64c925a95de471dc61931ce.jpg',
-            isEdit: true,
-            onClicked: () async {
-              final image =
-                  await ImagePicker().getImage(source: ImageSource.gallery);
-              if (image == null) return;
-
-              final directory = await getApplicationDocumentsDirectory();
-              final path = File('${directory.path}/profileImg.png');
-              final newImage = await File(image.path).copy(path.path);
-
-              imagePath.text = newImage.path;
-            },
-          ),
-          //const SizedBox(height: 24),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.08),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: CustomTextField(
