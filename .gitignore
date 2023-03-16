@@ -45,4 +45,6 @@ app.*.map.json
 
 ios/
 android/
-vscode/
+linux/
+web/
+windwos/
