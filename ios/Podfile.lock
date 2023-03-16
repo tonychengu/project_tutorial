@@ -664,73 +664,6 @@ PODS:
     - FirebaseCoreExtension (~> 10.0)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - Flutter (1.0.0)
-  - GoogleUtilities/AppDelegateSwizzler (7.11.0):
-    - GoogleUtilities/Environment
-    - GoogleUtilities/Logger
-    - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.11.0):
-    - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.11.0):
-    - GoogleUtilities/Environment
-  - GoogleUtilities/Network (7.11.0):
-    - GoogleUtilities/Logger
-    - "GoogleUtilities/NSData+zlib"
-    - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.11.0)"
-  - GoogleUtilities/Reachability (7.11.0):
-    - GoogleUtilities/Logger
-  - "gRPC-C++ (1.44.0)":
-    - "gRPC-C++/Implementation (= 1.44.0)"
-    - "gRPC-C++/Interface (= 1.44.0)"
-  - "gRPC-C++/Implementation (1.44.0)":
-    - abseil/base/base (= 1.20211102.0)
-    - abseil/base/core_headers (= 1.20211102.0)
-    - abseil/container/flat_hash_map (= 1.20211102.0)
-    - abseil/container/inlined_vector (= 1.20211102.0)
-    - abseil/functional/bind_front (= 1.20211102.0)
-    - abseil/hash/hash (= 1.20211102.0)
-    - abseil/memory/memory (= 1.20211102.0)
-    - abseil/random/random (= 1.20211102.0)
-    - abseil/status/status (= 1.20211102.0)
-    - abseil/status/statusor (= 1.20211102.0)
-    - abseil/strings/cord (= 1.20211102.0)
-    - abseil/strings/str_format (= 1.20211102.0)
-    - abseil/strings/strings (= 1.20211102.0)
-    - abseil/synchronization/synchronization (= 1.20211102.0)
-    - abseil/time/time (= 1.20211102.0)
-    - abseil/types/optional (= 1.20211102.0)
-    - abseil/types/variant (= 1.20211102.0)
-    - abseil/utility/utility (= 1.20211102.0)
-    - "gRPC-C++/Interface (= 1.44.0)"
-    - gRPC-Core (= 1.44.0)
-  - "gRPC-C++/Interface (1.44.0)"
-  - gRPC-Core (1.44.0):
-    - gRPC-Core/Implementation (= 1.44.0)
-    - gRPC-Core/Interface (= 1.44.0)
-  - gRPC-Core/Implementation (1.44.0):
-    - abseil/base/base (= 1.20211102.0)
-    - abseil/base/core_headers (= 1.20211102.0)
-    - abseil/container/flat_hash_map (= 1.20211102.0)
-    - abseil/container/inlined_vector (= 1.20211102.0)
-    - abseil/functional/bind_front (= 1.20211102.0)
-    - abseil/hash/hash (= 1.20211102.0)
-    - abseil/memory/memory (= 1.20211102.0)
-    - abseil/random/random (= 1.20211102.0)
-    - abseil/status/status (= 1.20211102.0)
-    - abseil/status/statusor (= 1.20211102.0)
-    - abseil/strings/cord (= 1.20211102.0)
-    - abseil/strings/str_format (= 1.20211102.0)
-    - abseil/strings/strings (= 1.20211102.0)
-    - abseil/synchronization/synchronization (= 1.20211102.0)
-    - abseil/time/time (= 1.20211102.0)
-    - abseil/types/optional (= 1.20211102.0)
-    - abseil/types/variant (= 1.20211102.0)
-    - abseil/utility/utility (= 1.20211102.0)
-    - BoringSSL-GRPC (= 0.0.24)
-    - gRPC-Core/Interface (= 1.44.0)
-    - Libuv-gRPC (= 0.0.10)
-  - gRPC-Core/Interface (1.44.0)
-  - GTMSessionFetcher/Core (3.1.0)
   - flutter_local_notifications (0.0.1):
     - Flutter
   - GoogleUtilities/AppDelegateSwizzler (7.11.0):
@@ -802,18 +735,6 @@ PODS:
   - GTMSessionFetcher/Core (3.1.0)
   - image_picker_ios (0.0.1):
     - Flutter
-  - leveldb-library (1.22.1)
-  - Libuv-gRPC (0.0.10):
-    - Libuv-gRPC/Implementation (= 0.0.10)
-    - Libuv-gRPC/Interface (= 0.0.10)
-  - Libuv-gRPC/Implementation (0.0.10):
-    - Libuv-gRPC/Interface (= 0.0.10)
-  - Libuv-gRPC/Interface (0.0.10)
-  - nanopb (2.30909.0):
-    - nanopb/decode (= 2.30909.0)
-    - nanopb/encode (= 2.30909.0)
-  - nanopb/decode (2.30909.0)
-  - nanopb/encode (2.30909.0)
   - leveldb-library (1.22.1)
   - Libuv-gRPC (0.0.10):
     - Libuv-gRPC/Implementation (= 0.0.10)
@@ -909,10 +830,6 @@ SPEC CHECKSUMS:
   FirebaseFirestore: 244f71ff14ef44f39e00b44d356eac708ce03103
   FirebaseStorage: 0efbff0ac978981866d89804191688ae50d64033
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
-  "gRPC-C++": 9675f953ace2b3de7c506039d77be1f2e77a8db2
-  gRPC-Core: 943e491cb0d45598b0b0eb9e910c88080369290b
-  GTMSessionFetcher: c9e714f7eec91a55641e2bab9f45fd83a219b882
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   "gRPC-C++": 9675f953ace2b3de7c506039d77be1f2e77a8db2
@@ -922,15 +839,11 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
-  leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
-  Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
-  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
-  PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
 
-PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
+PODFILE CHECKSUM: 18afbf8956ca32b1ceef11f6a478980b00646c43
 
 COCOAPODS: 1.11.3
