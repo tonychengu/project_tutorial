@@ -33,7 +33,9 @@ class _LoginPageState extends State<LoginPage> {
           password: passwordController.text,
           context: context,
         );
-    await LocalUserInfo.loginUser(context.read<User?>()!.uid);
+    await LocalUserInfo.loginUser(context
+        .read<User?>()!
+        .uid); //error on login click if user doesn't enter email/password
     if (context.read<FirebaseAuthMethods>().isLoggedIn()) {
       Navigator.of(context).push(
         // OR onPressed: () async { await Navigator.push(...);  await anyOtherMethod(); }
@@ -89,6 +91,7 @@ class _LoginPageState extends State<LoginPage> {
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: CustomTextField(
                 controller: passwordController,
+                //obscureText: true,
                 hintText: 'Enter your password',
               ),
             ),
@@ -97,7 +100,8 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: loginUser,
               child: const Text('Login'),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.blue),
+                backgroundColor:
+                    MaterialStateProperty.all(Colors.green.shade300),
                 textStyle: MaterialStateProperty.all(
                   const TextStyle(color: Colors.white),
                 ),
@@ -107,6 +111,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(height: 24),
+            /*
             ElevatedButton(
               onPressed: debugloginUser,
               child: const Text('Debug Login'),
@@ -119,8 +124,9 @@ class _LoginPageState extends State<LoginPage> {
                   Size(MediaQuery.of(context).size.width / 2.5, 50),
                 ),
               ),
-            ),
-            const SizedBox(height: 24),
+            )
+            ,
+            const SizedBox(height: 24),*/
             ElevatedButton(
               onPressed: () => Navigator.of(context).push(
                 // OR onPressed: () async { await Navigator.push(...);  await anyOtherMethod(); }
@@ -132,7 +138,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               child: const Text('Sign Up'),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.blue),
+                backgroundColor:
+                    MaterialStateProperty.all(Colors.green.shade300),
                 textStyle: MaterialStateProperty.all(
                   const TextStyle(color: Colors.white),
                 ),
@@ -153,7 +160,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               child: const Text('Forgot Password?'),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.blue),
+                backgroundColor:
+                    MaterialStateProperty.all(Colors.green.shade300),
                 textStyle: MaterialStateProperty.all(
                   const TextStyle(color: Colors.white),
                 ),

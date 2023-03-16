@@ -79,22 +79,29 @@ class _SignUpPageState extends State<SignUpPage> {
     if (context.read<FirebaseAuthMethods>().isLoggedIn()) {
       Navigator.of(context).pop();
     }
+/*
+    Navigator.of(context).push(//???
+        MaterialPageRoute(builder: (BuildContext context) {}));
+        */
+    //send back to login page?
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 32),
+        //padding: EdgeInsets.symmetric(horizontal: 32),
         physics: BouncingScrollPhysics(),
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-          Center(
-            child: const Text(
+          AppBar(),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+          const Center(
+            child: Text(
               "Sign Up",
               style: TextStyle(fontSize: 30),
             ),
           ),
+          const SizedBox(height: 24),
           ProfileWidget(
             imagePath:
                 'https://i.pinimg.com/originals/4c/f2/32/4cf232c9b64c925a95de471dc61931ce.jpg',
@@ -111,7 +118,7 @@ class _SignUpPageState extends State<SignUpPage> {
               imagePath.text = newImage.path;
             },
           ),
-          const SizedBox(height: 24),
+          //const SizedBox(height: 24),
           SizedBox(height: MediaQuery.of(context).size.height * 0.08),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -133,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: CustomTextField(
               controller: password2Controller,
-              hintText: 'Renter your password',
+              hintText: 'Re-enter your password',
             ),
           ),
           const SizedBox(height: 24),
@@ -141,7 +148,7 @@ class _SignUpPageState extends State<SignUpPage> {
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: CustomTextField(
               controller: nameController,
-              hintText: 'Enter your name',
+              hintText: 'Enter your full name',
             ),
           ),
           const SizedBox(height: 24),
@@ -157,7 +164,7 @@ class _SignUpPageState extends State<SignUpPage> {
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: CustomTextField(
               controller: minorController,
-              hintText: 'Enter your minor',
+              hintText: 'Enter your second major or minor',
             ),
           ),
           const SizedBox(height: 24),
@@ -172,7 +179,7 @@ class _SignUpPageState extends State<SignUpPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              '  in  MATH101,CS101 format',
+              '  in  MATH101, CS101 format',
               style: TextStyle(fontSize: 13),
             ),
           ),
@@ -229,6 +236,7 @@ class _SignUpPageState extends State<SignUpPage> {
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),
+          const SizedBox(height: 86),
         ],
       ),
     );

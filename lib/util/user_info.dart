@@ -13,20 +13,23 @@ import 'package:project_tutorial/model/user.dart';
 class LocalUserInfo {
   static late SharedPreferences prefs;
   static UserData myUser = UserData(
-    uid: '1',
-    name: 'Dooley',
-    imagePath:
-        'https://i.pinimg.com/originals/4c/f2/32/4cf232c9b64c925a95de471dc61931ce.jpg',
-    about: 'It is emory dooley',
-    year: 'Senior',
-    major: 'Computer Science',
-    minor: 'Math',
-    availableCourses: "CS101,CS102,CS103,CS104,CS105",
-  );
+      uid: '1',
+      name: 'Dooley',
+      imagePath:
+          'https://i.pinimg.com/originals/4c/f2/32/4cf232c9b64c925a95de471dc61931ce.jpg',
+      about: 'It is emory dooley',
+      year: 'Senior',
+      major: 'Computer Science',
+      minor: 'Math',
+      availableCourses: "CS101,CS102,CS103,CS104,CS105",
+      balance: 0,
+      ratings: 0,
+      taughtCount: 0,
+      fullPath: '');
 
   static Future init() async => {
         prefs = await SharedPreferences.getInstance(),
-        //myUser = getLocalUser(),
+        myUser = getLocalUser(),
       };
   static Future saveUser(UserData user, BuildContext context,
       {bool signup = false}) async {

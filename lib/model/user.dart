@@ -11,7 +11,9 @@ class UserData {
   String? about;
   String imagePath;
   int taughtCount;
-  double ratings;
+  int ratings;
+  String fullPath;
+  int balance;
   //TODO: add time table
 
   UserData({
@@ -26,6 +28,8 @@ class UserData {
         'https://firebasestorage.googleapis.com/v0/b/cs370-329f4.appspot.com/o/profileImg.png?alt=media',
     this.taughtCount = 0,
     this.ratings = 0,
+    this.balance = 0,
+    this.fullPath = '',
   });
 
   // convert profile to map
@@ -40,6 +44,8 @@ class UserData {
         'availableCourses': availableCourses,
         'taughtCount': taughtCount,
         'ratings': ratings,
+        'balance': balance,
+        'fullPath': fullPath,
       };
 
   // convert map to profile
@@ -54,6 +60,8 @@ class UserData {
         availableCourses: json['availableCourses'],
         taughtCount: json['taughtCount'],
         ratings: json['ratings'],
+        balance: json['balance'],
+        fullPath: json['fullPath'],
       );
 
   // copy UserData
@@ -67,7 +75,9 @@ class UserData {
           String? imagePath,
           String? availableCourses,
           int? taughtCount,
-          double? ratings}) =>
+          int? ratings,
+          String? fullPath,
+          int? balance}) =>
       UserData(
           uid: uid ?? this.uid,
           name: name ?? this.name,
@@ -78,7 +88,9 @@ class UserData {
           imagePath: imagePath ?? this.imagePath,
           availableCourses: availableCourses ?? this.availableCourses,
           taughtCount: taughtCount ?? this.taughtCount,
-          ratings: ratings ?? this.ratings);
+          ratings: ratings ?? this.ratings,
+          balance: balance ?? this.balance,
+          fullPath: fullPath ?? this.fullPath);
 
   String getRating() {
     return (1.0 * ratings / taughtCount).toStringAsFixed(1);

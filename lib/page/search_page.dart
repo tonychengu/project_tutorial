@@ -6,9 +6,10 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar:
-            AppBar(title: const Text('Search', style: TextStyle(fontSize: 30))),
-        body: const Center(child: Text('Search for your tutor!')),
+        appBar: AppBar(
+            backgroundColor: Colors.green.shade300,
+            title: const Text('Search', style: TextStyle(fontSize: 30))),
+        body: const Center(child: Text('')),
         floatingActionButton: FloatingActionButton(
           onPressed: () {}, //insert connection to comment bar
           child: Icon(Icons.comment),

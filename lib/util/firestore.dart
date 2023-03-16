@@ -54,7 +54,7 @@ class FireStoreMethods {
 
   Future<void> modifyTutorAndCourses(
       BuildContext context, Map<String, dynamic> data) async {
-    final courses = data["availableCourses"];
+    final courses = data["availableCourses"].split(',');
     final uid = data["uid"];
     try {
       WriteBatch batch = db.batch();

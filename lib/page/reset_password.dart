@@ -34,9 +34,10 @@ class _RestPasswordPageState extends State<RestPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 32),
+        //padding: EdgeInsets.symmetric(horizontal: 32),
         physics: BouncingScrollPhysics(),
         children: [
+          AppBar(),
           SizedBox(height: MediaQuery.of(context).size.height * 0.08),
           Center(
             child: const Text(
