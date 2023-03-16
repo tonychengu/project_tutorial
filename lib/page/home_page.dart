@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.green.shade300,
         elevation: 0,
         centerTitle: true,
         actions: <Widget>[
@@ -209,9 +209,7 @@ class _HomePageState extends State<HomePage> {
                               icon: const Icon(Icons.favorite),
                               tooltip: 'Favorite',
                               onPressed: () {}, //add to user favorites list
-                              color: _showTutors
-                                  ? Colors.blueAccent
-                                  : Colors.blueAccent,
+                              color: _showTutors ? Colors.red : Colors.red,
                               highlightColor:
                                   _showTutors ? Colors.red : Colors.red,
                             ),
