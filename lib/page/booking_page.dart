@@ -42,6 +42,8 @@ class _BookingPageState extends State<BookingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          centerTitle: true,
+          automaticallyImplyLeading: false,
           title: const Text('Review Your Past Session',
               style: TextStyle(fontSize: 25))),
       body: Center(
