@@ -158,6 +158,7 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: Colors.green.shade300,
         elevation: 0,
+        automaticallyImplyLeading: false,
         centerTitle: true,
         actions: <Widget>[
           //this decenters the header and i dont like that
@@ -280,7 +281,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: Container(
         decoration: BoxDecoration(
-          color: Colors.blueAccent,
+          color: Colors.green[300],
           borderRadius: BorderRadius.circular(20),
         ),
         child: ToggleButtons(
@@ -291,7 +292,7 @@ class _HomePageState extends State<HomePage> {
           },
           isSelected: [_showTutors, !_showTutors],
           selectedColor: Colors.white,
-          fillColor: Colors.blueAccent,
+          fillColor: Colors.green[300],
           borderRadius: BorderRadius.circular(20),
           children: [
             Padding(

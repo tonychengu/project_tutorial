@@ -10,6 +10,7 @@ import 'package:project_tutorial/page/inbox_page.dart';
 import 'package:project_tutorial/page/home_page.dart';
 import 'package:project_tutorial/page/profile_page.dart';
 import 'package:project_tutorial/page/login_page.dart';
+import 'package:project_tutorial/page/upcoming_bookings_page.dart';
 
 // util
 import 'package:project_tutorial/util/firestore.dart';
