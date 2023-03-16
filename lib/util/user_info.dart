@@ -51,7 +51,7 @@ class LocalUserInfo {
     }
   }
 
-  static UserData getLocalUser(BuildContext? context) {
+  static UserData getLocalUser() {
     final json = prefs.getString('Local');
     if (json != null) {
       return UserData.fromJson(jsonDecode(json));

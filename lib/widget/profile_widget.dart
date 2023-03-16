@@ -9,8 +9,9 @@ class ProfileWidget extends StatelessWidget {
 
   ProfileWidget({
     Key? key,
-    this.imagePath =
-        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    // this.imagePath =
+    //     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    required this.imagePath,
     this.isEdit = false,
     required this.onClicked,
   }) : super(key: key);

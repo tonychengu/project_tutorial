@@ -11,9 +11,15 @@ import 'package:project_tutorial/widget/textfield_widget.dart';
 import 'package:project_tutorial/widget/button_widget.dart';
 // import dependency
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
+//import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path_provider_android/path_provider_android.dart';
+import 'package:path_provider_ios/path_provider_ios.dart';
+// also for web
+import 'package:path_provider_windows/path_provider_windows.dart';
+import 'package:path_provider/path_provider.dart';
 
 const years = <String>[
   'Freshman',
@@ -28,27 +34,28 @@ const years = <String>[
 ];
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage(BuildContext context, {super.key});
-
   @override
-  State<EditProfilePage> createState() =>
-      _EditProfilePageState(context as BuildContext);
+  State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  late UserData user;
+  // UserData user;
 
-  _EditProfilePageState(BuildContext context);
+  // void initState() {
+  //   super.initState();
 
-  void initState() {
-    super.initState();
+  //   //user = LocalUserInfo.getLocalUser(context as BuildContext?);
+  // }
 
-    user = LocalUserInfo.getLocalUser(context as BuildContext?);
+  static void registerPulgin() {
+    if (Platform.isAndroid) PathProviderAndroid.registerWith();
+    if (Platform.isIOS) PathProviderIOS.registerWith();
+    if (Platform.isWindows) PathProviderWindows.registerWith();
   }
 
   @override
   Widget build(BuildContext context) {
-    user = LocalUserInfo.getLocalUser(context);
+    UserData user = LocalUserInfo.getLocalUser();
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 32),
@@ -59,15 +66,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
             imagePath: user.imagePath,
             isEdit: true,
             onClicked: () async {
-              final image =
-                  await ImagePicker().getImage(source: ImageSource.gallery);
+              final image = await ImagePicker().pickImage(
+                source: ImageSource.gallery,
+                maxHeight: 512,
+                maxWidth: 512,
+                imageQuality: 90,
+              );
               if (image == null) return;
-
+              final storageRef = FirebaseStorage.instance.ref();
+              registerPulgin();
               final directory = await getApplicationDocumentsDirectory();
-              final path = File('${directory.path}/profileImg.png');
-              final newImage = await File(image.path).copy(path.path);
-
-              setState(() => user = user.copy(imagePath: newImage.path));
+              final uid = user.uid;
+              final ext = extension(image.path);
+              final imageFile = File('${directory.path}/$uid$ext');
+              final newImage = await File(image.path).copy(imageFile.path);
+              await storageRef.child('profile_pics/$uid$ext').putFile(newImage);
+              final url = await storageRef
+                  .child('profile_pics/$uid$ext')
+                  .getDownloadURL();
+              setState(() => user = user.copy(imagePath: url));
             },
           ),
           const SizedBox(height: 24),
