@@ -23,6 +23,7 @@ import 'package:project_tutorial/widget/snackbar_widget.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //DartPluginRegistrant.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
