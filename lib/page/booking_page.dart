@@ -48,7 +48,6 @@ class _BookingPageState extends State<BookingsPage> {
         child: SizedBox(
           width: 390,
           height: 650,
-          height: 650,
           child: Card(
             margin: EdgeInsets.all(15),
             elevation: 10,
