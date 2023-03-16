@@ -7,7 +7,6 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            automaticallyImplyLeading: false,
             backgroundColor: Colors.green.shade300,
             title: const Text('Search', style: TextStyle(fontSize: 30))),
         body: const Center(child: Text('')),

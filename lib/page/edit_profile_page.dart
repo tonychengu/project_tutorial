@@ -39,13 +39,13 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  // UserData user;
+  late UserData user;
 
-  // void initState() {
-  //   super.initState();
+  void initState() {
+    super.initState();
 
-  //   //user = LocalUserInfo.getLocalUser(context as BuildContext?);
-  // }
+    user = LocalUserInfo.getLocalUser();
+  }
 
   static void registerPulgin() {
     if (Platform.isAndroid) PathProviderAndroid.registerWith();
@@ -55,7 +55,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    UserData user = LocalUserInfo.getLocalUser();
+    //UserData user = LocalUserInfo.getLocalUser();
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: 32),
@@ -74,6 +74,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
               );
               if (image == null) return;
               final storageRef = FirebaseStorage.instance.ref();
+              if (user.fullPath != '') {
+                final pastPic = storageRef.child(user.fullPath);
+                await pastPic.delete();
+              }
               registerPulgin();
               final directory = await getApplicationDocumentsDirectory();
               final uid = user.uid;
@@ -84,7 +88,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
               final url = await storageRef
                   .child('profile_pics/$uid$ext')
                   .getDownloadURL();
-              setState(() => user = user.copy(imagePath: url));
+              final newUser =
+                  user.copy(imagePath: url, fullPath: 'profile_pics/$uid$ext');
+              //await LocalUserInfo.saveUser(newUser, context);
+              setState(() => user =
+                  user.copy(imagePath: url, fullPath: 'profile_pics/$uid$ext'));
             },
           ),
           const SizedBox(height: 24),

@@ -143,14 +143,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               _showTutors ? 'Tutors' : 'Students',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -158,10 +156,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        automaticallyImplyLeading: false,
         backgroundColor: Colors.green.shade300,
-        elevation: 4,
+        elevation: 0,
+        centerTitle: true,
         actions: <Widget>[
+          //this decenters the header and i dont like that
+          //const Text('Filters'),
           IconButton(
             icon: const Icon(Icons.filter_list),
             tooltip: 'Filters',
@@ -185,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 2,
                     blurRadius: 5,
-                    offset: const Offset(0, 3),
+                    offset: Offset(0, 3),
                   ),
                 ],
               ),
@@ -222,28 +222,28 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(height: 16),
                           Text(
                             user.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          SizedBox(height: 8),
                           Text(
                             '${user.major} | ${user.year}',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
                               color: Colors.grey,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          SizedBox(height: 8),
                           SizedBox(
                             height: 30,
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemCount: user.courses.length,
                               separatorBuilder: (context, index) =>
-                                  const SizedBox(width: 8),
+                                  SizedBox(width: 8),
                               itemBuilder: (context, index) {
                                 return Chip(
                                   label: Text(user.courses[index]),
@@ -252,15 +252,14 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          SizedBox(height: 8),
                           Row(
                             children: [
-                              const Icon(Icons.star,
-                                  size: 16, color: Colors.amber),
-                              const SizedBox(width: 8),
+                              Icon(Icons.star, size: 16, color: Colors.amber),
+                              SizedBox(width: 8),
                               Text(
                                 '${user.rating} (${user.numSessions} sessions)',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey,
@@ -268,7 +267,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16),
                         ],
                       ),
                     ),
@@ -294,18 +293,17 @@ class _HomePageState extends State<HomePage> {
           selectedColor: Colors.white,
           fillColor: Colors.blueAccent,
           borderRadius: BorderRadius.circular(20),
-          color: Colors.grey,
-          children: const [
+          children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text('Tutors'),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text('Students'),
             ),
           ],
-          // set the unselected button color
+          color: Colors.grey, // set the unselected button color
         ),
       ),
     );
