@@ -145,6 +145,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               _showTutors ? 'Tutors' : 'Students',
@@ -158,6 +159,7 @@ class _HomePageState extends State<HomePage> {
         ),
         backgroundColor: Colors.green.shade300,
         elevation: 0,
+        automaticallyImplyLeading: false,
         centerTitle: true,
         actions: <Widget>[
           //this decenters the header and i dont like that
