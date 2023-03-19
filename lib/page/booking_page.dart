@@ -53,10 +53,12 @@ class _BookingPageState extends State<BookingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          backgroundColor: Colors.black12,
           centerTitle: true,
+          toolbarHeight: 40,
           automaticallyImplyLeading: false,
           title: const Text('Review Your Past Session',
-              style: TextStyle(fontSize: 25))),
+              style: TextStyle(fontSize: 20))),
       body: Center(
         child: SizedBox(
           width: 390,
@@ -137,12 +139,12 @@ class _BookingPageState extends State<BookingsPage> {
                       children: <Widget>[
                         ElevatedButton(
                           onPressed: () => Navigator.of(context).pop(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                            return CurrentBookingPage();
-                          })),
+                              // MaterialPageRoute(builder: (BuildContext context) {
+                              //   return CurrentBookingPage();
+                              // }),
+                              ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueGrey,
+                            backgroundColor: Colors.green,
                           ),
                           child: const Text('Submit',
                               style: TextStyle(color: Colors.black, height: 1)),
