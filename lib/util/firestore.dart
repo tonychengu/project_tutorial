@@ -22,7 +22,7 @@ class FireStoreMethods {
   Future<void> addUserData(
       BuildContext context, Map<String, dynamic> data) async {
     try {
-      await db.collection("users").add(data);
+      await db.collection("users").doc(data['uid']).set(data);
     } on FirebaseException catch (e) {
       showSnackBar(context, e.message!);
       rethrow;

@@ -70,8 +70,8 @@ class _RootPageState extends State<RootPage> {
   List pages = [
     const HomePage(),
     const BookingsPage(),
-    CurrentBookingPage(),
     const InboxPage(),
+    const ProfilePage(),
   ];
   void onTap(int index) {
     setState(() {
@@ -129,13 +129,10 @@ class AuthWrapper extends StatelessWidget {
 
     if (firebaseUser != null) {
       return const RootPage();
-    } else if (firebaseUser != null && firebaseUser.emailVerified) {
-      showSnackBar(
-        context,
-        'You need to verify your email address first',
-      );
-      return const LoginPage();
     }
+    // } else if (firebaseUser != null && !firebaseUser.emailVerified) {
+    //   return const LoginPage();
+    // }
     return const LoginPage();
   }
 }

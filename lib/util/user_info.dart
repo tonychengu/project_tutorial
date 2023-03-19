@@ -40,8 +40,11 @@ class LocalUserInfo {
     await saveRemoteUser(user, context, signup: signup);
   }
 
-  static Future saveRemoteUser(UserData user, BuildContext context,
-      {bool signup = false}) async {
+  static Future saveRemoteUser(
+    UserData user,
+    BuildContext context, {
+    bool signup = false,
+  }) async {
     final uid = context.read<User?>()!.uid;
     if (uid != null && !signup) {
       await context
