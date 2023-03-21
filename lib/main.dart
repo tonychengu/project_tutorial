@@ -10,6 +10,7 @@ import 'package:project_tutorial/page/home_page.dart';
 import 'package:project_tutorial/page/profile_page.dart';
 import 'package:project_tutorial/page/login_page.dart';
 import 'package:project_tutorial/page/upcoming_bookings_page.dart';
+import 'package:project_tutorial/page/edit_calender_page.dart';
 
 // util
 import 'package:project_tutorial/util/firestore.dart';
@@ -72,6 +73,7 @@ class _RootPageState extends State<RootPage> {
     const BookingsPage(),
     const InboxPage(),
     const ProfilePage(),
+    //EditCalenderPage(),
   ];
   void onTap(int index) {
     setState(() {
@@ -112,6 +114,10 @@ class _RootPageState extends State<RootPage> {
                 icon: Icons.people,
                 text: 'Profile',
               ),
+              // GButton(
+              //   icon: Icons.wc,
+              //   text: 'Debug',
+              // ),
             ],
           ),
         ),
