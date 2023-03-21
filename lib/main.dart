@@ -70,7 +70,8 @@ class _RootPageState extends State<RootPage> {
   int currentPage = 0;
   List pages = [
     const HomePage(),
-    const BookingsPage(),
+    //const BookingsPage(),
+    CurrentBookingPage(),
     const InboxPage(),
     const ProfilePage(),
     //EditCalenderPage(),
@@ -100,7 +101,7 @@ class _RootPageState extends State<RootPage> {
             tabs: const [
               GButton(
                 icon: Icons.home,
-                text: 'Home',
+                text: 'Search',
               ),
               GButton(
                 icon: Icons.calendar_today,

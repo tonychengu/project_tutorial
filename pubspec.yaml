@@ -26,6 +26,7 @@ dependencies:
   flutter_local_notifications: ^8.2.0
   table_calendar: ^3.0.9
   time_range_picker: ^2.2.0
+  controller: ^0.1.11
 
 dev_dependencies:
   flutter_test:
