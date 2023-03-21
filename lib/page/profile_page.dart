@@ -48,7 +48,8 @@ class _ProfilePageState extends State<ProfilePage> {
               rating: user.getRating(),
               taught: user.getNumTaught()), // build ratings and courses taught
           const SizedBox(height: 48),
-          buildAbout(user),
+
+          buildAbout(user, context),
           const SizedBox(height: 96),
           ButtonBar(
             alignment: MainAxisAlignment.center,
@@ -136,8 +137,9 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
       ],
     );
 
-Widget buildAbout(UserData user) => Container(
-      padding: EdgeInsets.symmetric(horizontal: 48),
+Widget buildAbout(UserData user, BuildContext context) => Container(
+      padding: EdgeInsets.symmetric(horizontal: 24),
+      width: MediaQuery.of(context).size.width * 0.9,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -147,9 +149,9 @@ Widget buildAbout(UserData user) => Container(
           ),
           const SizedBox(height: 16),
           Text(
-            user.about ??
+            user.about ??w
                 "This user has not written anything about themselves yet.",
-            style: TextStyle(fontSize: 16, height: 1.4),
+            style: TextStyle(fontSize: 14, height: 1.5),
           ),
         ],
       ),
