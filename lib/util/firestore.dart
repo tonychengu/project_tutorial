@@ -108,7 +108,7 @@ class FireStoreMethods {
         Timestamp _end = Timestamp.fromDate(end[i]);
         slots.add([_start, _end]);
       }
-      // loop throught the list to see if there are overlapping timeslots
+      // loop through the list to see if there are overlapping timeslots
       for (int i = 0; i < slots.length; i++) {
         for (int j = i + 1; j < slots.length; j++) {
           // if there is a partial overlap, merge the two timeslots
