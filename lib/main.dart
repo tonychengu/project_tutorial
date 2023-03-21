@@ -51,7 +51,7 @@ class PTutorial extends StatelessWidget {
         title: 'PTutorial',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
         ),
         home: const AuthWrapper(),
       ),
