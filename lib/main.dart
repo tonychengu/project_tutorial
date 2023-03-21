@@ -11,6 +11,7 @@ import 'package:project_tutorial/page/home_page.dart';
 import 'package:project_tutorial/page/profile_page.dart';
 import 'package:project_tutorial/page/login_page.dart';
 import 'package:project_tutorial/page/upcoming_bookings_page.dart';
+import 'package:project_tutorial/page/edit_calender_page.dart';
 
 // util
 import 'package:project_tutorial/util/firestore.dart';
@@ -73,6 +74,7 @@ class _RootPageState extends State<RootPage> {
     CurrentBookingPage(),
     const InboxPage(),
     const ProfilePage(),
+    //EditCalenderPage(),
   ];
   void onTap(int index) {
     setState(() {
@@ -113,6 +115,10 @@ class _RootPageState extends State<RootPage> {
                 icon: Icons.people,
                 text: 'Profile',
               ),
+              // GButton(
+              //   icon: Icons.wc,
+              //   text: 'Debug',
+              // ),
             ],
           ),
         ),
@@ -130,13 +136,10 @@ class AuthWrapper extends StatelessWidget {
 
     if (firebaseUser != null) {
       return const RootPage();
-    } else if (firebaseUser != null && firebaseUser.emailVerified) {
-      showSnackBar(
-        context,
-        'You need to verify your email address first',
-      );
-      return const LoginPage();
     }
+    // } else if (firebaseUser != null && !firebaseUser.emailVerified) {
+    //   return const LoginPage();
+    // }
     return const LoginPage();
   }
 }
