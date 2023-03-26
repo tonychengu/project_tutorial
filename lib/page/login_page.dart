@@ -81,18 +81,24 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: MediaQuery.of(context).size.height * 0.08),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: CustomTextField(
-                controller: emailController,
-                hintText: 'Enter your email',
-              ),
+              child: TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                      labelText: 'Email',
+                      hintText: 'Enter your email',
+                      prefixIcon: Icon(Icons.mail))),
             ),
             const SizedBox(height: 24),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: CustomTextField(
+              child: TextFormField(
                 controller: passwordController,
-                //obscureText: true,
-                hintText: 'Enter your password',
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: 'Enter your password',
+                  labelText: 'Password',
+                  prefixIcon: Icon(Icons.lock),
+                ),
               ),
             ),
             const SizedBox(height: 40),

@@ -30,9 +30,6 @@ const years = <String>[
   'Junior',
   'Senior',
   'Graduate',
-  'PhD',
-  'PostDoc',
-  'Professor',
   'Other'
 ];
 
@@ -71,7 +68,9 @@ class _SignUpPageState extends State<SignUpPage> {
       'taughtCount': 0,
       'ratings': 0,
       'imagePath':
-          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+      'balance': 2,
+      'fullPath': ''
     };
     await LocalUserInfo.saveUser(UserData.fromJson(json), context,
         signup: true);
@@ -102,24 +101,6 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
           const SizedBox(height: 24),
-          ProfileWidget(
-            imagePath:
-                'https://i.pinimg.com/originals/4c/f2/32/4cf232c9b64c925a95de471dc61931ce.jpg',
-            isEdit: true,
-            onClicked: () async {
-              final image =
-                  await ImagePicker().getImage(source: ImageSource.gallery);
-              if (image == null) return;
-
-              final directory = await getApplicationDocumentsDirectory();
-              final path = File('${directory.path}/profileImg.png');
-              final newImage = await File(image.path).copy(path.path);
-
-              imagePath.text = newImage.path;
-            },
-          ),
-          //const SizedBox(height: 24),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.08),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: CustomTextField(

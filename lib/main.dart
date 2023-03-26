@@ -5,10 +5,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'package:project_tutorial/page/booking_page.dart';
-import 'package:project_tutorial/page/search_page.dart';
+import 'package:project_tutorial/page/inbox_page.dart';
 import 'package:project_tutorial/page/home_page.dart';
 import 'package:project_tutorial/page/profile_page.dart';
 import 'package:project_tutorial/page/login_page.dart';
+import 'package:project_tutorial/page/upcoming_bookings_page.dart';
+import 'package:project_tutorial/page/edit_calender_page.dart';
 
 // util
 import 'package:project_tutorial/util/firestore.dart';
@@ -50,7 +52,7 @@ class PTutorial extends StatelessWidget {
         title: 'PTutorial',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.green,
         ),
         home: const AuthWrapper(),
       ),
@@ -69,9 +71,11 @@ class _RootPageState extends State<RootPage> {
   int currentPage = 0;
   List pages = [
     const HomePage(),
-    const BookingsPage(),
-    const SearchPage(),
+    //const BookingsPage(),
+    CurrentBookingPage(),
+    const InboxPage(),
     const ProfilePage(),
+    //EditCalenderPage(),
   ];
   void onTap(int index) {
     setState(() {
@@ -98,20 +102,24 @@ class _RootPageState extends State<RootPage> {
             tabs: const [
               GButton(
                 icon: Icons.home,
-                text: 'Home',
+                text: 'Search',
               ),
               GButton(
                 icon: Icons.calendar_today,
                 text: 'Bookings',
               ),
               GButton(
-                icon: Icons.search,
-                text: 'Search',
+                icon: Icons.inbox,
+                text: 'Inbox',
               ),
               GButton(
                 icon: Icons.people,
                 text: 'Profile',
               ),
+              // GButton(
+              //   icon: Icons.wc,
+              //   text: 'Debug',
+              // ),
             ],
           ),
         ),
@@ -129,13 +137,10 @@ class AuthWrapper extends StatelessWidget {
 
     if (firebaseUser != null) {
       return const RootPage();
-    } else if (firebaseUser != null && firebaseUser.emailVerified) {
-      showSnackBar(
-        context,
-        'You need to verify your email address first',
-      );
-      return const LoginPage();
     }
+    // } else if (firebaseUser != null && !firebaseUser.emailVerified) {
+    //   return const LoginPage();
+    // }
     return const LoginPage();
   }
 }
