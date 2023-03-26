@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:intl/intl.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -136,7 +137,7 @@ class FireStoreMethods {
           DateTime _end = slot[1].toDate();
           int add_month = min(6 - _start.month, 12 - _start.month);
           //Duration time_diff = _end.difference(_start);
-          DateTime _finalEnd = DateTime(_end.year + 1, _end.month + add_month,
+          DateTime _finalEnd = DateTime(_end.year, _end.month + add_month,
               _end.day, _end.hour, _end.minute);
           while (_start.isBefore(_finalEnd)) {
             _start = _start.add(Duration(days: 7));
@@ -309,8 +310,8 @@ class FireStoreMethods {
         .get();
     List<String> slots = [];
     querySnapshot.docs.forEach((doc) {
-      DateTime start = doc["start"].toDate();
-      DateTime end = doc["end"].toDate();
+      final start = DateFormat('M/d EEE h:mm a').format(doc["start"].toDate());
+      final end = DateFormat('M/d EEE h:mm a').format(doc["end"].toDate());
       slots.add(start.toString() + " - " + end.toString());
     });
     return slots;

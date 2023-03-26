@@ -19,28 +19,34 @@ class ShowCalenderPage extends StatefulWidget {
 
 class _ShowCalenderPageState extends State<ShowCalenderPage> {
   late UserData user;
-  late List<String> _timeslot;
+  List<String> _timeslot = ['No timeslot found.'];
 
-  Future<void> initState() async {
+  void initState() {
     super.initState();
 
     user = LocalUserInfo.getLocalUser();
+    _getTimeslot();
+  }
+
+  Future<void> _getTimeslot() async {
     _timeslot = await FireStoreMethods().getAllTimeSlots(user.uid);
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    //_timeslot = FireStoreMethods().getAllTimeSlots(user.uid);
     return Scaffold(
-        appBar: AppBar(
-          title: Text('My Availability'),
-        ),
-        body: Expanded(
-          child: ListView.builder(
-            itemCount: _timeslot.length,
-            itemBuilder: (context, index) {
-              return Text(_timeslot[index]);
-            },
-          ),
-        ));
+      appBar: AppBar(
+        title: Text('My Availability'),
+      ),
+      body: ListView.builder(
+        physics: BouncingScrollPhysics(),
+        itemCount: _timeslot.length,
+        itemBuilder: (context, index) {
+          return Text(_timeslot[index]);
+        },
+      ),
+    );
   }
 }
