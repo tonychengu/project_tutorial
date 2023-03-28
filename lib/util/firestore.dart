@@ -22,7 +22,7 @@ class FireStoreMethods {
   Future<void> addUserData(
       BuildContext context, Map<String, dynamic> data) async {
     try {
-      await db.collection("users").add(data);
+      await db.collection("users").doc(data['uid']).set(data);
     } on FirebaseException catch (e) {
       showSnackBar(context, e.message!);
       rethrow;
@@ -89,5 +89,54 @@ class FireStoreMethods {
     QuerySnapshot querySnapshot =
         await db.collection("users").where("uid", isEqualTo: uid).get();
     return querySnapshot;
+  }
+
+  Future<void> updateUserAvailibity(
+      String uid, List<DateTime> start, List<DateTime> end) async {
+    try {
+      WriteBatch batch = db.batch();
+      // delete all documents with the same uid
+      QuerySnapshot querySnapshot =
+          await db.collection("timeslots").where("uid", isEqualTo: uid).get();
+      querySnapshot.docs.forEach((doc) {
+        batch.delete(doc.reference);
+      });
+      // add timeslots to a list
+      List<List<Timestamp>> slots = [];
+      for (int i = 0; i < start.length; i++) {
+        Timestamp _start = Timestamp.fromDate(start[i]);
+        Timestamp _end = Timestamp.fromDate(end[i]);
+        slots.add([_start, _end]);
+      }
+      // loop throught the list to see if there are overlapping timeslots
+      for (int i = 0; i < slots.length; i++) {
+        for (int j = i + 1; j < slots.length; j++) {
+          // if there is a partial overlap, merge the two timeslots
+          if (slots[i][0].compareTo(slots[j][1]) < 0 &&
+              slots[i][1].compareTo(slots[j][0]) > 0) {
+            slots[i][0] = slots[i][0].compareTo(slots[j][0]) < 0
+                ? slots[i][0]
+                : slots[j][0];
+            slots[i][1] = slots[i][1].compareTo(slots[j][1]) > 0
+                ? slots[i][1]
+                : slots[j][1];
+            slots.removeAt(j);
+            j--;
+          }
+        }
+      }
+      // add new documents
+      slots.forEach((slot) {
+        batch.set(db.collection("timeslots").doc(), {
+          "uid": uid,
+          "start": slot[0],
+          "end": slot[1],
+        });
+      });
+      batch.commit();
+    } on FirebaseException catch (e) {
+      rethrow;
+    }
+    return;
   }
 }
