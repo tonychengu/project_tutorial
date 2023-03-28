@@ -15,6 +15,7 @@ import 'package:project_tutorial/widget/numbers_widget.dart';
 import 'package:project_tutorial/page/edit_profile_page.dart';
 import 'package:project_tutorial/page/login_page.dart';
 import 'package:project_tutorial/page/edit_calender_page.dart';
+import 'package:project_tutorial/page/show_calender_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -29,10 +30,9 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = LocalUserInfo.getLocalUser();
     final courses = user.getAvlCourses();
     return Scaffold(
-      body: ListView(
-        physics: BouncingScrollPhysics(),
+      body: Column(
         children: [
-          const SizedBox(height: 48),
+          SizedBox(height: 48),
           ProfileWidget(
             imagePath: user.imagePath,
             onClicked: () async {
@@ -42,40 +42,61 @@ class _ProfilePageState extends State<ProfilePage> {
               setState(() {});
             },
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           buildName(context, user, courses),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           NumbersWidget(
-              rating: user.getRating(),
-              taught: user.getNumTaught()), // build ratings and courses taught
-          const SizedBox(height: 48),
-
-          buildAbout(user, context),
-          const SizedBox(height: 96),
-          ElevatedButton(
-              onPressed: () async {
-                await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => EditCalenderPage(),
-                ));
-                setState(() {});
-              },
-              child: Text("Edit Calender")),
-          const SizedBox(height: 24),
-          ButtonBar(
-            alignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                child: Text('Sign Out'),
-                onPressed: () async {
-                  LocalUserInfo.clearUser();
-                  await context.read<FirebaseAuthMethods>().signOut(context);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                },
-              ),
-            ],
-          )
+            rating: user.getRating(),
+            taught: user.getNumTaught(),
+          ),
+          SizedBox(height: 48),
+          buildAbout(user),
+          SizedBox(height: 48),
+          ElevatedButton.icon(
+            onPressed: () async {
+              await Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EditCalenderPage(),
+              ));
+              setState(() {});
+            },
+            style: ElevatedButton.styleFrom(
+              shape: StadiumBorder(),
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              primary: Theme.of(context).accentColor,
+              onPrimary: Colors.white,
+            ),
+            icon: Icon(Icons.edit),
+            label: Text("Edit Calendar"),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton.icon(
+            onPressed: () async {
+              await Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ShowCalenderPage(),
+              ));
+              setState(() {});
+            },
+            style: ElevatedButton.styleFrom(
+              shape: StadiumBorder(),
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              primary: Theme.of(context).accentColor,
+              onPrimary: Colors.white,
+            ),
+            icon: Icon(Icons.calendar_today),
+            label: Text("Show Calendar"),
+          ),
+          SizedBox(height: 20),
+          TextButton.icon(
+            onPressed: () async {
+              LocalUserInfo.clearUser();
+              await context.read<FirebaseAuthMethods>().signOut(context);
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            },
+            icon: Icon(Icons.logout),
+            label: Text('Sign Out'),
+          ),
         ],
       ),
     );
@@ -86,7 +107,7 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
     Column(
       children: [
         IntrinsicHeight(
-          // Row of  Name | Year
+          // Row of  Name | Year
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -104,7 +125,7 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
           ),
         ),
         const SizedBox(height: 24),
-        // Row of Major | Minor
+
         Text(
           user.minor == null
               ? 'Major: ${user.major}'
@@ -112,7 +133,30 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
           style: TextStyle(color: Colors.black),
         ),
         const SizedBox(height: 24),
-        // Row of Available Courses
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.green,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.attach_money,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Text(
+              'Balance: ${user.balance}',
+              style: TextStyle(fontSize: 20, color: Colors.black),
+            ),
+          ],
+        ),
+        const SizedBox(height: 24),
+// Row of Available Courses
         Container(
           alignment: Alignment.centerLeft,
           width: MediaQuery.of(context).size.width * 0.9,
@@ -147,9 +191,8 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
       ],
     );
 
-Widget buildAbout(UserData user, BuildContext context) => Container(
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      width: MediaQuery.of(context).size.width * 0.9,
+Widget buildAbout(UserData user) => Container(
+      padding: EdgeInsets.symmetric(horizontal: 48),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -159,9 +202,9 @@ Widget buildAbout(UserData user, BuildContext context) => Container(
           ),
           const SizedBox(height: 16),
           Text(
-            user.about ??w
+            user.about ??
                 "This user has not written anything about themselves yet.",
-            style: TextStyle(fontSize: 14, height: 1.5),
+            style: TextStyle(fontSize: 16, height: 1.4),
           ),
         ],
       ),
