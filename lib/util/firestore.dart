@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_tutorial/widget/snackbar_widget.dart';
 
+import 'package:project_tutorial/model/user.dart';
+
 // two databases: one uid as primary key and save user data, the other use uid and course taught as primary to get all the tutors
 // final userdata = {
 //   'uid': 123,
