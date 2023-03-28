@@ -10,16 +10,26 @@ class upcoming_events_tmp {
   final String location;
   final String courses;
   final int Status;
+  final String major;
+  final String year;
+  final bool isTutor;
   // 0 is upcoming, 1 is ongoing, 2 is finished, 3 is commented
   final String Comment;
+  final String startTime;
+  final String endTime;
 
   upcoming_events_tmp({
+    required this.isTutor,
     required this.name,
     required this.time,
     required this.location,
     required this.courses,
     required this.Status,
     required this.Comment,
+    required this.startTime,
+    required this.endTime,
+    required this.major,
+    required this.year,
   });
 }
 
@@ -56,21 +66,29 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
 
   List<upcoming_events_tmp> _events = [
     upcoming_events_tmp(
-      name: 'Swoop',
-      time: 'March 27th',
-      location: 'Student center',
-      courses: 'US History',
-      Status: 0,
-      Comment: '',
-    ),
+        isTutor: true,
+        name: 'Swoop',
+        time: 'March 27th',
+        location: 'Student center',
+        courses: 'US History',
+        Status: 0,
+        Comment: '',
+        major: 'Chemistry',
+        year: 'Sophomore',
+        startTime: '1:00PM',
+        endTime: '2:00PM'),
     upcoming_events_tmp(
-      name: 'Dooley',
-      time: 'March 31st',
-      location: 'Woodruff Library',
-      courses: 'Computer Science',
-      Status: 0,
-      Comment: '',
-    )
+        isTutor: false,
+        name: 'Dooley',
+        time: 'March 31st',
+        location: 'Woodruff Library',
+        courses: 'Computer Science',
+        Status: 0,
+        Comment: '',
+        major: 'Computer Science',
+        year: 'Senior',
+        startTime: '1:00PM',
+        endTime: '2:00PM'),
   ];
 
   Widget build(BuildContext context) {
@@ -101,87 +119,137 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
                 ],
               ),
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                    ),
-                    Expanded(
-                      child: Column(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 5.0, horizontal: 5.0),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 16),
-                          Text(
-                            event.name,
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 16),
+                                Text(
+                                  '${event.name}',
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  '${event.major} | ${event.year}',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey.shade700,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text('Subject: ${event.courses}',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                                SizedBox(height: 10),
+                                Text(
+                                  'Location: ${event.location}',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text('Date: ${event.time}',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                                SizedBox(height: 8),
+                                Text(
+                                    'Time: ${event.startTime} to ${event.endTime}',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                                SizedBox(height: 10),
+                                // Transform(
+                                //   transform: Matrix4.identity()..scale(1.1),
+                                //   child: Chip(
+                                //     label: Text(
+                                //       event.courses,
+                                //     ),
+                                //     backgroundColor: Colors.grey[200],
+                                //   ),
+                                // ),
+                                // SizedBox(height: 10),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Location: ${event.location}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey.shade600,
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            event.time,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Transform(
-                            transform: Matrix4.identity()..scale(1.1),
-                            child: Chip(
-                              label: Text(
-                                event.courses,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(height: 21),
+                              Text(
+                                '${getType(event)}',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              backgroundColor: Colors.grey[200],
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          ButtonBar(
-                            alignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              ElevatedButton(
-                                  onPressed: () async {
-                                    final reason = await CancelDialog();
-                                    if (reason == null || reason.isEmpty)
-                                      return;
-                                    setState(() => this.Comment = reason);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: CircleBorder(),
-                                    backgroundColor: Colors.grey,
-                                    padding: EdgeInsets.all(1),
-                                  ),
-                                  child: const Icon(Icons.cancel)),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    CheckIN();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: StadiumBorder(),
-                                    backgroundColor: Colors.green[300],
-                                    padding: EdgeInsets.all(1),
-                                  ),
-                                  child: const Icon(Icons.fact_check_outlined)),
+                              SizedBox(height: 15),
+                              CircleAvatar(
+                                radius: 50,
+                                //put image from backend
+                                backgroundColor: event.isTutor
+                                    ? Colors.blue.shade300
+                                    : Colors.green.shade300,
+                                foregroundColor: Colors.white,
+                                child: Text(
+                                  event.name.substring(0, 2),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
                             ],
-                          )
+                          ),
+                          SizedBox(width: 25),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
+                      ButtonBar(
+                        alignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          ElevatedButton(
+                              onPressed: () async {
+                                final reason = await CancelDialog();
+                                if (reason == null || reason.isEmpty) return;
+                                setState(() => this.Comment = reason);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: CircleBorder(),
+                                backgroundColor: Colors.grey,
+                                padding: EdgeInsets.all(1),
+                              ),
+                              child: const Icon(Icons.cancel)),
+                          ElevatedButton(
+                              onPressed: () {
+                                CheckIN();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: StadiumBorder(),
+                                backgroundColor: Colors.green[300],
+                                padding: EdgeInsets.all(1),
+                              ),
+                              child: const Icon(Icons.fact_check_outlined)),
+                          SizedBox(width: 15)
+                        ],
+                      ),
+                    ],
+                  )),
             ),
           );
         },
@@ -243,4 +311,12 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
               )
             ]),
       );
+}
+
+String getType(upcoming_events_tmp event) {
+  if (event.isTutor) {
+    return 'Tutor';
+  } else {
+    return 'Student';
+  }
 }

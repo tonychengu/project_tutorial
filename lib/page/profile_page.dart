@@ -50,16 +50,19 @@ class _ProfilePageState extends State<ProfilePage> {
               taught: user.getNumTaught()), // build ratings and courses taught
           const SizedBox(height: 48),
           buildAbout(user),
-          const SizedBox(height: 96),
-          ElevatedButton(
-              onPressed: () async {
-                await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => EditCalenderPage(),
-                ));
-                setState(() {});
-              },
-              child: Text("Edit Calender")),
-          const SizedBox(height: 24),
+          const SizedBox(height: 48),
+          ButtonBar(alignment: MainAxisAlignment.center, children: <Widget>[
+            (ElevatedButton(
+                onPressed: () async {
+                  await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => EditCalenderPage(),
+                  ));
+                  setState(() {});
+                },
+                style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                child: Text("Edit Calender"))),
+          ]),
+          const SizedBox(height: 20),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: [
