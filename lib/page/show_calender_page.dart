@@ -18,19 +18,28 @@ class ShowCalenderPage extends StatefulWidget {
 }
 
 class _ShowCalenderPageState extends State<ShowCalenderPage> {
-  late UserData user;
+  UserData user = LocalUserInfo.getLocalUser();
   List<String> _timeslot = ['No timeslot found.'];
 
   void initState() {
     super.initState();
 
-    user = LocalUserInfo.getLocalUser();
+    //user = LocalUserInfo.getLocalUser();
     _getTimeslot();
   }
 
   Future<void> _getTimeslot() async {
+    //user = LocalUserInfo.getLocalUser();
     _timeslot = await FireStoreMethods().getAllTimeSlots(user.uid);
-    setState(() {});
+    setState(() {
+      _timeslot = _timeslot;
+      if (_timeslot.length == 0) _timeslot.add('No timeslot found.');
+    });
+  }
+
+  @override
+  void dipose() {
+    super.dispose();
   }
 
   @override

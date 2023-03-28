@@ -153,8 +153,8 @@ class FireStoreMethods {
         } else {
           batch.set(db.collection("timeslots").doc(), {
             "uid": uid,
-            "start": Timestamp.fromDate(slot[0]),
-            "end": Timestamp.fromDate(slot[1]),
+            "start": slot[0],
+            "end": slot[1],
           });
         }
       });
