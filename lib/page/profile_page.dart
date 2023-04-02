@@ -42,16 +42,16 @@ class _ProfilePageState extends State<ProfilePage> {
               setState(() {});
             },
           ),
-          SizedBox(height: 24),
+          SizedBox(height: 10),
           buildName(context, user, courses),
-          SizedBox(height: 24),
+          SizedBox(height: 10),
           NumbersWidget(
             rating: user.getRating(),
             taught: user.getNumTaught(),
           ),
-          SizedBox(height: 48),
+          SizedBox(height: 10),
           buildAbout(user),
-          SizedBox(height: 48),
+          SizedBox(height: 20),
           ElevatedButton.icon(
             onPressed: () async {
               await Navigator.of(context).push(MaterialPageRoute(
@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
             icon: Icon(Icons.edit),
             label: Text("Edit Calendar"),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 0),
           ElevatedButton.icon(
             onPressed: () async {
               await Navigator.of(context).push(MaterialPageRoute(
@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
             icon: Icon(Icons.calendar_today),
             label: Text("Show Calendar"),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           TextButton.icon(
             onPressed: () async {
               LocalUserInfo.clearUser();
@@ -124,7 +124,7 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
             ],
           ),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 10),
 
         Text(
           user.minor == null
@@ -132,7 +132,7 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
               : 'Major: ${user.major} / Minor: ${user.minor}',
           style: TextStyle(color: Colors.black),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -155,7 +155,7 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
             ),
           ],
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 20),
 // Row of Available Courses
         Container(
           alignment: Alignment.centerLeft,
@@ -166,7 +166,7 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
             textAlign: TextAlign.center,
           ),
         ),
-        const SizedBox(height: 5),
+        const SizedBox(height: 10),
         SizedBox(
           height: 50,
           width: MediaQuery.of(context).size.width * 0.9,
@@ -200,7 +200,7 @@ Widget buildAbout(UserData user) => Container(
             'About',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 10),
           Text(
             user.about ??
                 "This user has not written anything about themselves yet.",

@@ -142,8 +142,8 @@ class _EditCalenderPageState extends State<EditCalenderPage> {
         if (result.endTime.hour * 60 +
                 result.endTime.minute -
                 (result.startTime.hour * 60 + result.startTime.minute) <
-            30) {
-          showSnackBar(context, 'Time slot must be at least 30 minutes');
+            60) {
+          showSnackBar(context, 'Time slot must be at least 60 minutes');
           return;
         }
         final startDateTime = DateTime(_selectedDay!.year, _selectedDay!.month,
@@ -155,7 +155,7 @@ class _EditCalenderPageState extends State<EditCalenderPage> {
         _recurrent.add(checkbox_value);
         final start = DateFormat('M/d EEE h:mm a').format(startDateTime);
         final end = DateFormat('M/d EEE h:mm a').format(endDateTime);
-        if (checkbox_value) {
+        if (checkbox_value) {sw
           _timeslot.add('$start - $end (Recurrent)');
         } else {
           _timeslot.add('$start - $end');

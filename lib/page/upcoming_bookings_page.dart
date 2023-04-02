@@ -56,18 +56,18 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
 
   List<upcoming_events_tmp> _events = [
     upcoming_events_tmp(
-      name: 'Swoop',
-      time: 'March 27th',
-      location: 'Student center',
-      courses: 'US History',
+      name: 'Swoop Emory',
+      time: '3/29/2023',
+      location: 'Student Center',
+      courses: 'ANT391',
       Status: 0,
       Comment: '',
     ),
     upcoming_events_tmp(
-      name: 'Dooley',
-      time: 'March 31st',
+      name: 'Dooley Emory',
+      time: '3/31/2023',
       location: 'Woodruff Library',
-      courses: 'Computer Science',
+      courses: 'CS370',
       Status: 0,
       Comment: '',
     )
@@ -191,7 +191,7 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
             .push(MaterialPageRoute(builder: (BuildContext context) {
           return const BookingsPage();
         })), //insert connection to comment bar
-        child: Icon(Icons.comment),
+        child: Icon(Icons.star),
       ),
     );
   }
@@ -199,21 +199,24 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
   Future<String?> CancelDialog() => showDialog<String>(
         context: context,
         builder: (context) => AlertDialog(
-            title: Text('What is the reason you are canceling:'),
+            title: Text('What is your reason for cancellation?'),
             content: TextField(
+              maxLines: 3,
               controller: controller,
               autofocus: true,
-              decoration: InputDecoration(hintText: 'describe your reason'),
+              decoration: InputDecoration(
+                  hintText:
+                      'Please remember, if you cancel within 24 hours of your session, you will still lose a Dooley Coin'),
             ),
             actions: [
               TextButton(
-                child: Text('Cancel'),
+                child: Text('Nevermind!'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               TextButton(
-                child: Text('Submit'),
+                child: Text('Confirm Cancellation'),
                 onPressed: () {
                   Navigator.of(context).pop(controller.text);
                 },
@@ -223,10 +226,10 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
   Future CheckIN() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-            title: Text('Enter Your Checkin code'),
+            title: Text('Enter Your Check-In Code'),
             content: TextField(
               autofocus: true,
-              decoration: InputDecoration(hintText: 'enter the code'),
+              decoration: InputDecoration(hintText: 'Enter your 6-digit code'),
             ),
             actions: [
               TextButton(
@@ -236,7 +239,7 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
                 },
               ),
               TextButton(
-                child: Text('CheckIn!'),
+                child: Text('Start Session'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
