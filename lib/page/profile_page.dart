@@ -15,6 +15,7 @@ import 'package:project_tutorial/widget/numbers_widget.dart';
 import 'package:project_tutorial/page/edit_profile_page.dart';
 import 'package:project_tutorial/page/login_page.dart';
 import 'package:project_tutorial/page/edit_calender_page.dart';
+import 'package:project_tutorial/page/show_calender_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -50,16 +51,31 @@ class _ProfilePageState extends State<ProfilePage> {
               taught: user.getNumTaught()), // build ratings and courses taught
           const SizedBox(height: 48),
           buildAbout(user),
-          const SizedBox(height: 96),
-          ElevatedButton(
-              onPressed: () async {
-                await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => EditCalenderPage(),
-                ));
-                setState(() {});
-              },
-              child: Text("Edit Calender")),
-          const SizedBox(height: 24),
+          const SizedBox(height: 48),
+          ButtonBar(alignment: MainAxisAlignment.center, children: <Widget>[
+            (ElevatedButton(
+                onPressed: () async {
+                  await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => EditCalenderPage(),
+                  ));
+                  setState(() {});
+                },
+                style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                child: Text("Edit Calender"))),
+          ]),
+          const SizedBox(height: 20),
+          ButtonBar(alignment: MainAxisAlignment.center, children: <Widget>[
+            (ElevatedButton(
+                onPressed: () async {
+                  await Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ShowCalenderPage(),
+                  ));
+                  setState(() {});
+                },
+                style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                child: Text("Show Calender"))),
+          ]),
+          const SizedBox(height: 20),
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: [
