@@ -76,10 +76,13 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.green.shade400,
-          centerTitle: true,
-          title:
-              const Text('Upcoming Bookings', style: TextStyle(fontSize: 25))),
+        backgroundColor: Colors.green.shade400,
+        centerTitle: true,
+        title: const Text(
+          'Upcoming Bookings',
+          style: TextStyle(fontSize: 25),
+        ),
+      ),
       body: ListView.builder(
         itemCount: _events.length,
         itemBuilder: (context, index) {

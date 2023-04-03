@@ -102,7 +102,7 @@ class _RootPageState extends State<RootPage> {
             tabs: const [
               GButton(
                 icon: Icons.home,
-                text: 'Search',
+                text: 'Home',
               ),
               GButton(
                 icon: Icons.calendar_today,
