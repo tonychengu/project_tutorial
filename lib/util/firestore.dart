@@ -5,6 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_tutorial/widget/snackbar_widget.dart';
 
+import 'package:project_tutorial/model/user.dart';
+import 'package:project_tutorial/model/events.dart';
+
 // two databases: one uid as primary key and save user data, the other use uid and course taught as primary to get all the tutors
 // final userdata = {
 //   'uid': 123,
@@ -111,7 +114,7 @@ class FireStoreMethods {
         Timestamp _end = Timestamp.fromDate(end[i]);
         slots.add([_start, _end, recurrent[i]]);
       }
-      // loop throught the list to see if there are overlapping timeslots
+      // loop through the list to see if there are overlapping timeslots
       for (int i = 0; i < slots.length; i++) {
         for (int j = i + 1; j < slots.length; j++) {
           // if there is a partial overlap, merge the two timeslots, if one of them is recurrent, the merged one is also recurrent
@@ -151,8 +154,8 @@ class FireStoreMethods {
         } else {
           batch.set(db.collection("timeslots").doc(), {
             "uid": uid,
-            "start": Timestamp.fromDate(slot[0]),
-            "end": Timestamp.fromDate(slot[1]),
+            "start": slot[0],
+            "end": slot[1],
           });
         }
       });
@@ -226,7 +229,7 @@ class FireStoreMethods {
   }
 
   // for homepage tutor search
-  Future<List<List<DateTime>>> getTimeslotsByUid(List<String> uid) async {
+  Future<List<List<DateTime>>> getTimeslotsByUid(String uid) async {
     QuerySnapshot querySnapshot = await db
         .collection("timeslots")
         .where("uid", isEqualTo: uid)
@@ -236,7 +239,7 @@ class FireStoreMethods {
     QuerySnapshot querySnapshot2 = await db
         .collection("events")
         //where tutor_uid OR student_uid is in the list of uid
-        .where("tutor_uid", whereIn: uid)
+        .where("tutor_uid", isEqualTo: uid)
         .orderBy("start")
         .get();
     List<List<DateTime>> slots = populateSlots(querySnapshot);
@@ -246,7 +249,7 @@ class FireStoreMethods {
     querySnapshot2 = await db
         .collection("events")
         //where tutor_uid OR student_uid is in the list of uid
-        .where("student_uid", whereIn: uid)
+        .where("student_uid", isEqualTo: uid)
         .orderBy("start")
         .get();
     events = populateSlots(querySnapshot2);
@@ -315,5 +318,43 @@ class FireStoreMethods {
       slots.add(start.toString() + " - " + end.toString());
     });
     return slots;
+  }
+
+  Future<void> reserveEvent(String tutor_uid, String student_uid,
+      DateTime start, DateTime end, String course, String location) async {
+    try {
+      await db.collection("events").add({
+        "tutor_uid": tutor_uid,
+        "student_uid": student_uid,
+        "start": Timestamp.fromDate(start),
+        "end": Timestamp.fromDate(end),
+        "course": course,
+        "status": "Submitted",
+        "location": location,
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<EventsData>> getEventsByUid(String uid) async {
+    QuerySnapshot querySnapshot = await db
+        .collection("events")
+        .where("tutor_uid", isEqualTo: uid)
+        .orderBy("start")
+        .get();
+    List<EventsData> events = [];
+    querySnapshot.docs.forEach((doc) {
+      events.add(EventsData(
+          uid: doc["uid"],
+          tutor_uid: doc["tutor_uid"],
+          student_uid: doc["student_uid"],
+          start: doc["start"].toDate(),
+          end: doc["end"].toDate(),
+          course: doc["course"],
+          status: doc["status"],
+          location: doc["location"]));
+    });
+    return events;
   }
 }

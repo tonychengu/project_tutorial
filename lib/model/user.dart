@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserData {
   // required field
   String uid;
@@ -113,6 +115,23 @@ class UserData {
     }
     coursesString = coursesString.substring(0, coursesString.length - 1);
     return this.copy(availableCourses: coursesString);
+  }
+
+  static UserData fromDocumentSnapshot(QueryDocumentSnapshot doc) {
+    return UserData(
+      uid: doc['uid'],
+      name: doc['name'],
+      year: doc['year'],
+      major: doc['major'],
+      minor: doc['minor'],
+      about: doc['about'],
+      imagePath: doc['imagePath'],
+      availableCourses: doc['availableCourses'],
+      taughtCount: doc['taughtCount'],
+      ratings: doc['ratings'],
+      balance: doc['balance'],
+      fullPath: doc['fullPath'],
+    );
   }
 
   // updateImage(XFile image){
