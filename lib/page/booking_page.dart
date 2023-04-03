@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_tutorial/model/events.dart';
 import 'package:project_tutorial/page/upcoming_bookings_page.dart';
 import 'package:project_tutorial/widget/button_widget.dart';
 import 'package:project_tutorial/widget/textfield_widget.dart';
@@ -44,27 +45,46 @@ class _BookingPageState extends State<BookingsPage> {
   // }
 
   late UserData user;
-  List<UserData> stuents = [];
+  List<UserData> submittedEventStudents = [];
+  List<UserData> upcomingEventStudents = [];
+
+  List<EventsData> submittedEvents = [];
+  List<EventsData> upcomingEvents = [];
 
   void initState() {
     super.initState();
 
     user = LocalUserInfo.getLocalUser();
+    _getEventReservation();
   }
 
   Future<void> _getEventReservation() async {
-    List<UserData> tmp_stuents = [];
+    List<UserData> tmp_submitted_stu = [];
+    List<UserData> tmp_upcoming_stu = [];
+    List<EventsData> tmp_submitted_events = [];
+    List<EventsData> tmp_upcoming_events = [];
     final event = await FireStoreMethods().getEventsByUid(user.uid);
     for (final e in event) {
       if (e.status == "Submitted") {
+        tmp_submitted_events.add(e);
         final student_query =
             await FireStoreMethods().getUserByUid(e.student_uid);
         final student = UserData.fromDocumentSnapshot(student_query.docs.first);
-        tmp_stuents.add(student);
+        tmp_submitted_stu.add(student);
+      }
+      if (e.status == "Upcoming") {
+        tmp_upcoming_events.add(e);
+        final student_query =
+            await FireStoreMethods().getUserByUid(e.student_uid);
+        final student = UserData.fromDocumentSnapshot(student_query.docs.first);
+        tmp_upcoming_stu.add(student);
       }
     }
     setState(() {
-      stuents = tmp_stuents;
+      submittedEventStudents = tmp_submitted_stu;
+      upcomingEventStudents = tmp_upcoming_stu;
+      submittedEvents = tmp_submitted_events;
+      upcomingEvents = tmp_upcoming_events;
     });
   }
 
