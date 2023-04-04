@@ -8,25 +8,8 @@ import 'package:project_tutorial/util/firestore.dart';
 import 'package:project_tutorial/widget/profile_widget.dart';
 import 'package:project_tutorial/widget/numbers_widget.dart';
 
-class User_home_tmp {
-  final String uid;
-  final String name;
-  final String year;
-  final String major;
-  final List<String> courses;
-  final double rating;
-  final int numSessions;
-
-  User_home_tmp({
-    required this.uid,
-    required this.name,
-    required this.year,
-    required this.major,
-    required this.courses,
-    required this.rating,
-    required this.numSessions,
-  });
-}
+import 'package:project_tutorial/page/filters.dart';
+import 'package:project_tutorial/page/about_user.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -145,7 +128,7 @@ class _HomePageState extends State<HomePage> {
   List<User_home_tmp> _students = [];
 
   List<User_home_tmp> get _users => _showTutors ? _tutors : _students;
-
+  @override
   void initState() {
     super.initState();
 
@@ -218,7 +201,10 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: const Icon(Icons.filter_list),
             tooltip: 'Filters',
-            onPressed: () {},
+            onPressed: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (BuildContext context) {
+              return const FiltersPage();
+            })),
           ),
         ],
       ),
@@ -242,12 +228,21 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserInfoPage(user: user),
+                    ),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           children: [
@@ -267,64 +262,66 @@ class _HomePageState extends State<HomePage> {
                                   _showTutors ? Colors.red : Colors.red,
                             ),
                           ],
-                        )),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 16),
-                          Text(
-                            user.name,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            '${user.major} | ${user.year}',
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          SizedBox(
-                            height: 30,
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: user.courses.length,
-                              separatorBuilder: (context, index) =>
-                                  SizedBox(width: 8),
-                              itemBuilder: (context, index) {
-                                return Chip(
-                                  label: Text(user.courses[index]),
-                                  backgroundColor: Colors.grey[200],
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Row(
-                            children: [
-                              Icon(Icons.star, size: 16, color: Colors.amber),
-                              SizedBox(width: 8),
-                              Text(
-                                '${user.rating} (${user.numSessions} sessions)',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 16),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 16),
+                            Text(
+                              user.name,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              '${user.major} | ${user.year}',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            SizedBox(
+                              height: 30,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: user.courses.length,
+                                separatorBuilder: (context, index) =>
+                                    SizedBox(width: 8),
+                                itemBuilder: (context, index) {
+                                  return Chip(
+                                    label: Text(user.courses[index]),
+                                    backgroundColor: Colors.grey[200],
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Row(
+                              children: [
+                                Icon(Icons.star, size: 16, color: Colors.amber),
+                                SizedBox(width: 8),
+                                Text(
+                                  '${user.rating} (${user.numSessions} sessions)',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 16),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
