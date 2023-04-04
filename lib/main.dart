@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_tutorial/page/chat_page.dart';
+import 'package:project_tutorial/page/inbox_default_page.dart';
 import 'package:project_tutorial/page/upcoming_bookings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -72,7 +74,8 @@ class _RootPageState extends State<RootPage> {
   List pages = [
     const HomePage(),
     CurrentBookingPage(),
-    const InboxPage(),
+    //chat(),
+    InboxDefaultPage(),
     const ProfilePage(),
     //EditCalenderPage(),
   ];
