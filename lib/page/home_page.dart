@@ -9,6 +9,7 @@ import 'package:project_tutorial/widget/profile_widget.dart';
 import 'package:project_tutorial/widget/numbers_widget.dart';
 
 class User_home_tmp {
+  final String uid;
   final String name;
   final String year;
   final String major;
@@ -17,6 +18,7 @@ class User_home_tmp {
   final int numSessions;
 
   User_home_tmp({
+    required this.uid,
     required this.name,
     required this.year,
     required this.major,
@@ -165,6 +167,7 @@ class _HomePageState extends State<HomePage> {
     // turn the list of users into a list of User_home_tmp
     for (int i = 0; i < tutorList.length; i++) {
       _tutors.add(User_home_tmp(
+        uid: tutorList[i].uid,
         name: tutorList[i].name,
         year: tutorList[i].year,
         major: tutorList[i].major,
@@ -175,6 +178,7 @@ class _HomePageState extends State<HomePage> {
     }
     for (int i = 0; i < studentList.length; i++) {
       _students.add(User_home_tmp(
+        uid: studentList[i].uid,
         name: studentList[i].name,
         year: studentList[i].year,
         major: studentList[i].major,

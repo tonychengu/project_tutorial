@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:project_tutorial/model/events.dart';
 import 'package:project_tutorial/page/upcoming_bookings_page.dart';
 import 'package:project_tutorial/widget/button_widget.dart';
 import 'package:project_tutorial/widget/textfield_widget.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+
+import 'package:project_tutorial/model/user.dart';
+
+import 'package:project_tutorial/util/user_info.dart';
+import 'package:project_tutorial/util/firestore.dart';
 
 class BookingsPage extends StatefulWidget {
   const BookingsPage({Key? key}) : super(key: key);
@@ -39,6 +45,50 @@ class _BookingPageState extends State<BookingsPage> {
   //   });
   // }
 
+  late UserData user;
+  List<UserData> submittedEventStudents = [];
+  List<UserData> upcomingEventStudents = [];
+
+  List<EventsData> submittedEvents = [];
+  List<EventsData> upcomingEvents = [];
+
+  void initState() {
+    super.initState();
+
+    user = LocalUserInfo.getLocalUser();
+    _getEventReservation();
+  }
+
+  Future<void> _getEventReservation() async {
+    List<UserData> tmp_submitted_stu = [];
+    List<UserData> tmp_upcoming_stu = [];
+    List<EventsData> tmp_submitted_events = [];
+    List<EventsData> tmp_upcoming_events = [];
+    final event = await FireStoreMethods().getEventsByUid(user.uid);
+    for (final e in event) {
+      if (e.status == "Submitted") {
+        tmp_submitted_events.add(e);
+        final student_query =
+            await FireStoreMethods().getUserByUid(e.student_uid);
+        final student = UserData.fromDocumentSnapshot(student_query.docs.first);
+        tmp_submitted_stu.add(student);
+      }
+      if (e.status == "Upcoming") {
+        tmp_upcoming_events.add(e);
+        final student_query =
+            await FireStoreMethods().getUserByUid(e.student_uid);
+        final student = UserData.fromDocumentSnapshot(student_query.docs.first);
+        tmp_upcoming_stu.add(student);
+      }
+    }
+    setState(() {
+      submittedEventStudents = tmp_submitted_stu;
+      upcomingEventStudents = tmp_upcoming_stu;
+      submittedEvents = tmp_submitted_events;
+      upcomingEvents = tmp_upcoming_events;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +112,19 @@ class _BookingPageState extends State<BookingsPage> {
               padding: const EdgeInsets.all(30),
               child: ListView(
                 children: [
+                  Text("Upcoming Bookings",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  const SizedBox(height: 10),
                   Text(
                     'Review Your Tutor',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Review Swoop on Chemistry',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                   ),
                   const Text(

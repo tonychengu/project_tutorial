@@ -138,7 +138,7 @@ class _EditCalenderPageState extends State<EditCalenderPage> {
         if (_selectedDay == null) {
           _selectedDay = DateTime.now();
         }
-        // if the timeslot is less then 30 mintues, show snackbar
+        // if the timeslot is less then 60 mintues, show snackbar
         if (result.endTime.hour * 60 +
                 result.endTime.minute -
                 (result.startTime.hour * 60 + result.startTime.minute) <

@@ -30,9 +30,10 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = LocalUserInfo.getLocalUser();
     final courses = user.getAvlCourses();
     return Scaffold(
-      body: Column(
+      body: ListView(
+        physics: BouncingScrollPhysics(),
         children: [
-          SizedBox(height: 48),
+          const SizedBox(height: 48),
           ProfileWidget(
             imagePath: user.imagePath,
             onClicked: () async {
@@ -42,14 +43,13 @@ class _ProfilePageState extends State<ProfilePage> {
               setState(() {});
             },
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           buildName(context, user, courses),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           NumbersWidget(
-            rating: user.getRating(),
-            taught: user.getNumTaught(),
-          ),
-          SizedBox(height: 10),
+              rating: user.getRating(),
+              taught: user.getNumTaught()), // build ratings and courses taught
+          const SizedBox(height: 10),
           buildAbout(user),
           SizedBox(height: 20),
           ElevatedButton.icon(
@@ -107,7 +107,7 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
     Column(
       children: [
         IntrinsicHeight(
-          // Row of  Name | Year
+          // Row of  Name | Year
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -125,7 +125,7 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
           ),
         ),
         const SizedBox(height: 10),
-
+        // Row of Major | Minor
         Text(
           user.minor == null
               ? 'Major: ${user.major}'
@@ -200,11 +200,11 @@ Widget buildAbout(UserData user) => Container(
             'About',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 16),
           Text(
             user.about ??
                 "This user has not written anything about themselves yet.",
-            style: TextStyle(fontSize: 16, height: 1.4),
+            style: TextStyle(fontSize: 10, height: 1.4),
           ),
         ],
       ),
