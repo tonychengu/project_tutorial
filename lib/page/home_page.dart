@@ -175,52 +175,52 @@ class _HomePageState extends State<HomePage> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            '${user.major} | ${user.year}',
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          SizedBox(
-                            height: 30,
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: user.courses.length,
-                              separatorBuilder: (context, index) =>
-                                  SizedBox(width: 8),
-                              itemBuilder: (context, index) {
-                                return Chip(
-                                  label: Text(user.courses[index]),
-                                  backgroundColor: Colors.grey[200],
-                                );
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Row(
-                            children: [
-                              Icon(Icons.star, size: 16, color: Colors.amber),
-                              SizedBox(width: 8),
-                              Text(
-                                '${user.rating} (${user.numSessions} sessions)',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
-                                ),
+                            SizedBox(height: 8),
+                            Text(
+                              '${user.major} | ${user.year}',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 16),
-                        ],
+                            ),
+                            SizedBox(height: 8),
+                            SizedBox(
+                              height: 30,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: user.courses.length,
+                                separatorBuilder: (context, index) =>
+                                    SizedBox(width: 8),
+                                itemBuilder: (context, index) {
+                                  return Chip(
+                                    label: Text(user.courses[index]),
+                                    backgroundColor: Colors.grey[200],
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Row(
+                              children: [
+                                Icon(Icons.star, size: 16, color: Colors.amber),
+                                SizedBox(width: 8),
+                                Text(
+                                  '${user.rating} (${user.numSessions} sessions)',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 16),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
