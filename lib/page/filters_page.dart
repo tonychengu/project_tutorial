@@ -178,6 +178,7 @@ class _FiltersPageState extends State<FiltersPage> {
     } else {
       final snap = await FireStoreMethods().newTutors();
       showSnackBar(context, "You must enter a course to begin searching");
+      return parseQuery(snap);
     }
     showSnackBar(context, "Server Error.");
     return tutors;

@@ -188,10 +188,8 @@ class FireStoreMethods {
     // QuerySnapshot querySnapshot =
     //     await db.collection("tutors").where("course", isEqualTo: course).get();
     // query the users collection to get the user data of the tutors
-    QuerySnapshot querySnapshot = await db
-        .collection("users")
-        .where("availableCourses", arrayContains: course)
-        .get();
+    QuerySnapshot querySnapshot =
+        await db.collection("tutors").where("course", isEqualTo: course).get();
     //List<dynamic> uid = querySnapshot.docs.map((doc) => doc["uid"]).toList();
     // if there are time slots specified, query the timeslots collection to get the uid of the tutors who are available at the time
     if (start != null && end != null) {
