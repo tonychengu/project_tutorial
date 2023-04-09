@@ -198,11 +198,11 @@ class FireStoreMethods {
       // if start of end is null, use default 30 minutes
       if (start == null) {
         // end time minus 30 mins
-        start = end.subtract(Duration(minutes: 30));
+        start = end.subtract(Duration(minutes: 60));
       }
       if (end == null) {
         // start time plus 30 mins
-        end = start.add(Duration(minutes: 30));
+        end = start.add(Duration(minutes: 60));
       }
       QuerySnapshot querySnapshot2 = await db
           .collection("timeslots")

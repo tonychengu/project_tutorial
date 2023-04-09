@@ -100,10 +100,23 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             icon: const Icon(Icons.filter_list),
             tooltip: 'Filters',
-            onPressed: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (BuildContext context) {
-              return const FiltersPage();
-            })),
+            // onPressed: () => Navigator.of(context)
+            //     .push(MaterialPageRoute(builder: (BuildContext context) {
+            //   return const FiltersPage();
+            // })),
+            onPressed: () async {
+              final newList = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FiltersPage(),
+                ),
+              );
+              if (newList != null && newList.length != 0) {
+                setState(() {
+                  _tutors = newList;
+                });
+              }
+            },
           ),
         ],
       ),
