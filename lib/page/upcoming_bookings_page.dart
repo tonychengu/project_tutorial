@@ -4,24 +4,12 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:project_tutorial/page/booking_page.dart';
 import 'package:controller/controller.dart';
 
-class upcoming_events_tmp {
-  final String name;
-  final String time;
-  final String location;
-  final String courses;
-  final int Status;
-  // 0 is upcoming, 1 is ongoing, 2 is finished, 3 is commented
-  final String Comment;
-
-  upcoming_events_tmp({
-    required this.name,
-    required this.time,
-    required this.location,
-    required this.courses,
-    required this.Status,
-    required this.Comment,
-  });
-}
+//import intl
+import 'package:intl/intl.dart';
+// import events.dart
+import 'package:project_tutorial/model/events.dart';
+// import booking card
+import 'package:project_tutorial/widget/booking_card.dart';
 
 class CurrentBookingPage extends StatefulWidget {
   const CurrentBookingPage({Key? key}) : super(key: key);
@@ -54,23 +42,18 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
     super.dispose();
   }
 
-  List<upcoming_events_tmp> _events = [
-    upcoming_events_tmp(
-      name: 'Swoop Emory',
-      time: '3/29/2023',
-      location: 'Student Center',
-      courses: 'ANT391',
-      Status: 0,
-      Comment: '',
-    ),
-    upcoming_events_tmp(
-      name: 'Dooley Emory',
-      time: '3/31/2023',
-      location: 'Woodruff Library',
-      courses: 'CS370',
-      Status: 0,
-      Comment: '',
-    )
+  List<EventsData> _events = [
+    // a dummy test data
+    EventsData(
+        course: 'CSC2001',
+        student_name: '123',
+        tutor_name: "tony",
+        student_uid: "stu",
+        tutor_uid: "tut",
+        location: 'LT1',
+        start: DateTime.now(),
+        end: DateTime.now(),
+        status: 'Submitted'),
   ];
 
   Widget build(BuildContext context) {
@@ -84,106 +67,115 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
         itemCount: _events.length,
         itemBuilder: (context, index) {
           final event = _events[index];
-          return Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 16),
-                          Text(
-                            event.name,
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Location: ${event.location}',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey.shade600,
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            event.time,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Transform(
-                            transform: Matrix4.identity()..scale(1.1),
-                            child: Chip(
-                              label: Text(
-                                event.courses,
-                              ),
-                              backgroundColor: Colors.grey[200],
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          ButtonBar(
-                            alignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              ElevatedButton(
-                                  onPressed: () async {
-                                    final reason = await CancelDialog();
-                                    if (reason == null || reason.isEmpty)
-                                      return;
-                                    setState(() => this.Comment = reason);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: CircleBorder(),
-                                    backgroundColor: Colors.grey,
-                                    padding: EdgeInsets.all(1),
-                                  ),
-                                  child: const Icon(Icons.cancel)),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    CheckIN();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: StadiumBorder(),
-                                    backgroundColor: Colors.green[300],
-                                    padding: EdgeInsets.all(1),
-                                  ),
-                                  child: const Icon(Icons.fact_check_outlined)),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return BookingCard(event: event, onCheck: () {}, onDeny: () {});
+          // return Padding(
+          //   padding:
+          //       const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+          //   child: Container(
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(10),
+          //       color: Colors.white,
+          //       boxShadow: [
+          //         BoxShadow(
+          //           color: Colors.grey.withOpacity(0.5),
+          //           spreadRadius: 2,
+          //           blurRadius: 5,
+          //           offset: Offset(0, 3),
+          //         ),
+          //       ],
+          //     ),
+          //     child: Container(
+          //       padding:
+          //           const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),
+          //       child: Row(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Padding(
+          //             padding: const EdgeInsets.all(16.0),
+          //           ),
+          //           Expanded(
+          //             child: Column(
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               children: [
+          //                 SizedBox(height: 16),
+          //                 Text(
+          //                   event.name,
+          //                   style: TextStyle(
+          //                     fontSize: 25,
+          //                     fontWeight: FontWeight.bold,
+          //                   ),
+          //                 ),
+          //                 SizedBox(height: 10),
+          //                 Text(
+          //                   'Location: ${event.location}',
+          //                   style: TextStyle(
+          //                     fontSize: 20,
+          //                     color: Colors.grey.shade600,
+          //                   ),
+          //                 ),
+          //                 SizedBox(height: 10),
+          //                 Text(
+          //                   'Status: ${event.location}',
+          //                   style: TextStyle(
+          //                     fontSize: 20,
+          //                     color: Colors.grey.shade600,
+          //                   ),
+          //                 ),
+          //                 SizedBox(height: 10),
+          //                 Text(
+          //                   event.time,
+          //                   style: TextStyle(
+          //                     fontSize: 20,
+          //                     color: Colors.grey,
+          //                   ),
+          //                 ),
+          //                 SizedBox(height: 10),
+          //                 Transform(
+          //                   transform: Matrix4.identity()..scale(1.1),
+          //                   child: Chip(
+          //                     label: Text(
+          //                       event.courses,
+          //                     ),
+          //                     backgroundColor: Colors.grey[200],
+          //                   ),
+          //                 ),
+          //                 SizedBox(height: 10),
+          //                 ButtonBar(
+          //                   alignment: MainAxisAlignment.end,
+          //                   children: <Widget>[
+          //                     ElevatedButton(
+          //                         onPressed: () async {
+          //                           final reason = await CancelDialog();
+          //                           if (reason == null || reason.isEmpty)
+          //                             return;
+          //                           setState(() => this.Comment = reason);
+          //                         },
+          //                         style: ElevatedButton.styleFrom(
+          //                           shape: CircleBorder(),
+          //                           backgroundColor: Colors.grey,
+          //                           padding: EdgeInsets.all(1),
+          //                         ),
+          //                         child: const Icon(Icons.cancel)),
+          //                     ElevatedButton(
+          //                         onPressed: () {
+          //                           CheckIN();
+          //                         },
+          //                         style: ElevatedButton.styleFrom(
+          //                           shape: StadiumBorder(),
+          //                           backgroundColor: Colors.green[300],
+          //                           padding: EdgeInsets.all(1),
+          //                         ),
+          //                         child: const Icon(Icons.fact_check_outlined)),
+          //                   ],
+          //                 )
+          //               ],
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // );
         },
       ),
       floatingActionButton: FloatingActionButton(

@@ -320,17 +320,18 @@ class FireStoreMethods {
     return slots;
   }
 
-  Future<void> reserveEvent(String tutor_uid, String student_uid,
-      DateTime start, DateTime end, String course, String location) async {
+  Future<void> reserveEvent(EventsData event) async {
     try {
       await db.collection("events").add({
-        "tutor_uid": tutor_uid,
-        "student_uid": student_uid,
-        "start": Timestamp.fromDate(start),
-        "end": Timestamp.fromDate(end),
-        "course": course,
-        "status": "Submitted",
-        "location": location,
+        "tutor_uid": event.tutor_uid,
+        "student_uid": event.student_uid,
+        "start": Timestamp.fromDate(event.start),
+        "end": Timestamp.fromDate(event.end),
+        "course": event.course,
+        "status": event.status,
+        "location": event.location,
+        "tutor_name": event.tutor_name,
+        "student_name": event.student_name,
       });
     } catch (e) {
       rethrow;
@@ -349,6 +350,8 @@ class FireStoreMethods {
           uid: doc["uid"],
           tutor_uid: doc["tutor_uid"],
           student_uid: doc["student_uid"],
+          tutor_name: doc["tutor_name"],
+          student_name: doc["student_name"],
           start: doc["start"].toDate(),
           end: doc["end"].toDate(),
           course: doc["course"],

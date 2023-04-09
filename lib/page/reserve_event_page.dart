@@ -1,7 +1,10 @@
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 // model import
 import 'package:project_tutorial/model/user.dart';
+import 'package:project_tutorial/model/events.dart';
 // util import
 import 'package:project_tutorial/util/user_info.dart';
 import 'package:project_tutorial/util/firestore.dart';
@@ -169,13 +172,17 @@ class _ReserveEventPageState extends State<ReserveEventPage> {
                   // }
                   try {
                     // tuid, suid, start, end, course, location
-                    await FireStoreMethods().reserveEvent(
-                        widget.tutor_uid,
-                        user.uid,
-                        start,
-                        end,
-                        _availableCourses[currentIndex],
-                        _location);
+                    EventsData e = EventsData(
+                        tutor_uid: widget.tutor_uid,
+                        student_uid: user.uid,
+                        tutor_name: _tutor.name,
+                        student_name: user.name,
+                        status: "Submitted",
+                        start: start,
+                        end: end,
+                        course: _availableCourses[currentIndex],
+                        location: _location);
+                    await FireStoreMethods().reserveEvent(e);
                   } catch (e) {
                     showSnackBar(context, "Server Error: resubmit the event.");
                   }
