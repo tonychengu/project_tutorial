@@ -188,21 +188,19 @@ class FireStoreMethods {
     // QuerySnapshot querySnapshot =
     //     await db.collection("tutors").where("course", isEqualTo: course).get();
     // query the users collection to get the user data of the tutors
-    QuerySnapshot querySnapshot = await db
-        .collection("users")
-        .where("availableCourses", arrayContains: course)
-        .get();
+    QuerySnapshot querySnapshot =
+        await db.collection("tutors").where("course", isEqualTo: course).get();
     //List<dynamic> uid = querySnapshot.docs.map((doc) => doc["uid"]).toList();
     // if there are time slots specified, query the timeslots collection to get the uid of the tutors who are available at the time
     if (start != null && end != null) {
       // if start of end is null, use default 30 minutes
       if (start == null) {
         // end time minus 30 mins
-        start = end.subtract(Duration(minutes: 30));
+        start = end.subtract(Duration(minutes: 60));
       }
       if (end == null) {
         // start time plus 30 mins
-        end = start.add(Duration(minutes: 30));
+        end = start.add(Duration(minutes: 60));
       }
       QuerySnapshot querySnapshot2 = await db
           .collection("timeslots")
@@ -320,17 +318,18 @@ class FireStoreMethods {
     return slots;
   }
 
-  Future<void> reserveEvent(String tutor_uid, String student_uid,
-      DateTime start, DateTime end, String course, String location) async {
+  Future<void> reserveEvent(EventsData event) async {
     try {
       await db.collection("events").add({
-        "tutor_uid": tutor_uid,
-        "student_uid": student_uid,
-        "start": Timestamp.fromDate(start),
-        "end": Timestamp.fromDate(end),
-        "course": course,
-        "status": "Submitted",
-        "location": location,
+        "tutor_uid": event.tutor_uid,
+        "student_uid": event.student_uid,
+        "start": Timestamp.fromDate(event.start),
+        "end": Timestamp.fromDate(event.end),
+        "course": event.course,
+        "status": event.status,
+        "location": event.location,
+        "tutor_name": event.tutor_name,
+        "student_name": event.student_name,
       });
     } catch (e) {
       rethrow;
@@ -349,6 +348,8 @@ class FireStoreMethods {
           uid: doc["uid"],
           tutor_uid: doc["tutor_uid"],
           student_uid: doc["student_uid"],
+          tutor_name: doc["tutor_name"],
+          student_name: doc["student_name"],
           start: doc["start"].toDate(),
           end: doc["end"].toDate(),
           course: doc["course"],

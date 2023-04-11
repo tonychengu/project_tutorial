@@ -156,7 +156,7 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
           ],
         ),
         const SizedBox(height: 20),
-// Row of Available Courses
+        // Row of Available Courses
         Container(
           alignment: Alignment.centerLeft,
           width: MediaQuery.of(context).size.width * 0.9,

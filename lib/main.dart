@@ -76,7 +76,7 @@ class _RootPageState extends State<RootPage> {
     const InboxPage(),
     const ProfilePage(),
     //EditCalenderPage(),
-    ReserveEventPage(tutor_uid: "qbx7ZaMUiPbGsrwXcdR0M4yaXwE3"),
+    //ReserveEventPage(tutor_uid: "qbx7ZaMUiPbGsrwXcdR0M4yaXwE3"),
   ];
   void onTap(int index) {
     setState(() {
@@ -103,7 +103,7 @@ class _RootPageState extends State<RootPage> {
             tabs: const [
               GButton(
                 icon: Icons.home,
-                text: 'Search',
+                text: 'Home',
               ),
               GButton(
                 icon: Icons.calendar_today,
@@ -117,10 +117,10 @@ class _RootPageState extends State<RootPage> {
                 icon: Icons.people,
                 text: 'Profile',
               ),
-              GButton(
-                icon: Icons.wc,
-                text: 'Debug',
-              ),
+              // GButton(
+              //   icon: Icons.wc,
+              //   text: 'Debug',
+              // ),
             ],
           ),
         ),
