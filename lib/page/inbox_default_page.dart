@@ -106,7 +106,7 @@ class _InboxDefaultPageState extends State<InboxDefaultPage> {
                                             .first;
                                     return FutureBuilder(
                                         future: firestore
-                                            .collection('Users')
+                                            .collection('users')
                                             .doc(user)
                                             .get(),
                                         builder: (context, AsyncSnapshot snap) {
@@ -186,7 +186,7 @@ class _InboxDefaultPageState extends State<InboxDefaultPage> {
                                               .first;
                                       return FutureBuilder(
                                           future: firestore
-                                              .collection('Users')
+                                              .collection('users')
                                               .doc(user)
                                               .get(),
                                           builder:

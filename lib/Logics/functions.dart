@@ -11,7 +11,7 @@ class Functions {
       'email': _auth.currentUser!.email,
     };
     try {
-      _firestore.collection('Users').doc(_auth.currentUser!.uid).set(data);
+      _firestore.collection('users').doc(_auth.currentUser!.uid).set(data);
     } catch (e) {
       print(e);
     }
