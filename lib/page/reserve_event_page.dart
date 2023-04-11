@@ -114,13 +114,13 @@ class _ReserveEventPageState extends State<ReserveEventPage> {
             SizedBox(height: 10),
             // a text input field for location
             TextFieldWidget(
-                label: "Secession Location",
+                label: "Session Location",
                 text: _location,
                 onChanged: (loc) => _location = loc),
             SizedBox(height: 10),
             // Start and End time of the event
             TextFieldWidget(
-                label: "Secession Start Time (in yyyy/mm/dd hh:mm format)",
+                label: "Session Start Time (in yyyy/mm/dd hh:mm format)",
                 text: _startTime,
                 onChanged: (t) {
                   if (t.length == 16) {
@@ -129,7 +129,7 @@ class _ReserveEventPageState extends State<ReserveEventPage> {
                 }),
             SizedBox(height: 10),
             TextFieldWidget(
-                label: "Secession Duration (in minutes)",
+                label: "Session Duration (in minutes)",
                 text: duration.toString(),
                 onChanged: (d) {
                   duration = d;
@@ -145,23 +145,7 @@ class _ReserveEventPageState extends State<ReserveEventPage> {
                     showSnackBar(context, "Invalid time format");
                     return;
                   }
-                  int d = 30;
-                  try {
-                    d = int.parse(duration);
-                  } catch (e) {
-                    showSnackBar(context, "Invalid duration format");
-                    return;
-                  }
-                  if (d < 30) {
-                    showSnackBar(
-                        context, "Duration must be at least 30 minutes");
-                    return;
-                  }
-                  if (d > 180) {
-                    showSnackBar(
-                        context, "Duration must be less than 180 minutes");
-                    return;
-                  }
+                  int d = 60;
                   final end = start.add(Duration(minutes: d));
                   // if (widget.tutor_uid == user.uid) {
                   //   showSnackBar(context, "You cannot reserve your own event");
