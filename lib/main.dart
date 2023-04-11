@@ -14,6 +14,7 @@ import 'package:project_tutorial/page/profile_page.dart';
 import 'package:project_tutorial/page/login_page.dart';
 import 'package:project_tutorial/page/upcoming_bookings_page.dart';
 import 'package:project_tutorial/page/edit_calender_page.dart';
+import 'package:project_tutorial/page/reserve_event_page.dart';
 
 // util
 import 'package:project_tutorial/util/firestore.dart';
@@ -78,6 +79,7 @@ class _RootPageState extends State<RootPage> {
     InboxDefaultPage(),
     const ProfilePage(),
     //EditCalenderPage(),
+    //ReserveEventPage(tutor_uid: "qbx7ZaMUiPbGsrwXcdR0M4yaXwE3"),
   ];
   void onTap(int index) {
     setState(() {
@@ -104,7 +106,7 @@ class _RootPageState extends State<RootPage> {
             tabs: const [
               GButton(
                 icon: Icons.home,
-                text: 'Search',
+                text: 'Home',
               ),
               GButton(
                 icon: Icons.calendar_today,

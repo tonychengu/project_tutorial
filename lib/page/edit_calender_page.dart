@@ -7,6 +7,8 @@ import 'package:time_range_picker/time_range_picker.dart';
 import 'package:intl/intl.dart';
 // util
 import 'package:project_tutorial/util/firestore.dart';
+// widget
+import 'package:project_tutorial/widget/snackbar_widget.dart';
 
 class EditCalenderPage extends StatefulWidget {
   @override
@@ -22,6 +24,8 @@ class _EditCalenderPageState extends State<EditCalenderPage> {
   // list of end datetime
   List<DateTime> _end = [];
   List<String> _timeslot = [];
+  List<bool> _recurrent = [];
+  bool checkbox_value = false;
   late UserData user;
 
   void initState() {
@@ -68,6 +72,28 @@ class _EditCalenderPageState extends State<EditCalenderPage> {
               });
             },
           ),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: 10,
+              ), //SizedBox
+              Text(
+                'Make recurrent for semester: ',
+                style: TextStyle(fontSize: 17.0),
+              ), //Text
+              SizedBox(width: 10), //SizedBox
+              /** Checkbox Widget **/
+              Checkbox(
+                value: checkbox_value,
+                onChanged: (bool? value) {
+                  setState(() {
+                    checkbox_value = value!;
+                  });
+                },
+              ), //Checkbox
+            ],
+          ),
+          SizedBox(height: 12),
           ElevatedButton(
             onPressed: () => _selectTimeRange(context),
             child: Text("Add time slots"),
@@ -85,6 +111,7 @@ class _EditCalenderPageState extends State<EditCalenderPage> {
                         _timeslot.removeAt(index);
                         _start.removeAt(index);
                         _end.removeAt(index);
+                        _recurrent.removeAt(index);
                       });
                     },
                   ),
@@ -111,15 +138,28 @@ class _EditCalenderPageState extends State<EditCalenderPage> {
         if (_selectedDay == null) {
           _selectedDay = DateTime.now();
         }
+        // if the timeslot is less then 60 mintues, show snackbar
+        if (result.endTime.hour * 60 +
+                result.endTime.minute -
+                (result.startTime.hour * 60 + result.startTime.minute) <
+            60) {
+          showSnackBar(context, 'Time slot must be at least 60 minutes');
+          return;
+        }
         final startDateTime = DateTime(_selectedDay!.year, _selectedDay!.month,
             _selectedDay!.day, result.startTime.hour, result.startTime.minute);
         final endDateTime = DateTime(_selectedDay!.year, _selectedDay!.month,
             _selectedDay!.day, result.endTime.hour, result.endTime.minute);
         _start.add(startDateTime);
         _end.add(endDateTime);
+        _recurrent.add(checkbox_value);
         final start = DateFormat('M/d EEE h:mm a').format(startDateTime);
         final end = DateFormat('M/d EEE h:mm a').format(endDateTime);
-        _timeslot.add('$start - $end');
+        if (checkbox_value) {
+          _timeslot.add('$start - $end (Recurrent)');
+        } else {
+          _timeslot.add('$start - $end');
+        }
       });
     }
   }
@@ -127,7 +167,8 @@ class _EditCalenderPageState extends State<EditCalenderPage> {
   Future<void> _updateAvailability(context) async {
     try {
       final uid = user.uid;
-      await FireStoreMethods().updateUserAvailibity(uid, _start, _end);
+      await FireStoreMethods()
+          .updateUserAvailibity(uid, _start, _end, _recurrent);
     } catch (e) {
       print(e);
     }

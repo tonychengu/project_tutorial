@@ -83,6 +83,9 @@ class _LoginPageState extends State<LoginPage> {
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
                   controller: emailController,
+                  textCapitalization: TextCapitalization.none,
+                  autocorrect: false,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                       labelText: 'Email',
                       hintText: 'Enter your email',
@@ -93,6 +96,8 @@ class _LoginPageState extends State<LoginPage> {
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
                 controller: passwordController,
+                textCapitalization: TextCapitalization.none,
+                autocorrect: false,
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Enter your password',

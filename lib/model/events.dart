@@ -1,11 +1,15 @@
 class EventsData {
   // required field
-  String uid;
+  String? uid;
   String tutor_uid;
   String student_uid;
-  String time;
+  String tutor_name;
+  String student_name;
+  DateTime start;
+  DateTime end;
   String status;
-  int cost;
+  String course;
+  int? cost;
 
   // optional field
   String? location;
@@ -15,13 +19,17 @@ class EventsData {
   //TODO: add time table
 
   EventsData({
-    required this.uid,
+    this.uid,
     required this.tutor_uid,
     required this.student_uid,
-    required this.time,
+    required this.tutor_name,
+    required this.student_name,
+    required this.start,
+    required this.end,
     required this.status,
-    required this.cost,
-    this.location,
+    required this.location,
+    required this.course,
+    this.cost,
     this.review,
     this.rating = 0,
   });
@@ -31,12 +39,16 @@ class EventsData {
         'uid': uid,
         'tutor_uid': tutor_uid,
         'student_uid': student_uid,
-        'time': time,
+        'tutor_name': tutor_name,
+        'student_name': student_name,
+        'start': start,
+        'end': end,
         'location': location,
         'status': status,
         'rating': rating,
         'cost': cost,
         'review': review,
+        'course': course,
       };
 
   // convert map to profile
@@ -44,12 +56,16 @@ class EventsData {
         uid: json['uid'],
         tutor_uid: json['tutor_uid'],
         student_uid: json['student_uid'],
-        time: json['time'],
+        tutor_name: json['tutor_name'],
+        student_name: json['student_name'],
+        start: json['start'],
+        end: json['end'],
         location: json['location'],
         status: json['status'],
         rating: json['rating'],
         cost: json['cost'],
         review: json['review'],
+        course: json['course'],
       );
 
   // copy UserData
@@ -57,22 +73,31 @@ class EventsData {
           {String? uid,
           String? tutor_uid,
           String? student_uid,
-          String? time,
+          String? tutor_name,
+          String? student_name,
+          DateTime? start,
+          DateTime? end,
           String? location,
           String? status,
           int? rating,
           int? cost,
-          String? review}) =>
+          String? review,
+          String? course}) =>
       EventsData(
-          uid: uid ?? this.uid,
-          tutor_uid: tutor_uid ?? this.tutor_uid,
-          student_uid: student_uid ?? this.student_uid,
-          time: time ?? this.time,
-          location: location ?? this.location,
-          status: status ?? this.status,
-          rating: rating ?? this.rating,
-          cost: cost ?? this.cost,
-          review: review ?? this.review);
+        uid: uid ?? this.uid,
+        tutor_uid: tutor_uid ?? this.tutor_uid,
+        student_uid: student_uid ?? this.student_uid,
+        start: start ?? this.start,
+        end: end ?? this.end,
+        location: location ?? this.location,
+        status: status ?? this.status,
+        rating: rating ?? this.rating,
+        cost: cost ?? this.cost,
+        review: review ?? this.review,
+        course: course ?? this.course,
+        tutor_name: tutor_name ?? this.tutor_name,
+        student_name: student_name ?? this.student_name,
+      );
 
   void updateStatus(String newStatus) {
     this.status = newStatus;

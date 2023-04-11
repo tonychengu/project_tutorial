@@ -15,6 +15,7 @@ import 'package:project_tutorial/widget/numbers_widget.dart';
 import 'package:project_tutorial/page/edit_profile_page.dart';
 import 'package:project_tutorial/page/login_page.dart';
 import 'package:project_tutorial/page/edit_calender_page.dart';
+import 'package:project_tutorial/page/show_calender_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -42,42 +43,60 @@ class _ProfilePageState extends State<ProfilePage> {
               setState(() {});
             },
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 10),
           buildName(context, user, courses),
-          const SizedBox(height: 24),
+          const SizedBox(height: 10),
           NumbersWidget(
               rating: user.getRating(),
               taught: user.getNumTaught()), // build ratings and courses taught
-          const SizedBox(height: 48),
+          const SizedBox(height: 10),
           buildAbout(user),
-          const SizedBox(height: 48),
-          ButtonBar(alignment: MainAxisAlignment.center, children: <Widget>[
-            (ElevatedButton(
-                onPressed: () async {
-                  await Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => EditCalenderPage(),
-                  ));
-                  setState(() {});
-                },
-                style: ElevatedButton.styleFrom(shape: StadiumBorder()),
-                child: Text("Edit Calender"))),
-          ]),
-          const SizedBox(height: 20),
-          ButtonBar(
-            alignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                child: Text('Sign Out'),
-                onPressed: () async {
-                  LocalUserInfo.clearUser();
-                  await context.read<FirebaseAuthMethods>().signOut(context);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                },
-              ),
-            ],
-          )
+          SizedBox(height: 20),
+          ElevatedButton.icon(
+            onPressed: () async {
+              await Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EditCalenderPage(),
+              ));
+              setState(() {});
+            },
+            style: ElevatedButton.styleFrom(
+              shape: StadiumBorder(),
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              primary: Theme.of(context).accentColor,
+              onPrimary: Colors.white,
+            ),
+            icon: Icon(Icons.edit),
+            label: Text("Edit Calendar"),
+          ),
+          SizedBox(height: 0),
+          ElevatedButton.icon(
+            onPressed: () async {
+              await Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ShowCalenderPage(),
+              ));
+              setState(() {});
+            },
+            style: ElevatedButton.styleFrom(
+              shape: StadiumBorder(),
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              primary: Theme.of(context).accentColor,
+              onPrimary: Colors.white,
+            ),
+            icon: Icon(Icons.calendar_today),
+            label: Text("Show Calendar"),
+          ),
+          SizedBox(height: 10),
+          TextButton.icon(
+            onPressed: () async {
+              LocalUserInfo.clearUser();
+              await context.read<FirebaseAuthMethods>().signOut(context);
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            },
+            icon: Icon(Icons.logout),
+            label: Text('Sign Out'),
+          ),
         ],
       ),
     );
@@ -105,7 +124,7 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
             ],
           ),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 10),
         // Row of Major | Minor
         Text(
           user.minor == null
@@ -113,7 +132,30 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
               : 'Major: ${user.major} / Minor: ${user.minor}',
           style: TextStyle(color: Colors.black),
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.green,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.attach_money,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Text(
+              'Balance: ${user.balance}',
+              style: TextStyle(fontSize: 20, color: Colors.black),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
         // Row of Available Courses
         Container(
           alignment: Alignment.centerLeft,
@@ -124,7 +166,7 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
             textAlign: TextAlign.center,
           ),
         ),
-        const SizedBox(height: 5),
+        const SizedBox(height: 10),
         SizedBox(
           height: 50,
           width: MediaQuery.of(context).size.width * 0.9,
@@ -162,7 +204,7 @@ Widget buildAbout(UserData user) => Container(
           Text(
             user.about ??
                 "This user has not written anything about themselves yet.",
-            style: TextStyle(fontSize: 16, height: 1.4),
+            style: TextStyle(fontSize: 10, height: 1.4),
           ),
         ],
       ),
