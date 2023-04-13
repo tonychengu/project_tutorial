@@ -155,7 +155,7 @@ class _EditCalenderPageState extends State<EditCalenderPage> {
         _recurrent.add(checkbox_value);
         final start = DateFormat('M/d EEE h:mm a').format(startDateTime);
         final end = DateFormat('M/d EEE h:mm a').format(endDateTime);
-        if (checkbox_value) {sw
+        if (checkbox_value) {
           _timeslot.add('$start - $end (Recurrent)');
         } else {
           _timeslot.add('$start - $end');
