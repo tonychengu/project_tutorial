@@ -51,7 +51,7 @@ class _FiltersPageState extends State<FiltersPage> {
         toolbarHeight: 40,
         automaticallyImplyLeading: false,
         title: const Text(
-          'Filters',
+          'Search',
           style: TextStyle(fontSize: 20),
         ),
       ),
@@ -91,54 +91,18 @@ class _FiltersPageState extends State<FiltersPage> {
                       SizedBox(height: 8),
                       SizedBox(
                         width: 315,
-                        child: TextField(
-                          maxLines: 1,
-                          controller: _courseController,
-                          decoration: const InputDecoration(
-                            filled: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.black)),
-                            hintText: 'Search by course',
-                          ),
-                        ),
+                        child: TextFormField(
+                            autovalidateMode: AutovalidateMode.always,
+                            textCapitalization: TextCapitalization.none,
+                            autocorrect: false,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                                labelText: 'Search for a course',
+                                hintText:
+                                    'What would you like to be tutored in?',
+                                prefixIcon: Icon(Icons.search))),
                       ),
                       const SizedBox(height: 8),
-                      SizedBox(
-                        width: 315,
-                        child: TextField(
-                          maxLines: 1,
-                          controller: _startController,
-                          decoration: const InputDecoration(
-                            filled: true,
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.black)),
-                            hintText: 'start time in yyyy/mm/dd hh:mm format',
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      // Row(
-                      //   children: [
-                      //     Text(
-                      //       'Only show favorites: ',
-                      //       style: TextStyle(
-                      //         fontSize: 20,
-                      //         color: Colors.grey.shade800,
-                      //       ),
-                      //     ),
-                      //     Checkbox(
-                      //       value: checkedValue,
-                      //       onChanged: (value) => setState(
-                      //         () {
-                      //           checkedValue = value!;
-                      //         },
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-
                       ElevatedButton(
                         onPressed: () async {
                           final newTutors = await _getNewTutors();
