@@ -6,6 +6,7 @@ import '../page/chat_page.dart';
 import 'package:intl/intl.dart';
 import '../comps/styles.dart';
 import '../comps/widgets.dart';
+import '../util/user_info.dart';
 
 class InboxDefaultPage extends StatefulWidget {
   const InboxDefaultPage({Key? key}) : super(key: key);
@@ -22,13 +23,14 @@ class _InboxDefaultPageState extends State<InboxDefaultPage> {
 
   final firestore = FirebaseFirestore.instance;
   bool open = false;
+  //final user = LocalUserInfo.getLocalUser();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green.shade400,
       appBar: AppBar(
         backgroundColor: Colors.green.shade400,
-        title: const Text('Inbox: Chat with your tutor/student'),
+        title: const Text('Inbox'),
         elevation: 0,
         centerTitle: true,
         actions: [

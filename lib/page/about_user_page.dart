@@ -12,6 +12,8 @@ import 'package:project_tutorial/util/firestore.dart';
 import 'package:project_tutorial/widget/profile_widget.dart';
 import 'package:project_tutorial/widget/numbers_widget.dart';
 
+import 'chat_page.dart';
+
 //need: everything from user_home_tmp
 
 class UserInfoPage extends StatefulWidget {
@@ -110,10 +112,18 @@ class _UserInfoPageState extends State<UserInfoPage> {
                         children: [
                           Text('    Message: '),
                           IconButton(
-                            icon: const Icon(Icons.message),
-                            tooltip: 'message',
-                            onPressed: () {}, //take to messaging page?
-                          ),
+                              icon: const Icon(Icons.message),
+                              tooltip: 'message',
+                              onPressed: () {
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //   builder: (context) {
+                                //     return ChatPage(
+                                //       id: user,
+                                //       name: snap.data['name'],
+                                //     );
+                                //   },
+                                // ));
+                              }),
                         ],
                       ),
                       Row(

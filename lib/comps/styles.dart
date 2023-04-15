@@ -39,7 +39,7 @@ class Styles {
   static searchTextFieldStyle() {
     return InputDecoration(
       border: InputBorder.none,
-      hintText: 'Enter Name',
+      hintText: 'Enter Name Or Email Address',
       contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
       suffixIcon:
           IconButton(onPressed: () {}, icon: const Icon(Icons.search_rounded)),
