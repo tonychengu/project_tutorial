@@ -33,6 +33,18 @@ const years = <String>[
   'Other'
 ];
 
+String? validateEmory(String? value) {
+  const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+      r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+      r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@emory.edu';
+  final regex = RegExp(pattern);
+}
+
+String? validatePassword(String? value) {
+  const pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+  final regex = RegExp(pattern);
+}
+
 class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -67,9 +79,8 @@ class _SignUpPageState extends State<SignUpPage> {
       'about': aboutController.text,
       'taughtCount': 0,
       'ratings': 0,
-      'imagePath':
-          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-      'balance': 2,
+      'imagePath': '',
+      'balance': 1,
       'fullPath': ''
     };
     await LocalUserInfo.saveUser(UserData.fromJson(json), context,
@@ -103,33 +114,62 @@ class _SignUpPageState extends State<SignUpPage> {
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomTextField(
-              controller: emailController,
-              hintText: 'Enter your email',
-            ),
+            child: TextFormField(
+                autovalidateMode: AutovalidateMode.always,
+                validator: validateEmory,
+                controller: emailController,
+                textCapitalization: TextCapitalization.none,
+                autocorrect: false,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                    labelText: 'Enter your Emory email',
+                    hintText: 'Must end in @emory.edu',
+                    prefixIcon: Icon(Icons.mail))),
           ),
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomTextField(
+            child: TextFormField(
+              autovalidateMode: AutovalidateMode.always,
+              validator: validatePassword,
               controller: passwordController,
-              hintText: 'Enter your password',
+              textCapitalization: TextCapitalization.none,
+              autocorrect: false,
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: 'Must be at least 8 characters',
+                labelText: 'Enter your password',
+                prefixIcon: Icon(Icons.lock),
+              ),
             ),
           ),
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomTextField(
+            child: TextFormField(
               controller: password2Controller,
-              hintText: 'Re-enter your password',
+              textCapitalization: TextCapitalization.none,
+              autocorrect: false,
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: 'Must be at least 8 characters',
+                labelText: 'Re-enter your password',
+                prefixIcon: Icon(Icons.lock),
+              ),
             ),
           ),
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomTextField(
+            child: TextFormField(
               controller: nameController,
-              hintText: 'Enter your full name',
+              textCapitalization: TextCapitalization.words,
+              autocorrect: false,
+              decoration: InputDecoration(
+                hintText: 'Full name',
+                labelText: 'Enter your full name',
+                prefixIcon: Icon(Icons.mood_rounded),
+              ),
             ),
           ),
           const SizedBox(height: 24),
