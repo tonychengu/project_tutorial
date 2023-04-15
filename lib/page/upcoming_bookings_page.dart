@@ -372,3 +372,11 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
             ]),
       );
 }
+
+// String getType(upcoming_events_tmp event) {
+//   if (event.isTutor) {
+//     return 'Tutor';
+//   } else {
+//     return 'Student';
+//   }
+// }

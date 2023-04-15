@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_tutorial/page/inbox_default_page.dart';
+import 'package:project_tutorial/page/upcoming_bookings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -71,9 +73,9 @@ class _RootPageState extends State<RootPage> {
   int currentPage = 0;
   List pages = [
     const HomePage(),
-    //const BookingsPage(),
     CurrentBookingPage(),
-    const InboxPage(),
+    InboxDefaultPage(),
+    //const InboxPage(),
     const ProfilePage(),
     //EditCalenderPage(),
     //ReserveEventPage(tutor_uid: "qbx7ZaMUiPbGsrwXcdR0M4yaXwE3"),

@@ -11,15 +11,14 @@ import 'package:project_tutorial/util/firestore.dart';
 // widget import
 import 'package:project_tutorial/widget/profile_widget.dart';
 import 'package:project_tutorial/widget/numbers_widget.dart';
-//snackbar
-import 'package:project_tutorial/widget/snackbar_widget.dart';
+
+import 'chat_page.dart';
 
 //need: everything from user_home_tmp
 
 class UserInfoPage extends StatefulWidget {
   User_home_tmp user;
   UserInfoPage({super.key, required this.user});
-  UserData localUser = LocalUserInfo.getLocalUser();
 
   @override
   State<UserInfoPage> createState() => _UserInfoPageState();
@@ -113,10 +112,18 @@ class _UserInfoPageState extends State<UserInfoPage> {
                         children: [
                           Text('    Message: '),
                           IconButton(
-                            icon: const Icon(Icons.message),
-                            tooltip: 'message',
-                            onPressed: () {}, //take to messaging page?
-                          ),
+                              icon: const Icon(Icons.message),
+                              tooltip: 'message',
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return ChatPage(
+                                      id: widget.user.uid,
+                                      name: widget.user.name,
+                                    );
+                                  },
+                                ));
+                              }),
                         ],
                       ),
                       Row(
@@ -126,13 +133,6 @@ class _UserInfoPageState extends State<UserInfoPage> {
                             icon: const Icon(Icons.calendar_today),
                             tooltip: 'book',
                             onPressed: () {
-                              showSnackBar(
-                                  context, "Testing phase. No charge occurs.");
-                              if (widget.localUser.balance < 1) {
-                                showSnackBar(context,
-                                    "Insufficient Balance. Testing phase so you can still book.");
-                                //return;
-                              }
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

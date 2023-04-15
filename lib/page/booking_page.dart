@@ -21,29 +21,11 @@ class BookingsPage extends StatefulWidget {
   @override
   State<BookingsPage> createState() => _BookingPageState();
 }
-// String validateRating(int value) {
-//   if (!(value >= 0 && value <= 5)) {
-//     return "Please enter an integr between 0 to 5";
-//   }
-//   return "";
-// }
-
-// String validateRating(int value) {
-//   if (!(value >= 0 && value <= 5)) {
-//     return "Please enter an integr between 0 to 5";
-//   }
-//   return "";
-// }
 
 class _BookingPageState extends State<BookingsPage> {
   int currentPage = 0;
   bool checkedValue = false;
   bool _validate = false;
-  // void onTap(int index) {
-  //   setState(() {
-  //     currentPage = index;
-  //   });
-  // }
 
   late UserData user;
   List<UserData> submittedEventStudents = [];

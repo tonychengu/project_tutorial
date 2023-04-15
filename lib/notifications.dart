@@ -47,3 +47,9 @@ class NotificationService {
 //  context, 'New Message', 
 //            'You have a new message!', 
 // Icons.notification_add)
+
+
+//showNotification(
+//  context, 'New Message', 
+//            'You have a new message!', 
+// Icons.notification_add)
