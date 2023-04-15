@@ -111,17 +111,45 @@ class _SignUpPageState extends State<SignUpPage> {
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomTextField(
+            child: TextFormField(
               controller: passwordController,
-              hintText: 'Enter your password',
+              textCapitalization: TextCapitalization.none,
+              autocorrect: false,
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: 'Enter your password',
+                labelText: 'Password',
+                prefixIcon: Icon(Icons.lock),
+              ),
             ),
           ),
+          // Container(
+          //     margin: const EdgeInsets.symmetric(horizontal: 20),
+          //     child: TextFormField(
+          //       controller: passwordController,
+          //       textCapitalization: TextCapitalization.none,
+          //       autocorrect: false,
+          //       obscureText: true,
+          //       decoration: InputDecoration(
+          //         hintText: 'Enter your password',
+          //         labelText: 'Password',
+          //         prefixIcon: Icon(Icons.lock),
+          //       ),
+          //     ),
+          //   ),
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomTextField(
+            child: TextFormField(
               controller: password2Controller,
-              hintText: 'Re-enter your password',
+              textCapitalization: TextCapitalization.none,
+              autocorrect: false,
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: 'Re-enter your password',
+                labelText: 'Re-enter Password',
+                prefixIcon: Icon(Icons.lock),
+              ),
             ),
           ),
           const SizedBox(height: 24),
