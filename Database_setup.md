@@ -72,7 +72,7 @@ A collection is a table. A document is an entry. A document works as a key-value
     - location of the event
   - status: string
     - status of the event
-    - Possible values: [Submitted, Upcoming, Ongoing, Past]
+    - Possible values: [Submitted, Upcoming, Finished]
       - user first submit an event ticket for tutor. Only after tutor accecpt the event, the status change from Submitted to Upcoming. If one doesn't accept it, delet the event.
   - student rating: int
     - student rating of the event

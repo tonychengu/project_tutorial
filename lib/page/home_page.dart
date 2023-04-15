@@ -36,16 +36,16 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getData() async {
     final tutors = await FireStoreMethods().newTutors();
-    final students = await FireStoreMethods().newStudents();
+    //final students = await FireStoreMethods().newStudents();
     List<UserData> tutorList = [];
     List<UserData> studentList = [];
     // iterate trought the query snapshot and parse the data
     tutors.docs.forEach((doc) {
       tutorList.add(UserData.fromDocumentSnapshot(doc));
     });
-    students.docs.forEach((doc) {
-      studentList.add(UserData.fromDocumentSnapshot(doc));
-    });
+    // students.docs.forEach((doc) {
+    //   studentList.add(UserData.fromDocumentSnapshot(doc));
+    // });
     // turn the list of users into a list of User_home_tmp
     for (int i = 0; i < tutorList.length; i++) {
       _tutors.add(User_home_tmp(
@@ -69,7 +69,10 @@ class _HomePageState extends State<HomePage> {
         numSessions: studentList[i].taughtCount,
       ));
     }
-    setState(() {});
+    setState(() {
+      _tutors = _tutors;
+      _students = _students;
+    });
   }
 
   @override
