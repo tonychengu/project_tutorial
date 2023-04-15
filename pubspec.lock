@@ -591,7 +591,7 @@ packages:
       sha256: cf2a42fb20148502022861f71698db12d937c7459345a1bdaa88fc91a91b3603
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.1"
+    version: "2.2.0"
   shared_preferences_linux:
     dependency: transitive
     description:
