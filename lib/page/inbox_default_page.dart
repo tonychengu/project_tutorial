@@ -85,7 +85,7 @@ class _InboxDefaultPageState extends State<InboxDefaultPage> {
                                 List data = !snapshot.hasData
                                     ? []
                                     : snapshot.data!.docs
-                                        .where((element) => element['users']
+                                        .where((element) => element['Users']
                                             .toString()
                                             .contains(FirebaseAuth
                                                 .instance.currentUser!.uid))
@@ -165,7 +165,7 @@ class _InboxDefaultPageState extends State<InboxDefaultPage> {
                                   List data = !snapshot.hasData
                                       ? []
                                       : snapshot.data!.docs
-                                          .where((element) => element['users']
+                                          .where((element) => element['Users']
                                               .toString()
                                               .contains(FirebaseAuth
                                                   .instance.currentUser!.uid))
