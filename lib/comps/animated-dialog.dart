@@ -76,10 +76,10 @@ class _AnimatedDialogState extends State<AnimatedDialog> {
                                       ? []
                                       : snapshot.data!.docs
                                           .where((element) =>
-                                              element['name']
+                                              element['email']
                                                   .toString()
                                                   .contains(search) ||
-                                              element['name']
+                                              element['email']
                                                   .toString()
                                                   .contains(search))
                                           .toList();
