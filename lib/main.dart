@@ -12,6 +12,7 @@ import 'package:project_tutorial/page/login_page.dart';
 import 'package:project_tutorial/page/upcoming_bookings_page.dart';
 import 'package:project_tutorial/page/edit_calender_page.dart';
 import 'package:project_tutorial/page/reserve_event_page.dart';
+import 'package:project_tutorial/page/inbox_default_page.dart';
 
 // util
 import 'package:project_tutorial/util/firestore.dart';
@@ -73,7 +74,7 @@ class _RootPageState extends State<RootPage> {
     const HomePage(),
     //const BookingsPage(),
     CurrentBookingPage(),
-    const InboxPage(),
+    InboxDefaultPage(),
     const ProfilePage(),
     //EditCalenderPage(),
     //ReserveEventPage(tutor_uid: "qbx7ZaMUiPbGsrwXcdR0M4yaXwE3"),

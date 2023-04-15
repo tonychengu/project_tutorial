@@ -13,6 +13,8 @@ import 'package:project_tutorial/widget/profile_widget.dart';
 import 'package:project_tutorial/widget/numbers_widget.dart';
 //snackbar
 import 'package:project_tutorial/widget/snackbar_widget.dart';
+// chat page
+import 'package:project_tutorial/page/chat_page.dart';
 
 //need: everything from user_home_tmp
 
@@ -91,10 +93,11 @@ class _UserInfoPageState extends State<UserInfoPage> {
               physics: BouncingScrollPhysics(),
               children: [
                 const SizedBox(height: 48),
-                ProfileWidget(
-                  imagePath: imagePath,
-                  onClicked: () async {},
-                ),
+                // ProfileWidget(
+                //   imagePath: imagePath,
+                //   onClicked: () async {},
+                // ),
+                buildImage(imagePath),
                 const SizedBox(height: 10),
                 buildName(context, widget.user),
                 const SizedBox(height: 10),
@@ -115,7 +118,16 @@ class _UserInfoPageState extends State<UserInfoPage> {
                           IconButton(
                             icon: const Icon(Icons.message),
                             tooltip: 'message',
-                            onPressed: () {}, //take to messaging page?
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) {
+                                  return ChatPage(
+                                    id: widget.user.uid,
+                                    name: widget.user.name,
+                                  );
+                                },
+                              ));
+                            }, //take to messaging page?
                           ),
                         ],
                       ),
@@ -222,14 +234,16 @@ Widget buildImage(imagePath) {
   //     ? NetworkImage(imagePath!)
   //     : Image.asset('assets/profile.png') as ImageProvider;
   final image = NetworkImage(imagePath);
-  return ClipOval(
-    child: Material(
-      color: Colors.transparent,
-      child: Ink.image(
-        image: image as ImageProvider,
-        fit: BoxFit.cover,
-        width: 128,
-        height: 128,
+  return Center(
+    child: ClipOval(
+      child: Material(
+        color: Colors.transparent,
+        child: Ink.image(
+          image: image as ImageProvider,
+          fit: BoxFit.cover,
+          width: 128,
+          height: 128,
+        ),
       ),
     ),
   );

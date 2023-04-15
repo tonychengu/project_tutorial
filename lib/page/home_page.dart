@@ -36,16 +36,16 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> getData() async {
     final tutors = await FireStoreMethods().newTutors();
-    //final students = await FireStoreMethods().newStudents();
+    final students = await FireStoreMethods().newStudents();
     List<UserData> tutorList = [];
     List<UserData> studentList = [];
     // iterate trought the query snapshot and parse the data
     tutors.docs.forEach((doc) {
       tutorList.add(UserData.fromDocumentSnapshot(doc));
     });
-    // students.docs.forEach((doc) {
-    //   studentList.add(UserData.fromDocumentSnapshot(doc));
-    // });
+    students.docs.forEach((doc) {
+      studentList.add(UserData.fromDocumentSnapshot(doc));
+    });
     // turn the list of users into a list of User_home_tmp
     for (int i = 0; i < tutorList.length; i++) {
       _tutors.add(User_home_tmp(
@@ -69,10 +69,7 @@ class _HomePageState extends State<HomePage> {
         numSessions: studentList[i].taughtCount,
       ));
     }
-    setState(() {
-      _tutors = _tutors;
-      _students = _students;
-    });
+    setState(() {});
   }
 
   @override
@@ -153,32 +150,22 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: _showTutors
-                                  ? Colors.blueAccent
-                                  : Colors.blueAccent,
-                              child: Text(user.name.substring(0, 2)),
-                            ),
-                            const SizedBox(height: 16),
-                            IconButton(
-                              icon: const Icon(Icons.favorite),
-                              tooltip: 'Favorite',
-                              onPressed: () {}, //add to user favorites list
-                              color: _showTutors ? Colors.red : Colors.red,
-                              highlightColor:
-                                  _showTutors ? Colors.red : Colors.red,
-                            ),
-                          ],
-                        ),
-                      ),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               user.name,
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 22,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -195,14 +182,14 @@ class _HomePageState extends State<HomePage> {
                             Text(
                               '${user.major} | ${user.year}',
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.grey,
+                                color: Colors.grey[600],
                               ),
                             ),
-                            SizedBox(height: 8),
+                            SizedBox(height: 16),
                             SizedBox(
-                              height: 30,
+                              height: 36,
                               child: ListView.separated(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: user.courses.length,
@@ -210,28 +197,34 @@ class _HomePageState extends State<HomePage> {
                                     SizedBox(width: 8),
                                 itemBuilder: (context, index) {
                                   return Chip(
-                                    label: Text(user.courses[index]),
+                                    label: Text(
+                                      user.courses[index],
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey[800],
+                                      ),
+                                    ),
                                     backgroundColor: Colors.grey[200],
                                   );
                                 },
                               ),
                             ),
-                            SizedBox(height: 8),
+                            SizedBox(height: 16),
                             Row(
                               children: [
-                                Icon(Icons.star, size: 16, color: Colors.amber),
+                                Icon(Icons.star, size: 20, color: Colors.amber),
                                 SizedBox(width: 8),
                                 Text(
                                   '${user.rating} (${user.numSessions} sessions)',
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
+                                    color: Colors.grey[600],
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 16),
                           ],
                         ),
                       ),
@@ -243,137 +236,6 @@ class _HomePageState extends State<HomePage> {
           );
         },
       ),
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-          color: Colors.green[300],
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: ToggleButtons(
-          onPressed: (int index) {
-            setState(() {
-              _showTutors = index == 0;
-            });
-          },
-          isSelected: [_showTutors, !_showTutors],
-          selectedColor: Colors.white,
-          fillColor: Colors.green[300],
-          borderRadius: BorderRadius.circular(20),
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text('Tutors'),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text('Students'),
-            ),
-          ],
-          color: Colors.grey, // set the unselected button color
-        ),
-      ),
     );
   }
 }
-
-// legacy dummy data
-  // List<User_home_tmp> _tutors = [
-  //   User_home_tmp(
-  //     name: 'Eva Williams',
-  //     year: 'Junior',
-  //     major: 'Computer Science',
-  //     courses: ['Data Structures', 'Algorithms', 'Operating Systems'],
-  //     rating: 4.8,
-  //     numSessions: 12,
-  //   ),
-  //   User_home_tmp(
-  //     name: 'John Doe',
-  //     year: 'Freshman',
-  //     major: 'Biology',
-  //     courses: ['Intro to Biology', 'Genetics'],
-  //     rating: 4.5,
-  //     numSessions: 6,
-  //   ),
-  //   User_home_tmp(
-  //     name: 'Sarah Smith',
-  //     year: 'Senior',
-  //     major: 'Chemistry',
-  //     courses: ['Organic Chemistry', 'Physical Chemistry'],
-  //     rating: 4.9,
-  //     numSessions: 18,
-  //   ),
-  //   User_home_tmp(
-  //     name: 'David Johnson',
-  //     year: 'Sophomore',
-  //     major: 'Mathematics',
-  //     courses: ['Calculus', 'Linear Algebra', 'Number Theory'],
-  //     rating: 4.2,
-  //     numSessions: 3,
-  //   ),
-  //   User_home_tmp(
-  //     name: 'Maggie Green',
-  //     year: 'Junior',
-  //     major: 'Environmental Science',
-  //     courses: ['Climate Change', 'Sustainability'],
-  //     rating: 4.7,
-  //     numSessions: 9,
-  //   ),
-  //   User_home_tmp(
-  //     name: 'Emma Jones',
-  //     year: 'Freshman',
-  //     major: 'History',
-  //     courses: ['US History', 'World History'],
-  //     rating: 4.0,
-  //     numSessions: 1,
-  //   ),
-  // ];
-
-  // List<User_home_tmp> _students = [
-  //   User_home_tmp(
-  //     name: 'Mark Davis',
-  //     year: 'Junior',
-  //     major: 'Mechanical Engineering',
-  //     courses: ['Thermodynamics', 'Statics', 'Dynamics'],
-  //     rating: 4.6,
-  //     numSessions: 14,
-  //   ),
-  //   User_home_tmp(
-  //     name: 'Alice Lee',
-  //     year: 'Sophomore',
-  //     major: 'Electrical Engineering',
-  //     courses: ['Circuits', 'Digital Logic'],
-  //     rating: 4.3,
-  //     numSessions: 4,
-  //   ),
-  //   User_home_tmp(
-  //     name: 'Chris Stuart',
-  //     year: 'Senior',
-  //     major: 'Physics',
-  //     courses: ['Classical Mechanics', 'Electromagnetism', 'Quantum Mechanics'],
-  //     rating: 4.8,
-  //     numSessions: 20,
-  //   ),
-  //   User_home_tmp(
-  //     name: 'Sophie Hernandez',
-  //     year: 'Junior',
-  //     major: 'English',
-  //     courses: ['Creative Writing', 'British Literature'],
-  //     rating: 4.5,
-  //     numSessions: 8,
-  //   ),
-  //   User_home_tmp(
-  //     name: 'William Taylor',
-  //     year: 'Freshman',
-  //     major: 'Political Science',
-  //     courses: ['Introduction to Political Science', 'International Relations'],
-  //     rating: 4.2,
-  //     numSessions: 2,
-  //   ),
-  //   User_home_tmp(
-  //     name: 'Olivia Johnson',
-  //     year: 'Senior',
-  //     major: 'Psychology',
-  //     courses: ['Abnormal Psychology', 'Cognitive Psychology'],
-  //     rating: 4.9,
-  //     numSessions: 16,
-  //   ),
-  // ];
