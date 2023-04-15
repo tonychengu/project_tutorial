@@ -350,17 +350,20 @@ class FireStoreMethods {
         .get();
     List<EventsData> events = [];
     querySnapshot.docs.forEach((doc) {
-      events.add(EventsData(
-          uid: doc.id,
-          tutor_uid: doc["tutor_uid"],
-          student_uid: doc["student_uid"],
-          tutor_name: doc["tutor_name"],
-          student_name: doc["student_name"],
-          start: doc["start"].toDate(),
-          end: doc["end"].toDate(),
-          course: doc["course"],
-          status: doc["status"],
-          location: doc["location"]));
+      events.add(
+        EventsData(
+            uid: doc.id,
+            tutor_uid: doc["tutor_uid"],
+            student_uid: doc["student_uid"],
+            tutor_name: doc["tutor_name"],
+            student_name: doc["student_name"],
+            start: doc["start"].toDate(),
+            end: doc["end"].toDate(),
+            course: doc["course"],
+            status: doc["status"],
+            location: doc["location"],
+            code: doc["code"]),
+      );
     });
     // get all the events of the tutors as a student
     querySnapshot = await db
@@ -379,7 +382,8 @@ class FireStoreMethods {
           end: doc["end"].toDate(),
           course: doc["course"],
           status: doc["status"],
-          location: doc["location"]));
+          location: doc["location"],
+          code: doc["code"]));
     });
     return events;
   }

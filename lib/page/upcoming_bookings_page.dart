@@ -90,6 +90,10 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
           return BookingCard(
             context: context,
             event: event,
+            updateUI: () async {
+              setState(() {});
+              await getEvents();
+            },
           );
           // return Padding(
           //   padding:
@@ -201,13 +205,13 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
           // );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (BuildContext context) {
-          return const BookingsPage();
-        })), //insert connection to comment bar
-        child: Icon(Icons.star),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () => Navigator.of(context)
+      //       .push(MaterialPageRoute(builder: (BuildContext context) {
+      //     return const BookingsPage();
+      //   })), //insert connection to comment bar
+      //   child: Icon(Icons.star),
+      // ),
     );
   }
 

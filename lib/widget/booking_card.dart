@@ -18,10 +18,12 @@ class BookingCard extends StatelessWidget {
   final UserData user = LocalUserInfo.getLocalUser();
   final BuildContext context;
   final TextEditingController controller = TextEditingController();
+  final VoidCallback updateUI;
 
   BookingCard({
     required this.context,
     required this.event,
+    required this.updateUI,
   });
 
   @override
@@ -36,6 +38,10 @@ class BookingCard extends StatelessWidget {
     Icon denyIcon = Icon(
       Icons.close,
       color: Colors.red,
+    );
+    Icon doubleCheckIcon = Icon(
+      Icons.check_circle,
+      color: Colors.green,
     );
     String _status = event.status;
     if (_status == 'Submitted' && event.student_uid == user.uid) {
@@ -97,7 +103,7 @@ class BookingCard extends StatelessWidget {
             child: denyIcon),
       ];
     }
-    // is status is upcoming, buttons are cancel and check in
+    // if status is upcoming, buttons are cancel and check in
     if (event.status == 'Upcoming') {
       buttons = <Widget>[
         ElevatedButton(
@@ -120,6 +126,21 @@ class BookingCard extends StatelessWidget {
               padding: EdgeInsets.all(1),
             ),
             child: checkIcon),
+      ];
+    }
+    // if status if finished or cancelled, buttons are empty
+    if (event.status == "Finished" || event.status == "Cancelled") {
+      buttons = <Widget>[
+        ElevatedButton(
+            onPressed: () async {
+              await removeBooking(event);
+            },
+            style: ElevatedButton.styleFrom(
+              shape: CircleBorder(),
+              backgroundColor: Colors.grey,
+              padding: EdgeInsets.all(1),
+            ),
+            child: denyIcon),
       ];
     }
 
@@ -213,6 +234,16 @@ class BookingCard extends StatelessWidget {
     );
   }
 
+  Future<void> removeBooking(EventsData event) async {
+    String uid = event.uid ?? '';
+    try {
+      await FireStoreMethods().rmEvent(uid);
+    } catch (e) {
+      showSnackBar(context, "Serve Error. Please try again later");
+    }
+    updateUI();
+  }
+
   Future<void> acceptBooking(EventsData event) async {
     String uid = event.uid ?? '';
     try {
@@ -224,6 +255,7 @@ class BookingCard extends StatelessWidget {
     } catch (e) {
       showSnackBar(context, "Serve Error. Please try again later");
     }
+    updateUI();
   }
 
   Future<void> cancelBooking(EventsData event) async {
@@ -247,12 +279,13 @@ class BookingCard extends StatelessWidget {
     } catch (e) {
       showSnackBar(context, "Serve Error. Please try again later");
     }
+    updateUI();
   }
 
   Future<void> checkIn(EventsData event) async {
     // if more than 10 mins before the event, show a sncakbar about this
     DateTime now = DateTime.now();
-    if (now.difference(event.start).inMinutes < 10) {
+    if (now.difference(event.start).inMinutes > 10) {
       showSnackBar(context, "You can only check in 10 mins before the event");
       return;
     }
@@ -327,6 +360,7 @@ class BookingCard extends StatelessWidget {
         }
       }
     }
+    updateUI();
   }
 
   Future<String?> CancelDialog() => showDialog<String>(
