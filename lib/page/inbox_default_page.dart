@@ -6,7 +6,7 @@ import '../page/chat_page.dart';
 import 'package:intl/intl.dart';
 import '../comps/styles.dart';
 import '../comps/widgets.dart';
-import '../util/user_info.dart';
+//import '../util/user_info.dart';
 
 class InboxDefaultPage extends StatefulWidget {
   const InboxDefaultPage({Key? key}) : super(key: key);
@@ -85,7 +85,7 @@ class _InboxDefaultPageState extends State<InboxDefaultPage> {
                                 List data = !snapshot.hasData
                                     ? []
                                     : snapshot.data!.docs
-                                        .where((element) => element['Users']
+                                        .where((element) => element['users']
                                             .toString()
                                             .contains(FirebaseAuth
                                                 .instance.currentUser!.uid))
@@ -108,7 +108,7 @@ class _InboxDefaultPageState extends State<InboxDefaultPage> {
                                             .first;
                                     return FutureBuilder(
                                         future: firestore
-                                            .collection('Users')
+                                            .collection('users')
                                             .doc(user)
                                             .get(),
                                         builder: (context, AsyncSnapshot snap) {
@@ -165,7 +165,7 @@ class _InboxDefaultPageState extends State<InboxDefaultPage> {
                                   List data = !snapshot.hasData
                                       ? []
                                       : snapshot.data!.docs
-                                          .where((element) => element['Users']
+                                          .where((element) => element['users']
                                               .toString()
                                               .contains(FirebaseAuth
                                                   .instance.currentUser!.uid))
@@ -188,7 +188,7 @@ class _InboxDefaultPageState extends State<InboxDefaultPage> {
                                               .first;
                                       return FutureBuilder(
                                           future: firestore
-                                              .collection('Users')
+                                              .collection('users')
                                               .doc(user)
                                               .get(),
                                           builder:
