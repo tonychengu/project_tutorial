@@ -181,14 +181,14 @@ class _SignUpPageState extends State<SignUpPage> {
               hintText: 'Enter your major',
             ),
           ),
-          const SizedBox(height: 24),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomTextField(
-              controller: minorController,
-              hintText: 'Enter your second major or minor',
-            ),
-          ),
+          // const SizedBox(height: 24),
+          // Container(
+          //   margin: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: CustomTextField(
+          //     controller: minorController,
+          //     hintText: 'Enter your second major or minor',
+          //   ),
+          // ),
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
