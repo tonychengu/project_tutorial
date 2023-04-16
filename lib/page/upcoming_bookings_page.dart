@@ -334,7 +334,7 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
             ),
             actions: [
               TextButton(
-                child: Text('Nervermind!'),
+                child: Text('Nevermind!'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -350,7 +350,7 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
   Future CheckIN() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-            title: Text('Enter Your Check-In Code code'),
+            title: Text('Enter Your Check-In Code'),
             content: TextField(
               autofocus: true,
               decoration: InputDecoration(hintText: 'Enter your 6-digit code'),

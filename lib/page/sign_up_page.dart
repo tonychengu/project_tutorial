@@ -16,8 +16,6 @@ import 'package:provider/provider.dart';
 
 import 'package:project_tutorial/model/user.dart';
 
-import 'package:project_tutorial/Logics/functions.dart';
-
 class SignUpPage extends StatefulWidget {
   static String routeName = '/signup-email-password';
   const SignUpPage({Key? key}) : super(key: key);
@@ -34,6 +32,18 @@ const years = <String>[
   'Graduate',
   'Other'
 ];
+
+String? validateEmory(String? value) {
+  const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+      r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+      r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@emory.edu';
+  final regex = RegExp(pattern);
+}
+
+String? validatePassword(String? value) {
+  const pattern = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+  final regex = RegExp(pattern);
+}
 
 class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController emailController = TextEditingController();
@@ -70,13 +80,12 @@ class _SignUpPageState extends State<SignUpPage> {
       'taughtCount': 0,
       'ratings': 0,
       'imagePath':
-          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-      'balance': 2,
+          'https://firebasestorage.googleapis.com/v0/b/cs370-329f4.appspot.com/o/profileImg.png?alt=media',
+      'balance': 1,
       'fullPath': ''
     };
     await LocalUserInfo.saveUser(UserData.fromJson(json), context,
         signup: true);
-    Functions.createInbox();
     //context.read<FireStoreMethods>().addUserData(context, json);
     if (context.read<FirebaseAuthMethods>().isLoggedIn()) {
       Navigator.of(context).pop();
@@ -106,40 +115,35 @@ class _SignUpPageState extends State<SignUpPage> {
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomTextField(
-              controller: emailController,
-              hintText: 'Enter your email',
-            ),
+            child: TextFormField(
+                autovalidateMode: AutovalidateMode.always,
+                validator: validateEmory,
+                controller: emailController,
+                textCapitalization: TextCapitalization.none,
+                autocorrect: false,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                    labelText: 'Enter your Emory email',
+                    hintText: 'Must end in @emory.edu',
+                    prefixIcon: Icon(Icons.mail))),
           ),
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
             child: TextFormField(
+              autovalidateMode: AutovalidateMode.always,
+              validator: validatePassword,
               controller: passwordController,
               textCapitalization: TextCapitalization.none,
               autocorrect: false,
               obscureText: true,
               decoration: InputDecoration(
-                hintText: 'Enter your password',
-                labelText: 'Password',
+                hintText: 'Must be at least 8 characters',
+                labelText: 'Enter your password',
                 prefixIcon: Icon(Icons.lock),
               ),
             ),
           ),
-          // Container(
-          //     margin: const EdgeInsets.symmetric(horizontal: 20),
-          //     child: TextFormField(
-          //       controller: passwordController,
-          //       textCapitalization: TextCapitalization.none,
-          //       autocorrect: false,
-          //       obscureText: true,
-          //       decoration: InputDecoration(
-          //         hintText: 'Enter your password',
-          //         labelText: 'Password',
-          //         prefixIcon: Icon(Icons.lock),
-          //       ),
-          //     ),
-          //   ),
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -149,8 +153,8 @@ class _SignUpPageState extends State<SignUpPage> {
               autocorrect: false,
               obscureText: true,
               decoration: InputDecoration(
-                hintText: 'Re-enter your password',
-                labelText: 'Re-enter Password',
+                hintText: 'Must be at least 8 characters',
+                labelText: 'Re-enter your password',
                 prefixIcon: Icon(Icons.lock),
               ),
             ),
@@ -158,9 +162,15 @@ class _SignUpPageState extends State<SignUpPage> {
           const SizedBox(height: 24),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: CustomTextField(
+            child: TextFormField(
               controller: nameController,
-              hintText: 'Enter your full name',
+              textCapitalization: TextCapitalization.words,
+              autocorrect: false,
+              decoration: InputDecoration(
+                hintText: 'Full name',
+                labelText: 'Enter your full name',
+                prefixIcon: Icon(Icons.mood_rounded),
+              ),
             ),
           ),
           const SizedBox(height: 24),
