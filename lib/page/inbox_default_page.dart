@@ -17,7 +17,7 @@ class InboxDefaultPage extends StatefulWidget {
 class _InboxDefaultPageState extends State<InboxDefaultPage> {
   @override
   void initState() {
-    Functions.updateAvailability();
+    Functions.createInbox();
     super.initState();
   }
 

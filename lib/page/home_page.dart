@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                                 Icon(Icons.star, size: 20, color: Colors.amber),
                                 SizedBox(width: 8),
                                 Text(
-                                  '${user.rating} (${user.numSessions} sessions)',
+                                  '${user.rating.toStringAsFixed(1)} (${user.numSessions} sessions)',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
