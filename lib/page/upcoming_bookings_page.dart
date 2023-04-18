@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -10,6 +11,14 @@ import 'package:intl/intl.dart';
 import 'package:project_tutorial/model/events.dart';
 // import booking card
 import 'package:project_tutorial/widget/booking_card.dart';
+// import snack bar
+import 'package:project_tutorial/widget/snackbar_widget.dart';
+// import firestore
+import 'package:project_tutorial/util/firestore.dart';
+// import user info
+import 'package:project_tutorial/util/user_info.dart';
+// import user
+import 'package:project_tutorial/model/user.dart';
 
 class CurrentBookingPage extends StatefulWidget {
   const CurrentBookingPage({Key? key}) : super(key: key);
@@ -34,6 +43,7 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
   void initState() {
     super.initState();
     controller = TextEditingController();
+    getEvents();
   }
 
   @override
@@ -42,19 +52,29 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
     super.dispose();
   }
 
-  List<EventsData> _events = [
-    // a dummy test data
-    EventsData(
-        course: 'CSC2001',
-        student_name: '123',
-        tutor_name: "tony",
-        student_uid: "stu",
-        tutor_uid: "tut",
-        location: 'LT1',
-        start: DateTime.now(),
-        end: DateTime.now(),
-        status: 'Submitted'),
-  ];
+  Future<void> getEvents() async {
+    UserData user = await LocalUserInfo.getLocalUser();
+    List<EventsData> this_events =
+        await FireStoreMethods().getEventsByUid(user.uid);
+    setState(() {
+      _events = this_events;
+    });
+  }
+
+  // List<EventsData> _events = [
+  //   // a dummy test data
+  //   EventsData(
+  //       course: 'CSC2001',
+  //       student_name: '123',
+  //       tutor_name: "tony",
+  //       student_uid: "stu",
+  //       tutor_uid: "tut",
+  //       location: 'LT1',
+  //       start: DateTime.now(),
+  //       end: DateTime.now(),
+  //       status: 'Submitted'),
+  // ];
+  List<EventsData> _events = [];
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +90,14 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
         itemCount: _events.length,
         itemBuilder: (context, index) {
           final event = _events[index];
-          return BookingCard(event: event, onCheck: () {}, onDeny: () {});
+          return BookingCard(
+            context: context,
+            event: event,
+            updateUI: () async {
+              setState(() {});
+              await getEvents();
+            },
+          );
           // return Padding(
           //   padding:
           //       const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
@@ -181,14 +208,119 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
           // );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (BuildContext context) {
-          return const BookingsPage();
-        })), //insert connection to comment bar
-        child: Icon(Icons.star),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () => Navigator.of(context)
+      //       .push(MaterialPageRoute(builder: (BuildContext context) {
+      //     return const BookingsPage();
+      //   })), //insert connection to comment bar
+      //   child: Icon(Icons.star),
+      // ),
     );
+  }
+
+  Future<void> acceptBooking(EventsData event) async {
+    String uid = event.uid ?? '';
+    try {
+      await FireStoreMethods().updateEvnetsByUid(uid, "Upcoming");
+    } catch (e) {
+      showSnackBar(context, "Serve Error. Please try again later");
+    }
+  }
+
+  Future<void> cancelBooking(EventsData event) async {
+    DateTime now = DateTime.now();
+    // no penalty
+    if (now.difference(event.start).inHours < 24) {
+      return;
+    } else {
+      // show a dialog to ask for reason
+      String? reason = await CancelDialog();
+      if (reason == null) {
+        return;
+      }
+    }
+    String uid = event.uid ?? '';
+    try {
+      await FireStoreMethods().updateEvnetsByUid(uid, "Cancelled");
+    } catch (e) {
+      showSnackBar(context, "Serve Error. Please try again later");
+    }
+  }
+
+  Future<void> checkIn(EventsData event) async {
+    // if more than 10 mins before the event, show a sncakbar about this
+    DateTime now = DateTime.now();
+    if (now.difference(event.start).inMinutes < 10) {
+      showSnackBar(context, "You can only check in 10 mins before the event");
+      return;
+    }
+
+    // get current user uid
+    UserData user = await LocalUserInfo.getLocalUser();
+    if (user.uid == event.tutor_uid) {
+      // show a dialog and give the 6 digit code
+      String code = event.code;
+      await showDialog(
+        context: context,
+        builder: (_) => Dialog(
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Please give the following code to the student: $code"),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text("OK"),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+      return;
+    } else {
+      // show a dialog and ask for the 6 digit code
+      String code = event.code;
+      String? input = await showDialog(
+        context: context,
+        builder: (_) => Dialog(
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Please enter the code given by the tutor:"),
+                TextField(
+                  controller: controller,
+                  autofocus: true,
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(controller.text),
+                  child: const Text("OK"),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+      if (input != code) {
+        showSnackBar(context, "Wrong code");
+        return;
+      } else {
+        String uid = event.uid ?? '';
+        try {
+          await FireStoreMethods().updateEvnetsByUid(uid, "Finished");
+          // give the tutor a dooley coin
+          await FireStoreMethods().updateDooleyCoin(event.tutor_uid, 0);
+          // remove the dooley coin from the student
+          await FireStoreMethods().updateDooleyCoin(event.student_uid, 0);
+          showSnackBar(context, "Testing phase. No coins transferred");
+        } catch (e) {
+          showSnackBar(context, "Serve Error. Please try again later");
+        }
+      }
+    }
   }
 
   Future<String?> CancelDialog() => showDialog<String>(
@@ -205,7 +337,7 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
             ),
             actions: [
               TextButton(
-                child: Text('Nervermind!'),
+                child: Text('Nevermind!'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -221,10 +353,11 @@ class _CurrentBookingPageState extends State<CurrentBookingPage> {
   Future CheckIN() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
-            title: Text('Enter Your Check-In Code code'),
+            title: Text('Enter Your Check-In Code'),
             content: TextField(
               autofocus: true,
               decoration: InputDecoration(hintText: 'Enter your 6-digit code'),
+              controller: controller,
             ),
             actions: [
               TextButton(

@@ -9,6 +9,7 @@ class EventsData {
   DateTime end;
   String status;
   String course;
+  String code;
   int? cost;
 
   // optional field
@@ -18,21 +19,21 @@ class EventsData {
 
   //TODO: add time table
 
-  EventsData({
-    this.uid,
-    required this.tutor_uid,
-    required this.student_uid,
-    required this.tutor_name,
-    required this.student_name,
-    required this.start,
-    required this.end,
-    required this.status,
-    required this.location,
-    required this.course,
-    this.cost,
-    this.review,
-    this.rating = 0,
-  });
+  EventsData(
+      {this.uid,
+      required this.tutor_uid,
+      required this.student_uid,
+      required this.tutor_name,
+      required this.student_name,
+      required this.start,
+      required this.end,
+      required this.status,
+      required this.location,
+      required this.course,
+      this.cost,
+      this.review,
+      this.rating = 0,
+      this.code = '123456'});
 
   // convert profile to map
   Map<String, dynamic> toJson() => {

@@ -127,9 +127,10 @@ Widget buildName(BuildContext context, UserData user, List<String> courses) =>
         const SizedBox(height: 10),
         // Row of Major | Minor
         Text(
-          user.minor == null
-              ? 'Major: ${user.major}'
-              : 'Major: ${user.major} / Minor: ${user.minor}',
+          //user.minor == null
+          //    ? 'Major: ${user.major}'
+          //    : 'Major: ${user.major} / Minor: ${user.minor}',
+          'Major: ${user.major}',
           style: TextStyle(color: Colors.black),
         ),
         const SizedBox(height: 20),

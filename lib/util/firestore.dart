@@ -171,14 +171,17 @@ class FireStoreMethods {
     QuerySnapshot querySnapshot = await db
         .collection("users")
         .where("availableCourses", isNotEqualTo: '')
-        .limit(10)
+        //.limit(10)
         .get();
     return querySnapshot;
   }
 
   // to initialize the list of students at home page
   Future<QuerySnapshot> newStudents() async {
-    QuerySnapshot querySnapshot = await db.collection("users").limit(10).get();
+    QuerySnapshot querySnapshot = await db
+        .collection("users")
+        //.limit(10)
+        .get();
     return querySnapshot;
   }
 
@@ -330,6 +333,9 @@ class FireStoreMethods {
         "location": event.location,
         "tutor_name": event.tutor_name,
         "student_name": event.student_name,
+        "cost": 1,
+        // random 6 digit code
+        "code": (100000 + Random().nextInt(900000)).toString()
       });
     } catch (e) {
       rethrow;
@@ -344,8 +350,30 @@ class FireStoreMethods {
         .get();
     List<EventsData> events = [];
     querySnapshot.docs.forEach((doc) {
+      events.add(
+        EventsData(
+            uid: doc.id,
+            tutor_uid: doc["tutor_uid"],
+            student_uid: doc["student_uid"],
+            tutor_name: doc["tutor_name"],
+            student_name: doc["student_name"],
+            start: doc["start"].toDate(),
+            end: doc["end"].toDate(),
+            course: doc["course"],
+            status: doc["status"],
+            location: doc["location"],
+            code: doc["code"]),
+      );
+    });
+    // get all the events of the tutors as a student
+    querySnapshot = await db
+        .collection("events")
+        .where("student_uid", isEqualTo: uid)
+        .orderBy("start")
+        .get();
+    querySnapshot.docs.forEach((doc) {
       events.add(EventsData(
-          uid: doc["uid"],
+          uid: doc.id,
           tutor_uid: doc["tutor_uid"],
           student_uid: doc["student_uid"],
           tutor_name: doc["tutor_name"],
@@ -354,8 +382,37 @@ class FireStoreMethods {
           end: doc["end"].toDate(),
           course: doc["course"],
           status: doc["status"],
-          location: doc["location"]));
+          location: doc["location"],
+          code: doc["code"]));
     });
     return events;
+  }
+
+  Future<void> updateEvnetsByUid(String uid, String status) async {
+    try {
+      await db.collection("events").doc(uid).update({
+        "status": status,
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateDooleyCoin(String student_uid, int i) async {
+    try {
+      await db.collection("users").doc(student_uid).update({
+        "balance": FieldValue.increment(i),
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> rmEvent(String uid) async {
+    try {
+      await db.collection("events").doc(uid).delete();
+    } catch (e) {
+      rethrow;
+    }
   }
 }
