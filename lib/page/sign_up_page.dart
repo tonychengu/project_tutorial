@@ -16,6 +16,8 @@ import 'package:provider/provider.dart';
 
 import 'package:project_tutorial/model/user.dart';
 
+import 'package:project_tutorial/Logics/functions.dart';
+
 class SignUpPage extends StatefulWidget {
   static String routeName = '/signup-email-password';
   const SignUpPage({Key? key}) : super(key: key);
@@ -86,6 +88,7 @@ class _SignUpPageState extends State<SignUpPage> {
     };
     await LocalUserInfo.saveUser(UserData.fromJson(json), context,
         signup: true);
+    Functions.createInbox();
     //context.read<FireStoreMethods>().addUserData(context, json);
     if (context.read<FirebaseAuthMethods>().isLoggedIn()) {
       Navigator.of(context).pop();
