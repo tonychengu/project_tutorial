@@ -17,7 +17,7 @@ class InboxDefaultPage extends StatefulWidget {
 class _InboxDefaultPageState extends State<InboxDefaultPage> {
   @override
   void initState() {
-    Functions.updateAvailability();
+    Functions.createInboxUser();
     super.initState();
   }
 
@@ -62,7 +62,7 @@ class _InboxDefaultPageState extends State<InboxDefaultPage> {
                   child: Container(
                     color: Colors.green.shade400,
                     padding: const EdgeInsets.all(8),
-                    height: 160,
+                    height: 180,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -134,6 +134,7 @@ class _InboxDefaultPageState extends State<InboxDefaultPage> {
                                 );
                               }),
                         ),
+                        const Spacer(),
                       ],
                     ),
                   ),
