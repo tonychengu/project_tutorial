@@ -86,6 +86,8 @@ class _SignUpPageState extends State<SignUpPage> {
       'balance': 1,
       'fullPath': ''
     };
+    // remove all spaces from courses
+    json['availableCourses'] = json['availableCourses'].replaceAll(' ', '');
     await LocalUserInfo.saveUser(UserData.fromJson(json), context,
         signup: true);
     Functions.createInbox();
