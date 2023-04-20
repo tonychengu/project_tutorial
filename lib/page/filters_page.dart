@@ -114,8 +114,16 @@ class _FiltersPageState extends State<FiltersPage> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(width: 1, color: Colors.black)),
-                            hintText: 'start time in yyyy/mm/dd hh:mm format',
+                            hintText: 'Start time',
                           ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'in yyyy/mm/dd hh:mm format',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.grey.shade800,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -162,6 +170,7 @@ class _FiltersPageState extends State<FiltersPage> {
   Future<List<User_home_tmp>> _getNewTutors() async {
     List<User_home_tmp> tutors = [];
     DateTime start = DateTime.now();
+    bool good_time = false;
     if (_startController.text != '') {
       try {
         start = DateFormat("yyyy/MM/dd HH:mm").parse(_startController.text);
@@ -169,11 +178,18 @@ class _FiltersPageState extends State<FiltersPage> {
         showSnackBar(context, "Invalid time format");
         return tutors;
       }
+      good_time = true;
     }
     if (_courseController.text != '') {
       // search by course
-      final snap = await FireStoreMethods()
-          .getUsersBySearch(_courseController.text, start: start);
+      QuerySnapshot snap;
+      if (good_time) {
+        snap = await FireStoreMethods()
+            .getUsersBySearch(_courseController.text, start: start);
+      } else {
+        snap =
+            await FireStoreMethods().getUsersBySearch(_courseController.text);
+      }
       return parseQuery(snap);
     } else {
       final snap = await FireStoreMethods().newTutors();

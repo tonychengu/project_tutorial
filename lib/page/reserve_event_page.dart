@@ -194,6 +194,10 @@ class _ReserveEventPageState extends State<ReserveEventPage> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
+                if (widget.tutor_uid == user.uid) {
+                  showSnackBar(context, "You cannot reserve your own event");
+                  return;
+                }
                 DateTime start = DateTime.now();
                 try {
                   start = DateFormat("yyyy/MM/dd HH:mm").parse(_startTime);
