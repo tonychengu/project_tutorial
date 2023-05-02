@@ -250,7 +250,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ElevatedButton(
             onPressed: signUpUser,
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.blue),
+              backgroundColor: MaterialStateProperty.all(Colors.green.shade300),
               textStyle: MaterialStateProperty.all(
                 const TextStyle(color: Colors.white),
               ),
